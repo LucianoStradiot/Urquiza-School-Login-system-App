@@ -1,70 +1,47 @@
-# Getting Started with Create React App
+# Urquiza´s school Sign-up/Login System
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This application is designed for Urquiza´s N°49 school of Rosario, Santa Fé, Argentina; and aims to organize and manage the different users (Professors and students) and a Super-admin that manage and give their role according to the respectives position in the school.
 
-## Available Scripts
+### Install dependencies
 
-In the project directory, you can run:
+    npm install
 
-### `npm start`
+### Setup environment file
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+create a file at root called `.env` and add this:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+    REACT_APP_API=<server url>
 
-### `npm test`
+### Run App
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+    npm start
 
-### `npm run build`
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Check Lint errors
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+    npm run lint
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Fix Lint errors
 
-### `npm run eject`
+    npm run lint:fix
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+<br>
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Members
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+|                                                   Photo                                                    |       Name       |             Mail              |                         Github                         |
+| :--------------------------------------------------------------------------------------------------------: | :--------------: | :---------------------------: | :----------------------------------------------------: |
+| <img src="https://avatars.githubusercontent.com/u/81594755?v=4" height="50" width="50" border-radius="50"> |  Julián Cantóns  |    cantonsjulian@gmail.com    |   [@JulianCantons](https://github.com/JulianCantons)   |
+|          <img src="https://avatars.githubusercontent.com/u/99558033?v=4" height="50" width="50">           | Luciano Stradiot |     lstradiot15@gmail.com     | [@LucianoStradiot](https://github.com/LucianoStradiot) |
+|          <img src="https://avatars.githubusercontent.com/u/147732038?v=4" height="50" width="50">          |  Ciro Barchetta  |   cirosbarchetta@gmail.com    |      [@CiroBarchetta](https://github.com/Cirox98)      |
+|          <img src="https://avatars.githubusercontent.com/u/144960523?v=4" height="50" width="50">          | Matías Rousselle | matiasrousselle1000@gmail.com |    [@MatiasRousselle](https://github.com/Matrou464)    |
+|          <img src="https://avatars.githubusercontent.com/u/123700506?v=4" height="50" width="50">          |  Ezequiel Deniz  |   Ezequieldeniz10@gmail.com   |    [@EzequielDeniz](https://github.com/EzeDeniz10)     |
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+<br>
 
-## Learn More
+### License & Copyright
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+© PrograPs
