@@ -107,4 +107,18 @@
     color: white;
     transition: background-color 0.3s ease-in-out;
   }
+
+  .activeBtn {
+    margin: 6px 0;
+    padding: 7px;
+    width: 120px;
+    text-align: center;
+    border-radius: 10px;
+    color: #fff;
+    font-weight: 500;
+    font-size: 20px;
+    text-decoration: none;
+    background-color: #7a7a7a;
+    box-shadow: inset 6px 7px 6px rgb(0 0 0 / 31%);
+  }
 }

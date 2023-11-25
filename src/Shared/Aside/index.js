@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import styles from './aside.module.css';
 
 const Aside = ({ page }) => {
-  const [activeButton, setActiveButton] = useState(false);
+  const location = useLocation();
+  const [activeButton, setActiveButton] = useState('');
 
-  const handleButtonClick = (buttonName) => {
-    setActiveButton(buttonName);
-  };
+  useEffect(() => {
+    const currentPath = location.pathname === '/' ? 'home' : location.pathname.substring(1);
+    setActiveButton(currentPath);
+  }, []);
 
   return (
     <>
@@ -20,29 +22,27 @@ const Aside = ({ page }) => {
                 <>
                   <Link
                     to="/login"
-                    className={`${activeButton === 'login' ? styles.active : styles.btn}`}
-                    onClick={() => handleButtonClick('login')}
+                    className={`${activeButton === 'login' ? styles.activeBtn : styles.btn}`}
                   >
                     <li>Login</li>
                   </Link>
                   <Link
                     to="/"
-                    className={`${activeButton === 'home' ? styles.active : styles.btn}`}
-                    onClick={() => handleButtonClick('home')}
+                    className={`${activeButton === 'home' ? styles.activeBtn : styles.btn}`}
                   >
                     <li>Home</li>
                   </Link>
                   <Link
                     to="/carreras"
-                    className={`${activeButton === 'carreras' ? styles.active : styles.btn}`}
-                    onClick={() => handleButtonClick('carreras')}
+                    className={`${activeButton === 'carreras' ? styles.activeBtn : styles.btn}`}
                   >
                     <li>Carreras</li>
                   </Link>
                   <Link
                     to="/inscripciones"
-                    className={`${activeButton === 'inscripciones' ? styles.active : styles.btn}`}
-                    onClick={() => handleButtonClick('inscripciones')}
+                    className={`${
+                      activeButton === 'inscripciones' ? styles.activeBtn : styles.btn
+                    }`}
                   >
                     <li>Inscripciones</li>
                   </Link>
@@ -52,15 +52,13 @@ const Aside = ({ page }) => {
                 <>
                   <Link
                     to="/super-admin"
-                    className={`${activeButton === 'super-admin' ? styles.active : styles.btn}`}
-                    onClick={() => handleButtonClick('super-admin')}
+                    className={`${activeButton === 'super-admin' ? styles.activeBtn : styles.btn}`}
                   >
                     <li>Admin</li>
                   </Link>
                   <Link
                     to="/"
-                    className={`${activeButton === 'home' ? styles.active : styles.btn}`}
-                    onClick={() => handleButtonClick('home')}
+                    className={`${activeButton === 'home' ? styles.activeBtn : styles.btn}`}
                   >
                     <li>Home</li>
                   </Link>

@@ -1,1 +1,15 @@
+.container {
+  display: flex;
+  margin: 30vh 48px 0 347px;
+  padding: 4vh;
+  box-shadow: 3px 5px 10px #0000007d;
+  background-color: #fff;
+}
 
+.img {
+  width: 50%;
+}
+
+.historyContainer {
+  padding: 0 40px;
+}
