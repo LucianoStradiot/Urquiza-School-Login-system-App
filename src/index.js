@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import { BrowserRouter } from 'react-router-dom';
 import Header from './Components/Header';
-import Footer from './Components/Footer';
+/* import Footer from './Components/Footer'; */
 import Routes from './Routes';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -12,7 +12,7 @@ root.render(
     <BrowserRouter>
       <Header />
       <Routes />
-      <Footer />
+      {/*  <Footer /> */}
     </BrowserRouter>
   </React.StrictMode>
 );
