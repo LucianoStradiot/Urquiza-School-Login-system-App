@@ -21,6 +21,7 @@ const Aside = ({ page }) => {
       <aside className={styles.aside}>
         <div className={styles.asideSubContainer}>
           <img src="assets/logo.png" alt="logo-DS" className={styles.logo} />
+          <div className={styles.title}>Escuela Superior de Comercio N°49</div>
           <div className={styles.menuButton} onClick={toggleMenu}>
             <div className={`${isOpen ? styles.x1 : styles.bar}`}></div>
             <div className={`${isOpen ? styles.x2 : styles.bar} `}></div>

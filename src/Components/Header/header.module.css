@@ -1,14 +1,5 @@
 .container {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 0 5%;
-  height: 70px;
-  background-color: #86a17c;
-  color: #fff;
-  position: fixed;
-  box-shadow: 3px 5px 6px #000000b8;
-  z-index: 1;
+  display: none;
 }
 
 .wallpaper {
@@ -32,12 +23,20 @@
   }
 
   .container {
-    height: 10%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    position: fixed;
     width: 100%;
-    margin: 50px 280px;
-    box-sizing: border-box;
-    padding: 40px;
+    height: 70px;
+    padding: 0 20px;
+    margin: 40px 280px;
     border-radius: 20px;
+    box-sizing: border-box;
+    background-color: #86a17c;
+    color: #fff;
+    box-shadow: 3px 5px 6px #000000b8;
+    z-index: 1;
   }
 
   .title {
