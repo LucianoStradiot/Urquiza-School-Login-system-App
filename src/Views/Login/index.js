@@ -21,7 +21,7 @@ const Login = () => {
   };
 
   const confirm = () => {
-    console.log('holiss');
+    console.log('holis');
     setIsOpen(!isOpen);
   };
 
