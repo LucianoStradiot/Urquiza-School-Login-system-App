@@ -1,22 +1,42 @@
 .container {
+  display: none;
+}
+
+.wallpaper {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  padding: 0 5%;
-  height: 70px;
-  background-color: #86a17c;
-  color: #fff;
-  position: fixed;
-  width: 92%;
-  z-index: 50;
+  position: absolute;
+  width: 100%;
+  min-height: 100vh;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.357), rgba(255, 255, 255, 0.397)),
+    url('../../../public/assets/wallpaper.png');
+  background-position: center;
+  background-size: cover;
+  z-index: -1;
 }
 
 @media only screen and (min-width: 1024px) {
+  .header {
+    display: flex;
+    flex-direction: row;
+  }
+
   .container {
-    height: 10%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    position: fixed;
     width: 100%;
+    height: 70px;
+    padding: 0 20px;
+    margin: 40px 280px;
+    border-radius: 20px;
     box-sizing: border-box;
-    padding: 40px;
+    background-color: #86a17c;
+    color: #fff;
+    box-shadow: 3px 5px 6px #000000b8;
+    z-index: 1;
   }
 
   .title {

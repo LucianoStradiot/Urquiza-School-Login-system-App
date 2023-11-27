@@ -1,0 +1,56 @@
+.container {
+  position: relative;
+  top: 170px;
+}
+
+.subContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 4vh 8vw;
+  padding: 20px;
+  box-shadow: 3px 5px 10px #0000007d;
+  background-color: #fff;
+}
+
+.title {
+  margin: 0 8vw;
+  padding: 10px;
+  text-align: center;
+  border-radius: 10px;
+  font-size: 1.7rem;
+  font-weight: 600;
+  color: #fff;
+  background-color: #86a17c;
+  box-shadow: 3px 5px 10px #0000007d;
+}
+
+.historyContainer {
+  text-align: center;
+}
+
+@media only screen and (min-width: 1024px) {
+  .container {
+    top: 150px;
+  }
+  .subContainer {
+    align-items: center;
+    flex-direction: row;
+    margin: 10vh 48px 0 347px;
+    padding: 4vh;
+  }
+
+  .title {
+    width: 200px;
+    margin: 0 51vw;
+  }
+
+  .img {
+    width: 50%;
+  }
+
+  .historyContainer {
+    text-align: start;
+    padding: 0 0 0 25px;
+  }
+}
