@@ -16,15 +16,15 @@
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
-  box-shadow: 0 2px 4px #1b1b5d99;
+  box-shadow: 0 2px 4px #0000009d;
   font-size: 13px;
   font-style: italic;
 }
 
 .input:focus {
   outline: none;
-  border-color: #373867;
-  box-shadow: 0 0 3px #2e2f57;
+  border-color: #86a17c;
+  box-shadow: 0 0 3px #64795d;
 }
 
 .error {
@@ -46,32 +46,6 @@
 
   .input {
     padding: 10px;
-    width: 100%;
-    margin-bottom: 10px;
-    text-align: center;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    box-shadow: 0 2px 4px #1b1b5d99;
     font-size: 15px;
-    font-style: italic;
-  }
-
-  .input:focus {
-    outline: none;
-    border-color: #373867;
-    box-shadow: 0 0 3px #2e2f57;
-  }
-
-  .error {
-    height: 5px;
-    margin-top: -5px;
-    margin-bottom: 20px;
-    color: #ea3354;
-    font-size: 14px;
-  }
-
-  .errorBorder {
-    border: 2px solid #ea3354;
   }
 }

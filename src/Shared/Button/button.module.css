@@ -1,5 +1,5 @@
 .button {
-  padding: 8px 15px;
+  padding: 6px 15px;
   border-radius: 5px;
   border: none;
   box-shadow: 3px 4px 5px #000;
@@ -20,12 +20,12 @@
 }
 
 .submitBtn {
-  background-color: #5cabab;
+  background-color: #86a17c;
   color: #fff;
 }
 
 .submitBtn:hover {
-  background-color: #407575;
+  background-color: #6b8063;
   color: #fff;
   transition: background-color 0.3s ease-in-out;
   cursor: pointer;
