@@ -31,7 +31,6 @@
 
 @media only screen and (min-width: 1024px) {
   .container {
-    position: relative;
     top: 150px;
   }
   .subContainer {
@@ -39,13 +38,11 @@
     flex-direction: row;
     margin: 10vh 48px 0 347px;
     padding: 4vh;
-    top: 0;
   }
 
   .title {
     width: 200px;
     margin: 0 51vw;
-    text-align: center;
   }
 
   .img {
