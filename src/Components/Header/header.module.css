@@ -33,13 +33,29 @@
     margin: 40px 280px;
     border-radius: 20px;
     box-sizing: border-box;
-    background-color: #86a17c;
+    background-color: aliceblue;
     color: #fff;
     box-shadow: 3px 5px 6px #000000b8;
     z-index: 1;
   }
 
+  .containerDs {
+    background-color: #86a17c;
+  }
+
+  .containerAf {
+    background-color: rgb(127, 148, 194);
+  }
+
+  .containerIti {
+    background-color: #c97878;
+  }
+
   .title {
     font-size: 30px;
+  }
+
+  .titleLanding {
+    color: #757474;
   }
 }

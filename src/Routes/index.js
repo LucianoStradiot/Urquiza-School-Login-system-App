@@ -4,6 +4,7 @@ import Home from '../Components/Home';
 import Login from '../Views/Login';
 import Carreras from '../Views/Carreras';
 import Inscripciones from '../Views/Inscripciones';
+import SuperAdmin from '../Views/SuperAdmin';
 
 const RoutesLanding = () => {
   return (
@@ -13,6 +14,7 @@ const RoutesLanding = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/carreras" element={<Carreras />} />
         <Route path="/inscripciones" element={<Inscripciones />} />
+        <Route path="/super-admin" element={<SuperAdmin />} />
       </Routes>
     </>
   );

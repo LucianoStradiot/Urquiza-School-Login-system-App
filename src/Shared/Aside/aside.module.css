@@ -3,10 +3,22 @@
   position: fixed;
   width: 100%;
   top: 0;
-  background-color: #a4b49e;
+  background-color: aliceblue;
   box-shadow: 2px 1px 10px #000000b8;
   z-index: 1000;
   min-width: 200px;
+}
+
+.asideDs {
+  background-color: #86a17c;
+}
+
+.asideAf {
+  background-color: rgb(127, 148, 194);
+}
+
+.asideIti {
+  background-color: #c97878;
 }
 
 .asideSubContainer {
@@ -22,6 +34,10 @@
   font-size: 1.1rem;
   font-weight: 600;
   color: #fff;
+}
+
+.titleLanding {
+  color: #000;
 }
 
 .menuButton {
@@ -60,6 +76,18 @@
   box-shadow: 1px 2px 5px #000;
 }
 
+.barLanding {
+  background-color: #757474;
+}
+
+.x1Landing {
+  background-color: #757474;
+}
+
+.x2Landing {
+  background-color: #757474;
+}
+
 /* This is when the menu displays */
 
 .activeMenu {
@@ -78,6 +106,14 @@
   background-color: #7a7a7a;
   box-shadow: 2px 3px 8px #000;
   box-shadow: inset 2px 3px 8px rgba(0, 0, 0, 0.5);
+}
+
+.activeMenuSAHome {
+  transform: translateY(55%);
+}
+
+.activeMenuSA {
+  transform: translateY(126%);
 }
 
 .activeMenu ul {
@@ -200,6 +236,11 @@
     font-size: 30px;
   }
 
+  .menu ul.ruteSAdmin {
+    justify-content: flex-start;
+    margin-top: 9vh;
+  }
+
   .menu li {
     position: relative;
     list-style: none;
@@ -220,7 +261,7 @@
     display: block;
     margin: 6px 0;
     padding: 7px;
-    width: 120px;
+    width: 135px;
     border-radius: 10px;
     text-align: center;
     background-color: #fff;
@@ -237,11 +278,16 @@
     transition: background-color 0.3s ease-in-out;
   }
 
+  .menu a.btnLanding {
+    background-color: #cecece;
+    color: #000;
+  }
+
   .menu a.activeBtn {
     display: block;
     margin: 6px 0;
     padding: 7px;
-    width: 120px;
+    width: 133px;
     text-align: center;
     border-radius: 10px;
     color: #fff;

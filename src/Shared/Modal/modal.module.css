@@ -72,7 +72,7 @@
   margin: 0 20px;
   box-shadow: 3px 3px 10px;
   border-radius: 10px;
-  background-color: #86a17c;
+  background-color: #757474;
   animation: fadeInSelfClose 0.5s ease-in forwards;
 }
 
@@ -83,8 +83,32 @@
   margin: 0 20px;
   box-shadow: 3px 3px 10px;
   border-radius: 10px;
-  background-color: #86a17c;
+  background-color: #757474;
   animation: fadeOutSelfClose 0.5s ease-in forwards;
+}
+
+.subContainerOpenDs {
+  background-color: #86a17c;
+}
+
+.subContainerSelfCloseDs {
+  background-color: #86a17c;
+}
+
+.subContainerOpenAf {
+  background-color: rgb(127, 148, 194);
+}
+
+.subContainerSelfCloseAf {
+  background-color: rgb(127, 148, 194);
+}
+
+.subContainerOpenIti {
+  background-color: #c97878;
+}
+
+.subContainerSelfCloseIti {
+  background-color: #c97878;
 }
 
 .descriptionSelfClose {

@@ -32,7 +32,6 @@ const Login = () => {
         description={responseModal.description}
         confirmBtn={responseModal.confirmBtn}
         denyBtn={responseModal.denyBtn}
-        chooseModal={responseModal}
         isOpen={isOpen}
         close={() => setIsOpen(!isOpen)}
         onClick={() => confirm()}
@@ -51,7 +50,7 @@ const Login = () => {
                 <p>Olvidaste tu contraseña?</p>
               </Link>
               <div className={styles.btnContainer}>
-                <Button type="submit" text="Enviar" onClick={onSubmit} />
+                <Button type="submsit" text="Enviar" onClick={onSubmit} />
               </div>
             </form>
           </div>
