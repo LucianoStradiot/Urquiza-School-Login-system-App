@@ -3,10 +3,22 @@
   position: fixed;
   width: 100%;
   top: 0;
-  background-color: #a4b49e;
+  background-color: aliceblue;
   box-shadow: 2px 1px 10px #000000b8;
   z-index: 1000;
   min-width: 200px;
+}
+
+.asideDs {
+  background-color: #86a17c;
+}
+
+.asideAf {
+  background-color: rgb(32, 127, 190);
+}
+
+.asideIti {
+  background-color: #a81e1e;
 }
 
 .asideSubContainer {
@@ -223,7 +235,7 @@
     width: 120px;
     border-radius: 10px;
     text-align: center;
-    background-color: #fff;
+    background-color: #cecece;
     color: #000;
     font-weight: 500;
     font-size: 20px;
