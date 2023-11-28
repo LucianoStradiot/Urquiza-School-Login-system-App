@@ -5,9 +5,11 @@ import Aside from '../../Shared/Aside';
 import TextInput from '../../Shared/TextInput';
 import Button from '../../Shared/Button';
 import Modal from '../../Shared/Modal';
+import Spinner from '../../Shared/Spinner';
 
 const Login = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [responseModal, setResponseModal] = useState({
     title: 'Eliminacion',
     description: 'Desea rechazar al usuario?',
@@ -16,6 +18,7 @@ const Login = () => {
   });
 
   const onSubmit = () => {
+    setIsLoading(true);
     setResponseModal(responseModal);
     setIsOpen(true);
   };
@@ -27,6 +30,7 @@ const Login = () => {
 
   return (
     <>
+      {isLoading && <Spinner />}
       <Modal
         title={responseModal.title}
         description={responseModal.description}
