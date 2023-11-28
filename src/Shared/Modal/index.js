@@ -52,10 +52,45 @@ const Modal = ({
     ) : (
       <>
         <div className={styles.containerSelfClose}>
-          <div className={!isFadingOut ? styles.subContainerSelfClose : styles.subContainerOpen}>
-            <div className={styles.descriptionSelfClose}>{description}</div>
-            <Button type="x" text={'X'} onClick={close} />
-          </div>
+          {sessionStorage.getItem('role') === 'DS' ? (
+            <div
+              className={`${
+                !isFadingOut
+                  ? `${styles.subContainerSelfClose} ${styles.subContainerSelfCloseDs}`
+                  : `${styles.subContainerOpen} ${styles.subContainerOpenDs}`
+              }`}
+            >
+              <div className={styles.descriptionSelfClose}>{description}</div>
+              <Button type="x" text={'X'} onClick={close} />
+            </div>
+          ) : sessionStorage.getItem('role') === 'AF' ? (
+            <div
+              className={
+                !isFadingOut
+                  ? `${styles.subContainerSelfClose} ${styles.subContainerSelfCloseAf}`
+                  : `${styles.subContainerOpen} ${styles.subContainerOpenAf}`
+              }
+            >
+              <div className={styles.descriptionSelfClose}>{description}</div>
+              <Button type="x" text={'X'} onClick={close} />
+            </div>
+          ) : sessionStorage.getItem('role') === 'ITI' ? (
+            <div
+              className={
+                !isFadingOut
+                  ? `${styles.subContainerSelfClose} ${styles.subContainerSelfCloseIti}`
+                  : `${styles.subContainerOpen} ${styles.subContainerOpenIti}`
+              }
+            >
+              <div className={styles.descriptionSelfClose}>{description}</div>
+              <Button type="x" text={'X'} onClick={close} />
+            </div>
+          ) : (
+            <div className={!isFadingOut ? styles.subContainerSelfClose : styles.subContainerOpen}>
+              <div className={styles.descriptionSelfClose}>{description}</div>
+              <Button type="x" text={'X'} onClick={close} />
+            </div>
+          )}
         </div>
       </>
     )

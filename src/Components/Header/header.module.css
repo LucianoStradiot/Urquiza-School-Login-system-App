@@ -44,14 +44,18 @@
   }
 
   .containerAf {
-    background-color: rgb(32, 127, 190);
+    background-color: rgb(127, 148, 194);
   }
 
   .containerIti {
-    background-color: #a81e1e;
+    background-color: #c97878;
   }
 
   .title {
     font-size: 30px;
+  }
+
+  .titleLanding {
+    color: #757474;
   }
 }

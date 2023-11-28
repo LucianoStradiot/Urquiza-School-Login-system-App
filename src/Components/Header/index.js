@@ -1,12 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styles from './header.module.css';
 
 const Header = () => {
-  useEffect(() => {
-    const selectedRole = 'AfF';
-    sessionStorage.setItem('role', selectedRole);
-  }, []);
-
   return sessionStorage.getItem('role') === 'DS' ? (
     <>
       <header className={styles.header}>
@@ -38,7 +33,9 @@ const Header = () => {
     <>
       <header className={styles.header}>
         <div className={styles.container}>
-          <h1 className={styles.title}>Escuela Superior de Comercio N°49</h1>
+          <h1 className={`${styles.title} ${styles.titleLanding}`}>
+            Escuela Superior de Comercio N°49
+          </h1>
         </div>
         <div className={styles.wallpaper}></div>
       </header>
