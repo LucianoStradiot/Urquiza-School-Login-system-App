@@ -12,7 +12,7 @@ const Aside = ({ page }) => {
   };
 
   useEffect(() => {
-    const selectedRole = 'SUPER_ADMIN';
+    const selectedRole = 'fg';
     sessionStorage.setItem('role', selectedRole);
   }, []);
 
