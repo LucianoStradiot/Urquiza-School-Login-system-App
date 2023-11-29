@@ -12,7 +12,7 @@ const Aside = ({ page }) => {
   };
 
   useEffect(() => {
-    const selectedRole = 'SUPER_ADMINS';
+    const selectedRole = 'SUPER_ADMIN';
     sessionStorage.setItem('role', selectedRole);
   }, []);
 
@@ -26,7 +26,11 @@ const Aside = ({ page }) => {
       <>
         <aside className={`${styles.aside} ${styles.asideDs}`}>
           <div className={styles.asideSubContainer}>
-            <img src="assets/logoDs.png" alt="logo-DS" className={styles.logo} />
+            <img
+              src={`${process.env.PUBLIC_URL}/assets/logoDs.png`}
+              alt="logo-DS"
+              className={styles.logo}
+            />
             <div className={styles.title}>Escuela Superior de Comercio N°49</div>
             <div className={styles.menuButton} onClick={toggleMenu}>
               <div className={`${isOpen ? styles.x1 : styles.bar}`}></div>
@@ -37,10 +41,12 @@ const Aside = ({ page }) => {
               <ul className={styles.rutes}>
                 <li>
                   <Link
-                    to="/login"
-                    className={`${activeButton === 'login' ? styles.activeBtn : styles.btn}`}
+                    to="/alumno/profile"
+                    className={`${
+                      activeButton === 'alumno/profile' ? styles.activeBtn : styles.btn
+                    }`}
                   >
-                    Login
+                    Profile
                   </Link>
                 </li>
                 <li>
@@ -53,23 +59,38 @@ const Aside = ({ page }) => {
                 </li>
                 <li>
                   <Link
-                    to="/carreras"
-                    className={`${activeButton === 'carreras' ? styles.activeBtn : styles.btn}`}
+                    to="/alumno/materias"
+                    className={`${
+                      activeButton === 'alumno/materias' ? styles.activeBtn : styles.btn
+                    }`}
                   >
-                    Carreras
+                    Materias
                   </Link>
                 </li>
                 <li>
                   <Link
-                    to="/inscripciones"
+                    to="/alumno/inscripciones"
                     className={`${
-                      activeButton === 'inscripciones' ? styles.activeBtn : styles.btn
+                      activeButton === 'alumno/inscripciones' ? styles.activeBtn : styles.btn
                     }`}
                   >
                     Inscripciones
                   </Link>
                 </li>
               </ul>
+              <div>
+                <li>
+                  <a
+                    className={`${
+                      activeButton === 'logout'
+                        ? styles.activeBtn
+                        : `${styles.btn} ${styles.btnLanding}`
+                    }`}
+                  >
+                    Logout
+                  </a>
+                </li>
+              </div>
             </nav>
           </div>
         </aside>
@@ -78,7 +99,11 @@ const Aside = ({ page }) => {
       <>
         <aside className={`${styles.aside} ${styles.asideAf}`}>
           <div className={styles.asideSubContainer}>
-            <img src="assets/logoAF.png" alt="logo-DS" className={styles.logo} />
+            <img
+              src={`${process.env.PUBLIC_URL}/assets/logoAf.png`}
+              alt="logo-AF"
+              className={styles.logo}
+            />
             <div className={styles.title}>Escuela Superior de Comercio N°49</div>
             <div className={styles.menuButton} onClick={toggleMenu}>
               <div className={`${isOpen ? styles.x1 : styles.bar}`}></div>
@@ -89,10 +114,12 @@ const Aside = ({ page }) => {
               <ul className={styles.rutes}>
                 <li>
                   <Link
-                    to="/login"
-                    className={`${activeButton === 'login' ? styles.activeBtn : styles.btn}`}
+                    to="/alumno/profile"
+                    className={`${
+                      activeButton === 'alumno/profile' ? styles.activeBtn : styles.btn
+                    }`}
                   >
-                    Login
+                    Profile
                   </Link>
                 </li>
                 <li>
@@ -105,23 +132,38 @@ const Aside = ({ page }) => {
                 </li>
                 <li>
                   <Link
-                    to="/carreras"
-                    className={`${activeButton === 'carreras' ? styles.activeBtn : styles.btn}`}
+                    to="/alumno/materias"
+                    className={`${
+                      activeButton === 'alumno/materias' ? styles.activeBtn : styles.btn
+                    }`}
                   >
-                    Carreras
+                    Materias
                   </Link>
                 </li>
                 <li>
                   <Link
-                    to="/inscripciones"
+                    to="/alumno/inscripciones"
                     className={`${
-                      activeButton === 'inscripciones' ? styles.activeBtn : styles.btn
+                      activeButton === 'alumno/inscripciones' ? styles.activeBtn : styles.btn
                     }`}
                   >
                     Inscripciones
                   </Link>
                 </li>
               </ul>
+              <div>
+                <li>
+                  <a
+                    className={`${
+                      activeButton === 'logout'
+                        ? styles.activeBtn
+                        : `${styles.btn} ${styles.btnLanding}`
+                    }`}
+                  >
+                    Logout
+                  </a>
+                </li>
+              </div>
             </nav>
           </div>
         </aside>
@@ -130,7 +172,11 @@ const Aside = ({ page }) => {
       <>
         <aside className={`${styles.aside} ${styles.asideIti}`}>
           <div className={styles.asideSubContainer}>
-            <img src="assets/logoITI.png" alt="logo-DS" className={styles.logo} />
+            <img
+              src={`${process.env.PUBLIC_URL}/assets/logoIti.png`}
+              alt="logo-ITI"
+              className={styles.logo}
+            />
             <div className={styles.title}>Escuela Superior de Comercio N°49</div>
             <div className={styles.menuButton} onClick={toggleMenu}>
               <div className={`${isOpen ? styles.x1 : styles.bar}`}></div>
@@ -141,10 +187,12 @@ const Aside = ({ page }) => {
               <ul className={styles.rutes}>
                 <li>
                   <Link
-                    to="/login"
-                    className={`${activeButton === 'login' ? styles.activeBtn : styles.btn}`}
+                    to="/alumno/profile"
+                    className={`${
+                      activeButton === 'alumno/profile' ? styles.activeBtn : styles.btn
+                    }`}
                   >
-                    Login
+                    Profile
                   </Link>
                 </li>
                 <li>
@@ -157,23 +205,38 @@ const Aside = ({ page }) => {
                 </li>
                 <li>
                   <Link
-                    to="/carreras"
-                    className={`${activeButton === 'carreras' ? styles.activeBtn : styles.btn}`}
+                    to="/alumno/materias"
+                    className={`${
+                      activeButton === 'alumno/materias' ? styles.activeBtn : styles.btn
+                    }`}
                   >
-                    Carreras
+                    Materias
                   </Link>
                 </li>
                 <li>
                   <Link
-                    to="/inscripciones"
+                    to="/alumno/inscripciones"
                     className={`${
-                      activeButton === 'inscripciones' ? styles.activeBtn : styles.btn
+                      activeButton === 'alumno/inscripciones' ? styles.activeBtn : styles.btn
                     }`}
                   >
                     Inscripciones
                   </Link>
                 </li>
               </ul>
+              <div className={styles.logout}>
+                <li>
+                  <a
+                    className={`${
+                      activeButton === 'logout'
+                        ? styles.activeBtn
+                        : `${styles.btn} ${styles.btnLanding}`
+                    }`}
+                  >
+                    Logout
+                  </a>
+                </li>
+              </div>
             </nav>
           </div>
         </aside>
@@ -182,7 +245,11 @@ const Aside = ({ page }) => {
       <>
         <aside className={styles.aside}>
           <div className={styles.asideSubContainer}>
-            <img src="assets/logoLanding.png" alt="logo-DS" className={styles.logo} />
+            <img
+              src={`${process.env.PUBLIC_URL}/assets/logoLanding.png`}
+              alt="logo-Landing"
+              className={styles.logo}
+            />
             <div className={`${styles.title} ${styles.titleLanding}`}>
               Escuela Superior de Comercio N°49
             </div>
@@ -255,6 +322,8 @@ const Aside = ({ page }) => {
                         Inscripciones
                       </Link>
                     </li>
+                  </ul>
+                  <div className={styles.logout}>
                     <li>
                       <a
                         className={`${
@@ -266,7 +335,7 @@ const Aside = ({ page }) => {
                         Logout
                       </a>
                     </li>
-                  </ul>
+                  </div>
                 </nav>
               </>
             ) : (
@@ -333,7 +402,11 @@ const Aside = ({ page }) => {
     <>
       <aside className={styles.aside}>
         <div className={styles.asideSubContainer}>
-          <img src="assets/logoLanding.png" alt="logo-DS" className={styles.logo} />
+          <img
+            src={`${process.env.PUBLIC_URL}/assets/logoLanding.png`}
+            alt="logo-Landing"
+            className={styles.logo}
+          />
           <div className={`${styles.title} ${styles.titleLanding}`}>
             Escuela Superior de Comercio N°49
           </div>
