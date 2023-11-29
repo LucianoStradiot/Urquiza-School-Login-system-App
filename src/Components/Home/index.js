@@ -1,5 +1,5 @@
 import React from 'react';
-import Aside from '../../Shared/Aside';
+import Aside from '../Shared/Aside';
 import styles from './home.module.css';
 
 const Home = () => {
@@ -10,7 +10,11 @@ const Home = () => {
         <section className={styles.container}>
           <div className={styles.title}>Bienvenidos</div>
           <div className={styles.subContainer}>
-            <img src="assets/urquizaSchool.jpg" alt="urquiza-school" className={styles.img} />
+            <img
+              src={`${process.env.PUBLIC_URL}/assets/urquizaSchool.jpg`}
+              alt="urquiza-school"
+              className={styles.img}
+            />
             <div className={styles.historyContainer}>
               <h3>Historia de la escuela</h3>
               <p>

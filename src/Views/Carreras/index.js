@@ -1,12 +1,12 @@
 import React from 'react';
-import styles from './carreras.module.css';
-import Aside from '../../Shared/Aside';
+import Aside from '../../Components/Shared/Aside';
+import WorkInProgressPage from '../../Components/Shared/WorkInProgressPage';
 
 const Carreras = () => {
   return (
     <>
       <Aside page={'home'} />
-      <div className={styles.container}>Carreras</div>
+      <WorkInProgressPage />
     </>
   );
 };

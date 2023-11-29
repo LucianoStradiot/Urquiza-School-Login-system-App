@@ -1,12 +1,12 @@
 import React from 'react';
-import styles from './inscripciones.module.css';
-import Aside from '../../Shared/Aside';
+import WorkInProgressPage from '../../Components/Shared/WorkInProgressPage';
+import Aside from '../../Components/Shared/Aside';
 
 const Inscripciones = () => {
   return (
     <>
       <Aside page={'home'} />
-      <div className={styles.container}>Inscripciones</div>
+      <WorkInProgressPage />
     </>
   );
 };
