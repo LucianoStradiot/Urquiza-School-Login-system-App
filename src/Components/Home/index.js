@@ -1,5 +1,5 @@
 import React from 'react';
-import Aside from '../../Shared/Aside';
+import Aside from '../Shared/Aside';
 import styles from './home.module.css';
 
 const Home = () => {
