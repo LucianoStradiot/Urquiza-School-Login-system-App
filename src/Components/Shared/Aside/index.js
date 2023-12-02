@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import styles from './aside.module.css';
 import { useStateContext } from '../../Contexts';
 
 const Aside = ({ page }) => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [activeButton, setActiveButton] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const { token } = useStateContext();
@@ -13,13 +14,13 @@ const Aside = ({ page }) => {
     setIsOpen(!isOpen);
   };
 
+  const onLogout = () => {
+    navigate('/');
+  };
   useEffect(() => {
-    const selectedRole = 'ITIg';
+    const selectedRole = 'ITI';
     sessionStorage.setItem('role', selectedRole);
     sessionStorage.setItem('token', token);
-  }, []);
-
-  useEffect(() => {
     const currentPath = location.pathname === '/' ? 'home' : location.pathname.substring(1);
     setActiveButton(currentPath);
   }, []);
@@ -89,6 +90,7 @@ const Aside = ({ page }) => {
                         ? styles.activeBtn
                         : `${styles.btn} ${styles.btnLanding}`
                     }`}
+                    onClick={onLogout}
                   >
                     Logout
                   </a>
@@ -162,6 +164,7 @@ const Aside = ({ page }) => {
                         ? styles.activeBtn
                         : `${styles.btn} ${styles.btnLanding}`
                     }`}
+                    onClick={onLogout}
                   >
                     Logout
                   </a>
@@ -235,6 +238,7 @@ const Aside = ({ page }) => {
                         ? styles.activeBtn
                         : `${styles.btn} ${styles.btnLanding}`
                     }`}
+                    onClick={onLogout}
                   >
                     Logout
                   </a>
@@ -334,6 +338,7 @@ const Aside = ({ page }) => {
                             ? styles.activeBtn
                             : `${styles.btn} ${styles.btnLanding}`
                         }`}
+                        onClick={onLogout}
                       >
                         Logout
                       </a>
@@ -436,7 +441,9 @@ const Aside = ({ page }) => {
                 </Link>
               </li>
               <li>
-                <a className={`${styles.btn} ${styles.btnLanding}`}>Logout</a>
+                <a className={`${styles.btn} ${styles.btnLanding}`} onClick={onLogout}>
+                  Logout
+                </a>
               </li>
             </ul>
           </nav>
