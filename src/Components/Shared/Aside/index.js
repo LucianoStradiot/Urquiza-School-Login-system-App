@@ -14,7 +14,7 @@ const Aside = ({ page }) => {
   };
 
   useEffect(() => {
-    const selectedRole = 'SUPER_ADMINf';
+    const selectedRole = 'ITIg';
     sessionStorage.setItem('role', selectedRole);
     sessionStorage.setItem('token', token);
   }, []);

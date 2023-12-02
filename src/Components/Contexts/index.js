@@ -8,7 +8,9 @@ const StateContext = createContext({
 });
 
 export const ContextProvider = ({ children }) => {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState({
+    name: 'Luciano'
+  });
   const [token, _setToken] = useState(sessionStorage.getItem('ACCESS_TOKEN'));
 
   const setToken = (token) => {
