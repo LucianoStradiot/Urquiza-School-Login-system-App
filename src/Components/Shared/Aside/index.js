@@ -1,19 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import styles from './aside.module.css';
+import { useStateContext } from '../../Contexts';
 
 const Aside = ({ page }) => {
   const location = useLocation();
   const [activeButton, setActiveButton] = useState('');
   const [isOpen, setIsOpen] = useState(false);
+  const { token } = useStateContext();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
   useEffect(() => {
-    const selectedRole = 'fg';
+    const selectedRole = 'SUPER_ADMINf';
     sessionStorage.setItem('role', selectedRole);
+    sessionStorage.setItem('token', token);
   }, []);
 
   useEffect(() => {
@@ -22,7 +25,7 @@ const Aside = ({ page }) => {
   }, []);
 
   return page === 'home' ? (
-    sessionStorage.getItem('role') === 'DS' ? (
+    sessionStorage.getItem('role') === 'DS' && token ? (
       <>
         <aside className={`${styles.aside} ${styles.asideDs}`}>
           <div className={styles.asideSubContainer}>
@@ -95,7 +98,7 @@ const Aside = ({ page }) => {
           </div>
         </aside>
       </>
-    ) : sessionStorage.getItem('role') === 'AF' ? (
+    ) : sessionStorage.getItem('role') === 'AF' && token ? (
       <>
         <aside className={`${styles.aside} ${styles.asideAf}`}>
           <div className={styles.asideSubContainer}>
@@ -168,7 +171,7 @@ const Aside = ({ page }) => {
           </div>
         </aside>
       </>
-    ) : sessionStorage.getItem('role') === 'ITI' ? (
+    ) : sessionStorage.getItem('role') === 'ITI' && token ? (
       <>
         <aside className={`${styles.aside} ${styles.asideIti}`}>
           <div className={styles.asideSubContainer}>
@@ -266,7 +269,7 @@ const Aside = ({ page }) => {
               ></div>
               <div className={`${isOpen ? '' : `${styles.bar} ${styles.barLanding}`} `}></div>
             </div>
-            {sessionStorage.getItem('role') === 'SUPER_ADMIN' ? (
+            {sessionStorage.getItem('role') === 'SUPER_ADMIN' && token ? (
               <>
                 <nav
                   className={`${
@@ -398,7 +401,7 @@ const Aside = ({ page }) => {
         </aside>
       </>
     )
-  ) : page === 'super-admin' ? (
+  ) : page === 'super-admin' && token ? (
     <>
       <aside className={styles.aside}>
         <div className={styles.asideSubContainer}>

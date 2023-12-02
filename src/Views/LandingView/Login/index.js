@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import styles from './login.module.css';
 import { Link } from 'react-router-dom';
-import Aside from '../../Components/Shared/Aside';
-import TextInput from '../../Components/Shared/TextInput';
-import Button from '../../Components/Shared/Button';
-import Modal from '../../Components/Shared/Modal';
-import Spinner from '../../Components/Shared/Spinner';
+import Aside from '../../../Components/Shared/Aside';
+import TextInput from '../../../Components/Shared/TextInput';
+import Button from '../../../Components/Shared/Button';
+import Modal from '../../../Components/Shared/Modal';
+import Spinner from '../../../Components/Shared/Spinner';
 
 const Login = () => {
   const [isOpen, setIsOpen] = useState(false);

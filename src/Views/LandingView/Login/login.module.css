@@ -12,7 +12,7 @@
   box-shadow: 3px 5px 10px #0000007d;
   border-radius: 5px;
   background-image: linear-gradient(rgba(255, 255, 255, 0.8) 44%, rgba(255, 255, 255, 0.8) 58%),
-    url('../../../public/assets/urquizaSchool.jpg');
+    url('../../../../public/assets/urquizaSchool.jpg');
   background-position: top;
   background-size: cover;
 }
@@ -55,7 +55,7 @@
         rgb(255, 255, 255) 44%,
         rgba(255, 255, 255, 0.3) 58%
       ),
-      url('../../../public/assets/urquizaSchool.jpg');
+      url('../../../../public/assets/urquizaSchool.jpg');
     background-position: right;
     background-size: contain;
   }

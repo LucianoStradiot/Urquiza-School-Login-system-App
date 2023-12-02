@@ -1,6 +1,6 @@
 import React from 'react';
-import WorkInProgressPage from '../../Components/Shared/WorkInProgressPage';
-import Aside from '../../Components/Shared/Aside';
+import WorkInProgressPage from '../../../Components/Shared/WorkInProgressPage';
+import Aside from '../../../Components/Shared/Aside';
 
 const Inscripciones = () => {
   return (

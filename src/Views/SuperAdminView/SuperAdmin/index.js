@@ -1,5 +1,5 @@
 import React from 'react';
-import Aside from '../../Components/Shared/Aside';
+import Aside from '../../../Components/Shared/Aside';
 import styles from './superAdmin.module.css';
 import { BiCheck, BiX } from 'react-icons/bi';
 
