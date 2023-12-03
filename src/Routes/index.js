@@ -12,6 +12,7 @@ import Error404 from '../Views/Error404';
 import LandingView from '../Views/LandingView';
 import AlumnoView from '../Views/AlumnoView';
 import SuperAdminView from '../Views/SuperAdminView';
+import SignUp from '../Views/LandingView/SignUp';
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <Home />
+      },
+      {
+        path: '/signup',
+        element: <SignUp />
       },
       {
         path: '/login',

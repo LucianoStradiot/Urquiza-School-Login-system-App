@@ -18,7 +18,7 @@ const Aside = ({ page }) => {
     navigate('/');
   };
   useEffect(() => {
-    const selectedRole = 'ITI';
+    const selectedRole = 'ITIs';
     sessionStorage.setItem('role', selectedRole);
     sessionStorage.setItem('token', token);
     const currentPath = location.pathname === '/' ? 'home' : location.pathname.substring(1);
