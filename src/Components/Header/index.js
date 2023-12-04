@@ -3,9 +3,9 @@ import styles from './header.module.css';
 import { useStateContext } from '../Contexts';
 
 const Header = () => {
-  const { user, token } = useStateContext();
+  const { user } = useStateContext();
 
-  return sessionStorage.getItem('role') === 'DS' && token ? (
+  return sessionStorage.getItem('role') === 'DS' ? (
     <>
       <header className={styles.header}>
         <div className={`${styles.container} ${styles.containerDs}`}>
@@ -17,7 +17,7 @@ const Header = () => {
         <div className={styles.wallpaper}></div>
       </header>
     </>
-  ) : sessionStorage.getItem('role') === 'AF' && token ? (
+  ) : sessionStorage.getItem('role') === 'AF' ? (
     <>
       <header className={styles.header}>
         <div className={`${styles.container} ${styles.containerAf}`}>
@@ -29,7 +29,7 @@ const Header = () => {
         <div className={styles.wallpaper}></div>
       </header>
     </>
-  ) : sessionStorage.getItem('role') === 'ITI' && token ? (
+  ) : sessionStorage.getItem('role') === 'ITI' ? (
     <>
       <header className={styles.header}>
         <div className={`${styles.container} ${styles.containerIti}`}>
@@ -41,7 +41,7 @@ const Header = () => {
         <div className={styles.wallpaper}></div>
       </header>
     </>
-  ) : sessionStorage.getItem('role') === 'SUPER_ADMIN' && token ? (
+  ) : sessionStorage.getItem('role') === 'SUPER_ADMIN' ? (
     <>
       <header className={styles.header}>
         <div className={styles.container}>

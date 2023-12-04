@@ -20,7 +20,7 @@ const Aside = ({ page }) => {
   useEffect(() => {
     const selectedRole = 'ITIs';
     sessionStorage.setItem('role', selectedRole);
-    sessionStorage.setItem('token', token);
+    sessionStorage.setItem('ACCESS_TOKEN', token);
     const currentPath = location.pathname === '/' ? 'home' : location.pathname.substring(1);
     setActiveButton(currentPath);
   }, []);
