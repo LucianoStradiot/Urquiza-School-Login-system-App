@@ -46,10 +46,15 @@ const Login = () => {
           <div className={styles.subContainer}>
             <form className={styles.loginContainer}>
               <TextInput
+                input={'input'}
                 labelName={'E-mail'}
                 placeholderText={'Escribe tu dirección de correo electrónico'}
               />
-              <TextInput labelName={'Contraseña'} placeholderText={'Escribe tu contraseña'} />
+              <TextInput
+                labelName={'Contraseña'}
+                placeholderText={'Escribe tu contraseña'}
+                input={'input'}
+              />
               <Link to="/recoverPassword" className={styles.password}>
                 <p>Olvidaste tu contraseña?</p>
               </Link>

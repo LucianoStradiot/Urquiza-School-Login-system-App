@@ -1,13 +1,13 @@
 import React, { useRef, useState } from 'react';
-import styles from './signUp.module.css';
-import { Link, useNavigate } from 'react-router-dom';
-import axios from '../../../Components/Shared/Axios';
-import Aside from '../../../Components/Shared/Aside';
-import TextInput from '../../../Components/Shared/TextInput';
-import Button from '../../../Components/Shared/Button';
-import Modal from '../../../Components/Shared/Modal';
-import Spinner from '../../../Components/Shared/Spinner';
-import { useStateContext } from '../../../Components/Contexts';
+import styles from './signUpSuperAdmin.module.css';
+import { useNavigate } from 'react-router-dom';
+import axios from '../../../../Components/Shared/Axios';
+import Aside from '../../../../Components/Shared/Aside';
+import TextInput from '../../../../Components/Shared/TextInput';
+import Button from '../../../../Components/Shared/Button';
+import Modal from '../../../../Components/Shared/Modal';
+import Spinner from '../../../../Components/Shared/Spinner';
+import { useStateContext } from '../../../../Components/Contexts';
 
 const SignUp = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,14 +16,12 @@ const SignUp = () => {
   const [responseModal, setResponseModal] = useState({
     description: ''
   });
-  const nameRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef();
   const careerRef = useRef();
 
   const { setUser, setTokenAndRole } = useStateContext();
   const [errors, setErrors] = useState({
-    name: null,
     email: null,
     password: null,
     career: null
@@ -32,7 +30,6 @@ const SignUp = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     const payload = {
-      name: nameRef.current.value,
       email: emailRef.current.value,
       password: passwordRef.current.value,
       career: careerRef.current.value
@@ -42,7 +39,7 @@ const SignUp = () => {
     setIsLoading(true);
 
     try {
-      const { data } = await axios.post('/signup', payload);
+      const { data } = await axios.post('/signup/super-admin', payload);
       setUser(data.user);
       setTokenAndRole(data.token, data.user.career);
       setResponseModal({
@@ -56,7 +53,6 @@ const SignUp = () => {
         const { errors: apiErrors } = err.response.data;
 
         setErrors({
-          name: apiErrors.name?.[0] || null,
           email: apiErrors.email?.[0] || null,
           password: apiErrors.password?.[0] || null,
           career:
@@ -87,13 +83,6 @@ const SignUp = () => {
             <form className={styles.loginContainer} onSubmit={onSubmit}>
               <TextInput
                 input={'input'}
-                refrerence={nameRef}
-                labelName={'Nombre'}
-                placeholderText={'Escribe tu nombre'}
-                error={errors.name}
-              />
-              <TextInput
-                input={'input'}
                 labelName={'E-mail'}
                 refrerence={emailRef}
                 placeholderText={'Escribe tu dirección de correo electrónico'}
@@ -115,13 +104,8 @@ const SignUp = () => {
                 <option hidden value={''}>
                   Seleccione una carrera
                 </option>
-                <option value={'AF'}>Analista Funcional</option>
-                <option value={'DS'}>Desarrollo de Software</option>
-                <option value={'ITI'}>Infraestructura de la Tecnología</option>
+                <option value={'SA'}>Super admin</option>
               </TextInput>
-              <Link to="/recoverPassword" className={styles.password}>
-                <p>Olvidaste tu contraseña?</p>
-              </Link>
               <div className={styles.btnContainer}>
                 <Button type="submit" text="Enviar" />
               </div>

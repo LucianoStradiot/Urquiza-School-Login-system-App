@@ -13,6 +13,7 @@ import LandingView from '../Views/LandingView';
 import AlumnoView from '../Views/AlumnoView';
 import SuperAdminView from '../Views/SuperAdminView';
 import SignUp from '../Views/LandingView/SignUp';
+import SignUpSuperAdmin from '../Views/LandingView/SignUp/SignUpSuperAdmin';
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
       {
         path: '/signup',
         element: <SignUp />
+      },
+      {
+        path: '/signup/super-admin',
+        element: <SignUpSuperAdmin />
       },
       {
         path: '/login',
