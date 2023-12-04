@@ -6,7 +6,10 @@ const axiosClient = axios.create({
 
 axiosClient.interceptors.request.use((config) => {
   const token = sessionStorage.getItem('ACCESS_TOKEN');
+  const role = sessionStorage.getItem('role');
+
   config.headers.Authorization = `Bearer ${token}`;
+  config.headers['X-User-Role'] = role;
 
   return config;
 });
@@ -17,7 +20,7 @@ axiosClient.interceptors.response.use(
   },
   (error) => {
     const { response } = error;
-    if (response.status === 401) {
+    if (response && response.status === 401) {
       sessionStorage.removeItem('ACCESS_TOKEN');
     }
     throw error;

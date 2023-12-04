@@ -18,13 +18,14 @@ const SignUp = () => {
   const nameRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef();
-  const passwordConfirmRef = useRef();
-  const { setUser, setToken } = useStateContext();
+  const careerRef = useRef();
+
+  const { setUser, setTokenAndRole } = useStateContext();
   const [errors, setErrors] = useState({
     name: null,
     email: null,
     password: null,
-    password_confirmation: null
+    career: null
   });
 
   const onSubmit = async (e) => {
@@ -33,20 +34,22 @@ const SignUp = () => {
       name: nameRef.current.value,
       email: emailRef.current.value,
       password: passwordRef.current.value,
-      password_confirmation: passwordConfirmRef.current.value
+      career: careerRef.current.value
     };
+    console.log(payload);
 
     setIsLoading(true);
 
     try {
       const { data } = await axios.post('/signup', payload);
       setUser(data.user);
-      setToken(data.token);
+      setTokenAndRole(data.token, data.user.career);
       setResponseModal({
         description: 'Usuario registrado correctamente'
       });
       setIsOpen(true);
     } catch (err) {
+      console.log(err.response);
       if (err.response && err.response.status === 422) {
         const { errors: apiErrors } = err.response.data;
 
@@ -54,7 +57,8 @@ const SignUp = () => {
           name: apiErrors.name?.[0] || null,
           email: apiErrors.email?.[0] || null,
           password: apiErrors.password?.[0] || null,
-          password_confirmation: apiErrors.password_confirmation?.[0] || null
+          career:
+            payload.career === '' ? 'Seleccione una carrera válida' : apiErrors.career?.[0] || null
         });
       }
       setResponseModal({
@@ -62,6 +66,7 @@ const SignUp = () => {
       });
       setIsOpen(true);
     }
+
     setIsLoading(false);
   };
 
@@ -79,29 +84,39 @@ const SignUp = () => {
           <div className={styles.subContainer}>
             <form className={styles.loginContainer} onSubmit={onSubmit}>
               <TextInput
+                input={'input'}
                 refrerence={nameRef}
                 labelName={'Nombre'}
                 placeholderText={'Escribe tu nombre'}
                 error={errors.name}
               />
               <TextInput
+                input={'input'}
                 labelName={'E-mail'}
                 refrerence={emailRef}
                 placeholderText={'Escribe tu dirección de correo electrónico'}
                 error={errors.email}
               />
               <TextInput
+                input={'input'}
                 refrerence={passwordRef}
                 labelName={'Contraseña'}
                 placeholderText={'Escribe tu contraseña'}
                 error={errors.password}
               />
               <TextInput
-                labelName={'Confirmar Contraseña'}
-                refrerence={passwordConfirmRef}
-                placeholderText={'Vuelve a escribir la contraseña'}
-                error={errors.password_confirmation}
-              />
+                nameSelect={'career'}
+                labelName={'Carreras'}
+                refrerence={careerRef}
+                error={errors.career}
+              >
+                <option hidden value={''}>
+                  Seleccione una carrera
+                </option>
+                <option value={'AF'}>Analista Funcional</option>
+                <option value={'DS'}>Desarrollo de Software</option>
+                <option value={'ITI'}>Infraestructura de la Tecnología</option>
+              </TextInput>
               <Link to="/recoverPassword" className={styles.password}>
                 <p>Olvidaste tu contraseña?</p>
               </Link>
