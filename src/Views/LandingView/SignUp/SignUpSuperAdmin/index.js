@@ -13,14 +13,13 @@ const SignUp = () => {
   const { openModal } = useModalContext();
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const nameRef = useRef();
+
   const emailRef = useRef();
   const passwordRef = useRef();
   const careerRef = useRef();
 
-  const { setSuperAdmin } = useStateContext();
+  const { setSuperAdmin, setTokenAndRole } = useStateContext();
   const [errors, setErrors] = useState({
-    name: null,
     email: null,
     password: null,
     career: null
@@ -29,7 +28,6 @@ const SignUp = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     const payload = {
-      name: nameRef.current.value,
       email: emailRef.current.value,
       password: passwordRef.current.value,
       career: careerRef.current.value
@@ -39,6 +37,7 @@ const SignUp = () => {
     try {
       const { data } = await axios.post('/signup/super-admin', payload);
       setSuperAdmin(data.superAdmin);
+      setTokenAndRole(data.token, data.superAdmin.career);
       openModal({
         description: 'Super Admin registrado correctamente',
         chooseModal: false
@@ -50,7 +49,6 @@ const SignUp = () => {
         const { errors: apiErrors } = err.response.data;
 
         setErrors({
-          name: apiErrors.name?.[0] || null,
           email: apiErrors.email?.[0] || null,
           password: apiErrors.password?.[0] || null,
           career:
@@ -74,13 +72,6 @@ const SignUp = () => {
         <section className={styles.container}>
           <div className={styles.subContainer}>
             <form className={styles.loginContainer} onSubmit={onSubmit}>
-              <TextInput
-                input={'input'}
-                refrerence={nameRef}
-                labelName={'Nombre'}
-                placeholderText={'Escribe tu nombre'}
-                error={errors.name}
-              />
               <TextInput
                 input={'input'}
                 labelName={'E-mail'}

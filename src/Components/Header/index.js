@@ -3,7 +3,7 @@ import styles from './header.module.css';
 import { useStateContext } from '../Contexts';
 
 const Header = () => {
-  const { student, superAdmin } = useStateContext();
+  const { student } = useStateContext();
 
   return sessionStorage.getItem('role') === 'DS' ? (
     <>
@@ -51,7 +51,7 @@ const Header = () => {
         </div>
         <div className={styles.container2}>
           <div className={`${styles.namesTitle} ${styles.titleLanding}`}>
-            Bienvenido {superAdmin.name}!
+            Bienvenido Super Admin!
           </div>
         </div>
         <div className={styles.wallpaper}></div>
