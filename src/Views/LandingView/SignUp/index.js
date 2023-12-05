@@ -7,21 +7,18 @@ import TextInput from '../../../Components/Shared/TextInput';
 import Button from '../../../Components/Shared/Button';
 import Modal from '../../../Components/Shared/Modal';
 import Spinner from '../../../Components/Shared/Spinner';
-import { useStateContext } from '../../../Components/Contexts';
+import { useStateContext, useModalContext } from '../../../Components/Contexts';
 
 const SignUp = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const navigate = useNavigate();
+  const { openModal } = useModalContext();
   const [isLoading, setIsLoading] = useState(false);
-  const [responseModal, setResponseModal] = useState({
-    description: ''
-  });
+  const navigate = useNavigate();
   const nameRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef();
   const careerRef = useRef();
 
-  const { setUser, setTokenAndRole } = useStateContext();
+  const { setStudent } = useStateContext();
   const [errors, setErrors] = useState({
     name: null,
     email: null,
@@ -38,17 +35,14 @@ const SignUp = () => {
       career: careerRef.current.value
     };
     console.log(payload);
-
     setIsLoading(true);
-
     try {
       const { data } = await axios.post('/signup', payload);
-      setUser(data.user);
-      setTokenAndRole(data.token, data.user.career);
-      setResponseModal({
-        description: 'Usuario registrado correctamente'
+      setStudent(data.student);
+      openModal({
+        description: 'Usuario registrado correctamente',
+        chooseModal: false
       });
-      setIsOpen(true);
       navigate('/');
     } catch (err) {
       console.log(err.response);
@@ -63,24 +57,19 @@ const SignUp = () => {
             payload.career === '' ? 'Seleccione una carrera válida' : apiErrors.career?.[0] || null
         });
       }
-      setResponseModal({
-        description: 'Ocurrió un error al registrar el usuario'
+      openModal({
+        description: 'Se produjo un error en el registro',
+        chooseModal: false
       });
-      setIsOpen(true);
     }
-
     setIsLoading(false);
   };
 
   return (
     <>
       {isLoading && <Spinner />}
-      <Modal
-        description={responseModal.description}
-        isOpen={isOpen}
-        close={() => setIsOpen(!isOpen)}
-      />
       <Aside page={'home'} />
+      <Modal />
       <main>
         <section className={styles.container}>
           <div className={styles.subContainer}>

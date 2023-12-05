@@ -5,15 +5,17 @@ import { RouterProvider } from 'react-router-dom';
 import Header from './Components/Header';
 /* import Footer from './Components/Footer'; */
 import router from './Routes';
-import { ContextProvider } from './Components/Contexts';
+import { ContextProvider, ModalProvider } from './Components/Contexts';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <ContextProvider>
-      <Header />
-      <RouterProvider router={router} />
-      {/*  <Footer /> */}
+      <ModalProvider>
+        <Header />
+        <RouterProvider router={router} />
+        {/*  <Footer /> */}
+      </ModalProvider>
     </ContextProvider>
   </React.StrictMode>
 );

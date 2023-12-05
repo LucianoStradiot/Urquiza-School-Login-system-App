@@ -1,16 +1,19 @@
 import { useContext, useState, createContext } from 'react';
 
 const StateContext = createContext({
-  user: null,
+  student: null,
+  superAdmin: null,
   token: null,
   role: null,
-  setUser: () => {},
+  setStudent: () => {},
+  setSuperAdmin: () => {},
   setToken: () => {},
   setRole: () => {}
 });
 
 export const ContextProvider = ({ children }) => {
-  const [user, setUser] = useState({});
+  const [student, setStudent] = useState({});
+  const [superAdmin, setSuperAdmin] = useState({});
   const [token, _setToken] = useState(sessionStorage.getItem('ACCESS_TOKEN'));
   const [role, setRole] = useState(sessionStorage.getItem('role'));
 
@@ -27,10 +30,55 @@ export const ContextProvider = ({ children }) => {
   };
 
   return (
-    <StateContext.Provider value={{ user, token, role, setUser, setTokenAndRole }}>
+    <StateContext.Provider
+      value={{ student, superAdmin, token, role, setStudent, setSuperAdmin, setTokenAndRole }}
+    >
       {children}
     </StateContext.Provider>
   );
 };
 
 export const useStateContext = () => useContext(StateContext);
+
+const ModalContext = createContext();
+
+export const ModalProvider = ({ children }) => {
+  const [modalState, setModalState] = useState({
+    isOpen: false,
+    description: '',
+    title: '',
+    confirmBtn: '',
+    denyBtn: '',
+    chooseModal: false,
+    onClick: null
+  });
+
+  const openModal = (modalConfig) => {
+    setModalState({
+      isOpen: true,
+      ...modalConfig
+    });
+  };
+
+  const closeModal = () => {
+    setModalState({
+      isOpen: false,
+      description: '',
+      title: '',
+      confirmBtn: '',
+      denyBtn: '',
+      chooseModal: false,
+      onClick: null
+    });
+  };
+
+  return (
+    <ModalContext.Provider value={{ modalState, openModal, closeModal }}>
+      {children}
+    </ModalContext.Provider>
+  );
+};
+
+export const useModalContext = () => {
+  return useContext(ModalContext);
+};

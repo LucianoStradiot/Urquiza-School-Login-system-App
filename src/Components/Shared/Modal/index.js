@@ -2,19 +2,11 @@ import React, { useEffect, useState } from 'react';
 import styles from './modal.module.css';
 import Button from '../Button';
 import { BiErrorAlt } from 'react-icons/bi';
+import { useModalContext } from '../../Contexts';
 
-/**This component is used by passing the properties of title for the title, description for the description, isOpen to open the modal, confirmBtn for the confirm or accept button, denyBtn for the cancel or exit button, onClick which is what suits it to indicate to the confirm button the action you want to perform and chooseModal to determine whether to use a modal that requires a confirmation or a modal that shows a text that disappears after 5 seconds */
-
-const Modal = ({
-  title,
-  description,
-  isOpen,
-  confirmBtn,
-  denyBtn,
-  chooseModal,
-  close,
-  onClick
-}) => {
+const Modal = () => {
+  const { modalState, closeModal } = useModalContext();
+  const { isOpen, description, title, confirmBtn, denyBtn, chooseModal, onClick } = modalState;
   const [isFadingOut, setIsFadingOut] = useState(false);
 
   useEffect(() => {
@@ -23,7 +15,7 @@ const Modal = ({
       timer = setTimeout(() => {
         setIsFadingOut(false);
         setTimeout(() => {
-          close();
+          closeModal();
         }, 500);
       }, 4000);
     }
@@ -32,7 +24,7 @@ const Modal = ({
     return () => {
       clearTimeout(timer);
     };
-  }, [close]);
+  }, [isOpen, chooseModal, closeModal]);
 
   return isOpen ? (
     chooseModal ? (
@@ -44,7 +36,7 @@ const Modal = ({
           <div className={styles.title}>{title.toUpperCase()}</div>
           <div className={styles.subTitle}>{description}</div>
           <div className={styles.btnsContainer}>
-            <Button type="cancel" text={denyBtn} onClick={close} />
+            <Button type="cancel" text={denyBtn} onClick={closeModal} />
             <Button type="submit" text={confirmBtn} onClick={onClick} />
           </div>
         </div>
