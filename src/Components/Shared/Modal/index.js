@@ -53,7 +53,7 @@ const Modal = () => {
               }`}
             >
               <div className={styles.descriptionSelfClose}>{description}</div>
-              <Button type="x" text={'X'} onClick={close} />
+              <Button type="x" text={'X'} onClick={closeModal} />
             </div>
           ) : sessionStorage.getItem('role') === 'AF' ? (
             <div
@@ -64,7 +64,7 @@ const Modal = () => {
               }
             >
               <div className={styles.descriptionSelfClose}>{description}</div>
-              <Button type="x" text={'X'} onClick={close} />
+              <Button type="x" text={'X'} onClick={closeModal} />
             </div>
           ) : sessionStorage.getItem('role') === 'ITI' ? (
             <div
@@ -75,12 +75,12 @@ const Modal = () => {
               }
             >
               <div className={styles.descriptionSelfClose}>{description}</div>
-              <Button type="x" text={'X'} onClick={close} />
+              <Button type="x" text={'X'} onClick={closeModal} />
             </div>
           ) : (
             <div className={!isFadingOut ? styles.subContainerSelfClose : styles.subContainerOpen}>
               <div className={styles.descriptionSelfClose}>{description}</div>
-              <Button type="x" text={'X'} onClick={close} />
+              <Button type="x" text={'X'} onClick={closeModal} />
             </div>
           )}
         </div>

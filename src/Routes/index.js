@@ -47,11 +47,11 @@ const router = createBrowserRouter([
     ]
   },
   {
-    path: '/',
+    path: '/alumno',
     element: <AlumnoView />,
     children: [
       {
-        path: '/',
+        path: '/alumno',
         element: <Home />
       },
       {
@@ -69,11 +69,11 @@ const router = createBrowserRouter([
     ]
   },
   {
-    path: '/',
+    path: '/super-admin',
     element: <SuperAdminView />,
     children: [
       {
-        path: '/super-admin',
+        path: '/super-admin/administracion',
         element: <SuperAdmin />
       }
     ]

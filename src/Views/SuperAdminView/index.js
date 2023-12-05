@@ -5,7 +5,12 @@ import { useStateContext } from '../../Components/Contexts';
 const SuperAdminView = () => {
   const { token } = useStateContext();
 
-  if (!token) {
+  if (
+    !token ||
+    sessionStorage.getItem('role') === 'AF' ||
+    sessionStorage.getItem('role') === 'DS' ||
+    sessionStorage.getItem('role') === 'ITI'
+  ) {
     return <Navigate to={'/login'} />;
   }
   return (

@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import styles from './signUp.module.css';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from '../../../Components/Shared/Axios';
+import axiosClient from '../../../Components/Shared/Axios';
 import Aside from '../../../Components/Shared/Aside';
 import TextInput from '../../../Components/Shared/TextInput';
 import Button from '../../../Components/Shared/Button';
@@ -11,6 +11,7 @@ import { useStateContext, useModalContext } from '../../../Components/Contexts';
 
 const SignUp = () => {
   const { openModal } = useModalContext();
+  const { setStudent, setTokenAndRole } = useStateContext();
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const nameRef = useRef();
@@ -18,7 +19,6 @@ const SignUp = () => {
   const passwordRef = useRef();
   const careerRef = useRef();
 
-  const { setStudent } = useStateContext();
   const [errors, setErrors] = useState({
     name: null,
     email: null,
@@ -36,14 +36,17 @@ const SignUp = () => {
     };
     console.log(payload);
     setIsLoading(true);
+    setErrors({});
     try {
-      const { data } = await axios.post('/signup', payload);
+      const { data } = await axiosClient.post('/signup', payload);
       setStudent(data.student);
+      setTokenAndRole(data.token, data.student.career);
+
       openModal({
         description: 'Usuario registrado correctamente',
         chooseModal: false
       });
-      navigate('/');
+      navigate('/alumno/profile');
     } catch (err) {
       console.log(err.response);
       if (err.response && err.response.status === 422) {

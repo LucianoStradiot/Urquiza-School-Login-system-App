@@ -270,7 +270,7 @@ const Aside = ({ page }) => {
               ></div>
               <div className={`${isOpen ? '' : `${styles.bar} ${styles.barLanding}`} `}></div>
             </div>
-            {sessionStorage.getItem('role') === 'SUPER_ADMIN' && token ? (
+            {sessionStorage.getItem('role') === 'SA' && token ? (
               <>
                 <nav
                   className={`${

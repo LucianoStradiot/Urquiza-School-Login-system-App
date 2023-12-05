@@ -3,7 +3,7 @@ import styles from './header.module.css';
 import { useStateContext } from '../Contexts';
 
 const Header = () => {
-  const { user } = useStateContext();
+  const { student, superAdmin } = useStateContext();
 
   return sessionStorage.getItem('role') === 'DS' ? (
     <>
@@ -12,7 +12,7 @@ const Header = () => {
           <h1 className={styles.title}>Escuela Superior de Comercio N°49</h1>
         </div>
         <div className={`${styles.container2} ${styles.containerDs}`}>
-          <div className={styles.namesTitle}>Bienvenido {user.name}!</div>
+          <div className={styles.namesTitle}>Bienvenido {student.name}!</div>
         </div>
         <div className={styles.wallpaper}></div>
       </header>
@@ -24,7 +24,7 @@ const Header = () => {
           <h1 className={styles.title}>Escuela Superior de Comercio N°49</h1>
         </div>
         <div className={`${styles.container2} ${styles.containerAf}`}>
-          <div className={styles.namesTitle}>Bienvenido {user.name}!</div>
+          <div className={styles.namesTitle}>Bienvenido {student.name}!</div>
         </div>
         <div className={styles.wallpaper}></div>
       </header>
@@ -36,12 +36,12 @@ const Header = () => {
           <h1 className={styles.title}>Escuela Superior de Comercio N°49</h1>
         </div>
         <div className={`${styles.container2} ${styles.containerIti}`}>
-          <div className={styles.namesTitle}>Bienvenido {user.name}!</div>
+          <div className={styles.namesTitle}>Bienvenido {student.name}!</div>
         </div>
         <div className={styles.wallpaper}></div>
       </header>
     </>
-  ) : sessionStorage.getItem('role') === 'SUPER_ADMIN' ? (
+  ) : sessionStorage.getItem('role') === 'SA' ? (
     <>
       <header className={styles.header}>
         <div className={styles.container}>
@@ -51,7 +51,7 @@ const Header = () => {
         </div>
         <div className={styles.container2}>
           <div className={`${styles.namesTitle} ${styles.titleLanding}`}>
-            Bienvenido {user.name}!
+            Bienvenido {superAdmin.name}!
           </div>
         </div>
         <div className={styles.wallpaper}></div>

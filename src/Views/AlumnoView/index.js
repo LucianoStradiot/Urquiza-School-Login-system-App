@@ -5,7 +5,7 @@ import { useStateContext } from '../../Components/Contexts';
 const AlumnoView = () => {
   const { token } = useStateContext();
 
-  if (!token) {
+  if (!token || sessionStorage.getItem('role') === 'SA') {
     return <Navigate to={'/login'} />;
   }
 
