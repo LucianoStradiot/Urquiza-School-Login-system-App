@@ -1,28 +1,29 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import styles from './aside.module.css';
+import { useStateContext } from '../../Contexts';
 
 const Aside = ({ page }) => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [activeButton, setActiveButton] = useState('');
   const [isOpen, setIsOpen] = useState(false);
+  const { token } = useStateContext();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
-  useEffect(() => {
-    const selectedRole = 'fg';
-    sessionStorage.setItem('role', selectedRole);
-  }, []);
-
+  const onLogout = () => {
+    navigate('/');
+  };
   useEffect(() => {
     const currentPath = location.pathname === '/' ? 'home' : location.pathname.substring(1);
     setActiveButton(currentPath);
   }, []);
 
   return page === 'home' ? (
-    sessionStorage.getItem('role') === 'DS' ? (
+    sessionStorage.getItem('role') === 'DS' && token ? (
       <>
         <aside className={`${styles.aside} ${styles.asideDs}`}>
           <div className={styles.asideSubContainer}>
@@ -86,6 +87,7 @@ const Aside = ({ page }) => {
                         ? styles.activeBtn
                         : `${styles.btn} ${styles.btnLanding}`
                     }`}
+                    onClick={onLogout}
                   >
                     Logout
                   </a>
@@ -95,7 +97,7 @@ const Aside = ({ page }) => {
           </div>
         </aside>
       </>
-    ) : sessionStorage.getItem('role') === 'AF' ? (
+    ) : sessionStorage.getItem('role') === 'AF' && token ? (
       <>
         <aside className={`${styles.aside} ${styles.asideAf}`}>
           <div className={styles.asideSubContainer}>
@@ -159,6 +161,7 @@ const Aside = ({ page }) => {
                         ? styles.activeBtn
                         : `${styles.btn} ${styles.btnLanding}`
                     }`}
+                    onClick={onLogout}
                   >
                     Logout
                   </a>
@@ -168,7 +171,7 @@ const Aside = ({ page }) => {
           </div>
         </aside>
       </>
-    ) : sessionStorage.getItem('role') === 'ITI' ? (
+    ) : sessionStorage.getItem('role') === 'ITI' && token ? (
       <>
         <aside className={`${styles.aside} ${styles.asideIti}`}>
           <div className={styles.asideSubContainer}>
@@ -232,6 +235,7 @@ const Aside = ({ page }) => {
                         ? styles.activeBtn
                         : `${styles.btn} ${styles.btnLanding}`
                     }`}
+                    onClick={onLogout}
                   >
                     Logout
                   </a>
@@ -266,7 +270,7 @@ const Aside = ({ page }) => {
               ></div>
               <div className={`${isOpen ? '' : `${styles.bar} ${styles.barLanding}`} `}></div>
             </div>
-            {sessionStorage.getItem('role') === 'SUPER_ADMIN' ? (
+            {sessionStorage.getItem('role') === 'SA' && token ? (
               <>
                 <nav
                   className={`${
@@ -276,9 +280,9 @@ const Aside = ({ page }) => {
                   <ul className={styles.rutes}>
                     <li>
                       <Link
-                        to="/super-admin"
+                        to="/super-admin/administracion"
                         className={`${
-                          activeButton === 'super-admin'
+                          activeButton === 'super-admin/administracion'
                             ? styles.activeBtn
                             : `${styles.btn} ${styles.btnLanding}`
                         }`}
@@ -288,9 +292,9 @@ const Aside = ({ page }) => {
                     </li>
                     <li>
                       <Link
-                        to="/"
+                        to="/super-admin"
                         className={`${
-                          activeButton === 'home'
+                          activeButton === 'super-admin'
                             ? styles.activeBtn
                             : `${styles.btn} ${styles.btnLanding}`
                         }`}
@@ -331,6 +335,7 @@ const Aside = ({ page }) => {
                             ? styles.activeBtn
                             : `${styles.btn} ${styles.btnLanding}`
                         }`}
+                        onClick={onLogout}
                       >
                         Logout
                       </a>
@@ -398,7 +403,7 @@ const Aside = ({ page }) => {
         </aside>
       </>
     )
-  ) : page === 'super-admin' ? (
+  ) : page === 'super-admin' && token ? (
     <>
       <aside className={styles.aside}>
         <div className={styles.asideSubContainer}>
@@ -428,12 +433,14 @@ const Aside = ({ page }) => {
           >
             <ul className={styles.ruteSAdmin}>
               <li>
-                <Link to="/" className={`${styles.btn} ${styles.btnLanding}`}>
+                <Link to="/super-admin" className={`${styles.btn} ${styles.btnLanding}`}>
                   Home
                 </Link>
               </li>
               <li>
-                <a className={`${styles.btn} ${styles.btnLanding}`}>Logout</a>
+                <a className={`${styles.btn} ${styles.btnLanding}`} onClick={onLogout}>
+                  Logout
+                </a>
               </li>
             </ul>
           </nav>

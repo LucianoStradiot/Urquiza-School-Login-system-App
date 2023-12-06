@@ -27,6 +27,30 @@
   box-shadow: 0 0 3px #64795d;
 }
 
+.select {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 8px;
+  text-align: center;
+  background-color: white;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px #1b1b5d99;
+}
+
+.select:hover {
+  box-shadow: 5px 3px 3px #0000007e;
+}
+
+.select:focus {
+  outline: none;
+  border-color: #86a17c;
+  box-shadow: 0 0 3px #64795d;
+}
+
 .error {
   height: 5px;
   margin-top: -5px;

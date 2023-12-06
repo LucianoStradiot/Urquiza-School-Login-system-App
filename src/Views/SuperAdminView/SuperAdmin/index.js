@@ -1,12 +1,19 @@
 import React from 'react';
-import Aside from '../../Components/Shared/Aside';
+import Aside from '../../../Components/Shared/Aside';
 import styles from './superAdmin.module.css';
+import Modal from '../../../Components/Shared/Modal';
 import { BiCheck, BiX } from 'react-icons/bi';
+import { useModalContext } from '../../../Components/Contexts';
 
 const SuperAdmin = () => {
+  const { modalState, closeModal } = useModalContext();
+
   return (
     <>
       <Aside page={'super-admin'} />
+      {modalState.isOpen && (
+        <Modal description={modalState.description} isOpen={modalState.isOpen} close={closeModal} />
+      )}
       <section className={styles.container}>
         <div className={styles.tableContainer}>
           <table className={styles.contTable}>
