@@ -42,7 +42,7 @@ const SignUp = () => {
         description: 'Super Admin registrado correctamente',
         chooseModal: false
       });
-      navigate('/');
+      navigate('/super-admin/administracion');
     } catch (err) {
       console.log(err.response);
       if (err.response && err.response.status === 422) {

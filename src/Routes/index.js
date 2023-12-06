@@ -73,6 +73,10 @@ const router = createBrowserRouter([
     element: <SuperAdminView />,
     children: [
       {
+        path: '/super-admin',
+        element: <Home />
+      },
+      {
         path: '/super-admin/administracion',
         element: <SuperAdmin />
       }

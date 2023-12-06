@@ -280,9 +280,9 @@ const Aside = ({ page }) => {
                   <ul className={styles.rutes}>
                     <li>
                       <Link
-                        to="/super-admin"
+                        to="/super-admin/administracion"
                         className={`${
-                          activeButton === 'super-admin'
+                          activeButton === 'super-admin/administracion'
                             ? styles.activeBtn
                             : `${styles.btn} ${styles.btnLanding}`
                         }`}
@@ -292,9 +292,9 @@ const Aside = ({ page }) => {
                     </li>
                     <li>
                       <Link
-                        to="/"
+                        to="/super-admin"
                         className={`${
-                          activeButton === 'home'
+                          activeButton === 'super-admin'
                             ? styles.activeBtn
                             : `${styles.btn} ${styles.btnLanding}`
                         }`}
@@ -433,7 +433,7 @@ const Aside = ({ page }) => {
           >
             <ul className={styles.ruteSAdmin}>
               <li>
-                <Link to="/" className={`${styles.btn} ${styles.btnLanding}`}>
+                <Link to="/super-admin" className={`${styles.btn} ${styles.btnLanding}`}>
                   Home
                 </Link>
               </li>

@@ -41,7 +41,6 @@ const SignUp = () => {
       const { data } = await axiosClient.post('/signup', payload);
       setStudent(data.student);
       setTokenAndRole(data.token, data.student.career);
-
       openModal({
         description: 'Usuario registrado correctamente',
         chooseModal: false
