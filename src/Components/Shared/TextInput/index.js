@@ -6,6 +6,7 @@ const TextInput = ({
   input,
   children,
   nameSelect,
+  inputType,
   refrerence,
   placeholderText,
   error
@@ -18,6 +19,7 @@ const TextInput = ({
           className={`${error ? `${styles.input} ${styles.errorBorder}` : styles.input}`}
           ref={refrerence}
           placeholder={placeholderText}
+          type={inputType}
         />
       ) : (
         <>

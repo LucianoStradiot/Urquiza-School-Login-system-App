@@ -3,17 +3,18 @@ import { useContext, useState, createContext } from 'react';
 const StateContext = createContext({
   student: null,
   superAdmin: null,
-  token: null,
+  saveToken: { token: null },
   role: null,
   setStudent: () => {},
   setSuperAdmin: () => {},
-  setToken: () => {},
-  setRole: () => {}
+  setTokenAndRole: () => {},
+  setSaveToken: () => {}
 });
 
 export const ContextProvider = ({ children }) => {
   const [student, setStudent] = useState({});
   const [superAdmin, setSuperAdmin] = useState({});
+  const [saveToken, _setSaveToken] = useState({ token: null });
   const [token, _setToken] = useState(sessionStorage.getItem('ACCESS_TOKEN'));
   const [role, setRole] = useState(sessionStorage.getItem('role'));
 
@@ -25,13 +26,29 @@ export const ContextProvider = ({ children }) => {
       sessionStorage.setItem('role', role);
     } else {
       sessionStorage.removeItem('ACCESS_TOKEN');
-      sessionStorage.removeItemItem('role');
+      sessionStorage.removeItem('role');
+    }
+  };
+
+  const setSaveToken = (token) => {
+    if (token) {
+      _setSaveToken({ token });
     }
   };
 
   return (
     <StateContext.Provider
-      value={{ student, superAdmin, token, role, setStudent, setSuperAdmin, setTokenAndRole }}
+      value={{
+        student,
+        superAdmin,
+        token,
+        role,
+        saveToken,
+        setStudent,
+        setSaveToken,
+        setSuperAdmin,
+        setTokenAndRole
+      }}
     >
       {children}
     </StateContext.Provider>
