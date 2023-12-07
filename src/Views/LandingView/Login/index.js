@@ -10,7 +10,7 @@ import axiosClient from '../../../Components/Shared/Axios';
 import { useStateContext, useModalContext } from '../../../Components/Contexts';
 
 const Login = () => {
-  const { openModal } = useModalContext();
+  const { openModal, modalState } = useModalContext();
   const { setUser, setTokenAndRole } = useStateContext();
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
@@ -31,8 +31,6 @@ const Login = () => {
     setIsLoading(true);
     setErrors({});
     try {
-      // eslint-disable-next-line no-debugger
-      debugger;
       const { data } = await axiosClient.post('/login', payload);
       if (data.user.career === 'SA') {
         setUser(data.user);
@@ -81,8 +79,8 @@ const Login = () => {
   return (
     <>
       {isLoading && <Spinner />}
-      <Modal />
       <Aside page={'home'} />
+      {modalState.isOpen && modalState.chooseModal === false ? <Modal /> : null}
       <main>
         <section className={styles.container}>
           <div className={styles.subContainer}>

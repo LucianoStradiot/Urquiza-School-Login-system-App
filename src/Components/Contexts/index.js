@@ -1,19 +1,21 @@
+/* eslint-disable no-debugger */
 import { useContext, useState, createContext } from 'react';
 
 const StateContext = createContext({
   user: null,
   role: null,
   setUser: () => {},
-  setTokenAndRole: () => {}
+  setTokenAndRole: () => {},
+  setUserHeader: () => {}
 });
 
 export const ContextProvider = ({ children }) => {
-  const [user, setUser] = useState({});
-  const [token, _setToken] = useState(sessionStorage.getItem('ACCESS_TOKEN'));
+  const [user, setUser] = useState(sessionStorage.getItem('user'));
+  const [token, setToken] = useState(sessionStorage.getItem('ACCESS_TOKEN'));
   const [role, setRole] = useState(sessionStorage.getItem('role'));
 
   const setTokenAndRole = (token, role) => {
-    _setToken(token);
+    setToken(token);
     setRole(role);
     if (token && role) {
       sessionStorage.setItem('ACCESS_TOKEN', token);

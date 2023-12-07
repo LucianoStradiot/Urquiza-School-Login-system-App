@@ -79,6 +79,14 @@ const router = createBrowserRouter([
       {
         path: '/super-admin/administracion',
         element: <SuperAdmin />
+      },
+      {
+        path: '/super-admin/carreras',
+        element: <Carreras />
+      },
+      {
+        path: '/super-admin/inscripciones',
+        element: <Inscripciones />
       }
     ]
   },

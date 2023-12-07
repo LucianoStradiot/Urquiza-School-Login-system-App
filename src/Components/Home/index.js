@@ -9,9 +9,9 @@ const Home = () => {
   return (
     <>
       <Aside page={'home'} />
-      {modalState.isOpen && (
+      {modalState.isOpen && modalState.chooseModal === false ? (
         <Modal description={modalState.description} isOpen={modalState.isOpen} close={closeModal} />
-      )}
+      ) : null}
       <main>
         <section className={styles.container}>
           <div className={styles.title}>Bienvenidos</div>
