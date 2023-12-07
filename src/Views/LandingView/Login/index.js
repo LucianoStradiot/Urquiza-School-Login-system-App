@@ -11,12 +11,11 @@ import { useStateContext, useModalContext } from '../../../Components/Contexts';
 
 const Login = () => {
   const { openModal } = useModalContext();
-  const { setStudent, setTokenAndRole } = useStateContext();
+  const { setUser, setTokenAndRole } = useStateContext();
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const emailRef = useRef();
   const passwordRef = useRef();
-
   const [errors, setErrors] = useState({
     email: null,
     password: null
@@ -29,40 +28,45 @@ const Login = () => {
       password: passwordRef.current.value
     };
     console.log(payload);
-    /* setIsLoading(true); */
+    setIsLoading(true);
     setErrors({});
     try {
+      // eslint-disable-next-line no-debugger
+      debugger;
       const { data } = await axiosClient.post('/login', payload);
-      /* if (payload.email === 'superadmin@terciariourquiza.edu.ar') {
-        setSuperAdmin(data.setSuperAdmin);
-        setTokenAndRole(data.token, data.superAdmin.career);
+      if (data.user.career === 'SA') {
+        setUser(data.user);
+        setTokenAndRole(data.token, data.user.career);
         openModal({
           description: 'Sesión iniciada correctamente',
           chooseModal: false
         });
         navigate('/super-admin/administracion');
-      } else { */
-      setStudent(data.student);
-      setTokenAndRole(data.token, data.student.career);
-      openModal({
-        description: 'Sesión iniciada correctamente',
-        chooseModal: false
-      });
-      navigate('/alumno/profile');
+      } else {
+        setUser(data.user);
+        setTokenAndRole(data.token, data.user.career);
+        openModal({
+          description: 'Sesión iniciada correctamente',
+          chooseModal: false
+        });
+        navigate('/alumno/profile');
+      }
     } catch (err) {
-      console.log(err.response.data.message);
-
       if (err.response && err.response.status === 422) {
-        const { data: apiErrors } = err.response;
+        const apiErrors = err.response;
 
-        if (apiErrors.errors) {
+        if (apiErrors.data.errors) {
           setErrors({
             email: apiErrors.errors.email?.[0],
             password: apiErrors.errors.password?.[0]
           });
-        } else if (apiErrors.message) {
+        } else if (apiErrors.data.messageEmail) {
           setErrors({
-            email: [apiErrors.message]
+            email: [apiErrors.data.messageEmail]
+          });
+        } else {
+          setErrors({
+            password: [apiErrors.data.messagePassword]
           });
         }
       }

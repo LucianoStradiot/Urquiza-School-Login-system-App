@@ -1,20 +1,14 @@
 import { useContext, useState, createContext } from 'react';
 
 const StateContext = createContext({
-  student: null,
-  superAdmin: null,
-  saveToken: { token: null },
+  user: null,
   role: null,
-  setStudent: () => {},
-  setSuperAdmin: () => {},
-  setTokenAndRole: () => {},
-  setSaveToken: () => {}
+  setUser: () => {},
+  setTokenAndRole: () => {}
 });
 
 export const ContextProvider = ({ children }) => {
-  const [student, setStudent] = useState({});
-  const [superAdmin, setSuperAdmin] = useState({});
-  const [saveToken, _setSaveToken] = useState({ token: null });
+  const [user, setUser] = useState({});
   const [token, _setToken] = useState(sessionStorage.getItem('ACCESS_TOKEN'));
   const [role, setRole] = useState(sessionStorage.getItem('role'));
 
@@ -30,23 +24,13 @@ export const ContextProvider = ({ children }) => {
     }
   };
 
-  const setSaveToken = (token) => {
-    if (token) {
-      _setSaveToken({ token });
-    }
-  };
-
   return (
     <StateContext.Provider
       value={{
-        student,
-        superAdmin,
+        user,
         token,
         role,
-        saveToken,
-        setStudent,
-        setSaveToken,
-        setSuperAdmin,
+        setUser,
         setTokenAndRole
       }}
     >

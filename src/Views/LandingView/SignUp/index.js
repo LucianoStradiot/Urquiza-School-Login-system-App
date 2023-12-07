@@ -11,7 +11,7 @@ import { useStateContext, useModalContext } from '../../../Components/Contexts';
 
 const SignUp = () => {
   const { openModal } = useModalContext();
-  const { setStudent } = useStateContext();
+  const { setUser } = useStateContext();
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const nameRef = useRef();
@@ -38,7 +38,7 @@ const SignUp = () => {
     setErrors({});
     try {
       const { data } = await axiosClient.post('/signup', payload);
-      setStudent(data.student);
+      setUser(data.user);
       openModal({
         description: 'Usuario registrado correctamente',
         chooseModal: false
