@@ -8,6 +8,7 @@ axiosClient.interceptors.request.use((config) => {
   const token = sessionStorage.getItem('ACCESS_TOKEN');
   const role = sessionStorage.getItem('role');
 
+  axios.defaults.withXSRFToken = true;
   config.headers.Authorization = `Bearer ${token}`;
   config.headers['X-User-Role'] = role;
 

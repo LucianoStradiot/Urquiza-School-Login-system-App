@@ -5,11 +5,13 @@ import { useStateContext } from '../../Contexts';
 import axiosClient from '../Axios';
 import { useModalContext } from '../../Contexts';
 import Modal from '../Modal';
+import Spinner from '../Spinner';
 
 const Aside = ({ page }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const [activeButton, setActiveButton] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const { token, setUser, setTokenAndRole } = useStateContext();
   const { openModal } = useModalContext();
@@ -21,23 +23,27 @@ const Aside = ({ page }) => {
   const onLogout = (e) => {
     e.preventDefault();
 
+    const clickLogout = async () => {
+      setIsLoading(true);
+      try {
+        await axiosClient.post('/logout');
+        setUser({});
+        setTokenAndRole(null, null);
+        navigate('/');
+      } catch (error) {
+        console.error('Logout failed:', error);
+      }
+    };
+
     openModal({
       title: 'Cerrar Sesión',
       description: '¿Está seguro que desea cerrar sesión?',
       confirmBtn: 'Sí',
       denyBtn: 'No',
       chooseModal: true,
-      onClick: async () => {
-        try {
-          await axiosClient.post('/logout');
-          setUser({});
-          setTokenAndRole(null, null);
-          navigate('/');
-        } catch (error) {
-          console.error('Logout failed:', error);
-        }
-      }
+      onClick: clickLogout
     });
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -48,6 +54,7 @@ const Aside = ({ page }) => {
   return page === 'home' ? (
     sessionStorage.getItem('role') === 'DS' && token ? (
       <>
+        {isLoading && <Spinner />}
         <Modal />
         <aside className={`${styles.aside} ${styles.asideDs}`}>
           <div className={styles.asideSubContainer}>
@@ -123,6 +130,7 @@ const Aside = ({ page }) => {
       </>
     ) : sessionStorage.getItem('role') === 'AF' && token ? (
       <>
+        {isLoading && <Spinner />}
         <Modal />
         <aside className={`${styles.aside} ${styles.asideAf}`}>
           <div className={styles.asideSubContainer}>
@@ -198,6 +206,7 @@ const Aside = ({ page }) => {
       </>
     ) : sessionStorage.getItem('role') === 'ITI' && token ? (
       <>
+        {isLoading && <Spinner />}
         <Modal />
         <aside className={`${styles.aside} ${styles.asideIti}`}>
           <div className={styles.asideSubContainer}>
@@ -298,6 +307,7 @@ const Aside = ({ page }) => {
             </div>
             {sessionStorage.getItem('role') === 'SA' && token ? (
               <>
+                {isLoading && <Spinner />}
                 <Modal />
                 <nav
                   className={`${
@@ -432,6 +442,7 @@ const Aside = ({ page }) => {
     )
   ) : page === 'super-admin' && token ? (
     <>
+      {isLoading && <Spinner />}
       <Modal />
       <aside className={styles.aside}>
         <div className={styles.asideSubContainer}>
