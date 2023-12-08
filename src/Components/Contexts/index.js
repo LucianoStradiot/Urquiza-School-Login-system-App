@@ -10,7 +10,10 @@ const StateContext = createContext({
 });
 
 export const ContextProvider = ({ children }) => {
-  const [user, setUser] = useState(sessionStorage.getItem('user'));
+  const [user, setUser] = useState(() => {
+    const storedUser = sessionStorage.getItem('user');
+    return storedUser ? JSON.parse(storedUser) : null;
+  });
   const [token, setToken] = useState(sessionStorage.getItem('ACCESS_TOKEN'));
   const [role, setRole] = useState(sessionStorage.getItem('role'));
 
@@ -26,12 +29,22 @@ export const ContextProvider = ({ children }) => {
     }
   };
 
+  const setUserHeader = (userData, token) => {
+    setUser(userData);
+    if (userData && token) {
+      sessionStorage.setItem('user', JSON.stringify(userData));
+    } else {
+      sessionStorage.removeItem('user');
+    }
+  };
+
   return (
     <StateContext.Provider
       value={{
         user,
         token,
         role,
+        setUserHeader,
         setUser,
         setTokenAndRole
       }}
