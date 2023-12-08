@@ -13,7 +13,7 @@ import LandingView from '../Views/LandingView';
 import AlumnoView from '../Views/AlumnoView';
 import SuperAdminView from '../Views/SuperAdminView';
 import SignUp from '../Views/LandingView/SignUp';
-import SignUpSuperAdmin from '../Views/LandingView/SignUp/SignUpSuperAdmin';
+/* import SignUpSuperAdmin from '../Views/LandingView/SignUp/SignUpSuperAdmin'; */
 
 const router = createBrowserRouter([
   {
@@ -28,10 +28,10 @@ const router = createBrowserRouter([
         path: '/signup',
         element: <SignUp />
       },
-      {
+      /* {
         path: '/signup/super-admin',
         element: <SignUpSuperAdmin />
-      },
+      }, */
       {
         path: '/login',
         element: <Login />
@@ -79,6 +79,14 @@ const router = createBrowserRouter([
       {
         path: '/super-admin/administracion',
         element: <SuperAdmin />
+      },
+      {
+        path: '/super-admin/carreras',
+        element: <Carreras />
+      },
+      {
+        path: '/super-admin/inscripciones',
+        element: <Inscripciones />
       }
     ]
   },

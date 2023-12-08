@@ -10,12 +10,12 @@ import { ContextProvider, ModalProvider } from './Components/Contexts';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <ContextProvider>
-      <ModalProvider>
+    <ModalProvider>
+      <ContextProvider>
         <Header />
         <RouterProvider router={router} />
         {/*  <Footer /> */}
-      </ModalProvider>
-    </ContextProvider>
+      </ContextProvider>
+    </ModalProvider>
   </React.StrictMode>
 );

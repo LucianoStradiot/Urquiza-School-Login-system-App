@@ -11,7 +11,7 @@ import { useStateContext, useModalContext } from '../../../Components/Contexts';
 
 const SignUp = () => {
   const { openModal } = useModalContext();
-  const { setStudent, setTokenAndRole } = useStateContext();
+  const { setUser } = useStateContext();
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const nameRef = useRef();
@@ -34,20 +34,17 @@ const SignUp = () => {
       password: passwordRef.current.value,
       career: careerRef.current.value
     };
-    console.log(payload);
     setIsLoading(true);
     setErrors({});
     try {
       const { data } = await axiosClient.post('/signup', payload);
-      setStudent(data.student);
-      setTokenAndRole(data.token, data.student.career);
+      setUser(data.user);
       openModal({
         description: 'Usuario registrado correctamente',
         chooseModal: false
       });
-      navigate('/alumno/profile');
+      navigate('/');
     } catch (err) {
-      console.log(err.response);
       if (err.response && err.response.status === 422) {
         const { errors: apiErrors } = err.response.data;
 

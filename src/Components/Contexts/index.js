@@ -1,37 +1,53 @@
+/* eslint-disable no-debugger */
 import { useContext, useState, createContext } from 'react';
 
 const StateContext = createContext({
-  student: null,
-  superAdmin: null,
-  token: null,
+  user: null,
   role: null,
-  setStudent: () => {},
-  setSuperAdmin: () => {},
-  setToken: () => {},
-  setRole: () => {}
+  setUser: () => {},
+  setTokenAndRole: () => {},
+  setUserHeader: () => {}
 });
 
 export const ContextProvider = ({ children }) => {
-  const [student, setStudent] = useState({});
-  const [superAdmin, setSuperAdmin] = useState({});
-  const [token, _setToken] = useState(sessionStorage.getItem('ACCESS_TOKEN'));
+  const [user, setUser] = useState(() => {
+    const storedUser = sessionStorage.getItem('user');
+    return storedUser ? JSON.parse(storedUser) : null;
+  });
+  const [token, setToken] = useState(sessionStorage.getItem('ACCESS_TOKEN'));
   const [role, setRole] = useState(sessionStorage.getItem('role'));
 
   const setTokenAndRole = (token, role) => {
-    _setToken(token);
+    setToken(token);
     setRole(role);
     if (token && role) {
       sessionStorage.setItem('ACCESS_TOKEN', token);
       sessionStorage.setItem('role', role);
     } else {
       sessionStorage.removeItem('ACCESS_TOKEN');
-      sessionStorage.removeItemItem('role');
+      sessionStorage.removeItem('role');
+    }
+  };
+
+  const setUserHeader = (userData, token) => {
+    setUser(userData);
+    if (userData && token) {
+      sessionStorage.setItem('user', JSON.stringify(userData));
+    } else {
+      sessionStorage.removeItem('user');
     }
   };
 
   return (
     <StateContext.Provider
-      value={{ student, superAdmin, token, role, setStudent, setSuperAdmin, setTokenAndRole }}
+      value={{
+        user,
+        token,
+        role,
+        setUserHeader,
+        setUser,
+        setTokenAndRole
+      }}
     >
       {children}
     </StateContext.Provider>

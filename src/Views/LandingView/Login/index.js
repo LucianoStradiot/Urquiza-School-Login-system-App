@@ -10,13 +10,12 @@ import axiosClient from '../../../Components/Shared/Axios';
 import { useStateContext, useModalContext } from '../../../Components/Contexts';
 
 const Login = () => {
-  const { openModal } = useModalContext();
-  const { setStudent, setTokenAndRole } = useStateContext();
+  const { openModal, modalState } = useModalContext();
+  const { setUser, setTokenAndRole } = useStateContext();
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const emailRef = useRef();
   const passwordRef = useRef();
-
   const [errors, setErrors] = useState({
     email: null,
     password: null
@@ -33,36 +32,44 @@ const Login = () => {
     setErrors({});
     try {
       const { data } = await axiosClient.post('/login', payload);
-      /* if (payload.email === 'superadmin@terciariourquiza.edu.ar') {
-        setSuperAdmin(data.setSuperAdmin);
-        setTokenAndRole(data.token, data.superAdmin.career);
+      if (data.user.career === 'SA') {
+        setUser(data.user);
+        setTokenAndRole(data.token, data.user.career);
         openModal({
           description: 'Sesión iniciada correctamente',
           chooseModal: false
         });
         navigate('/super-admin/administracion');
-      } else { */
-      setStudent(data.student);
-      setTokenAndRole(data.student, data.student.career);
-      openModal({
-        description: 'Sesión iniciada correctamente',
-        chooseModal: false
-      });
-      navigate('/alumno/profile');
-    } catch (err) {
-      // eslint-disable-next-line no-debugger
-      debugger;
-      console.log(err.response);
-      if (err.response && err.response.status === 422) {
-        const { errors: apiErrors } = err.response.data;
-
-        setErrors({
-          email: apiErrors.email?.[0] || null,
-          password: apiErrors.password?.[0] || null
+      } else {
+        setUser(data.user);
+        setTokenAndRole(data.token, data.user.career);
+        openModal({
+          description: 'Sesión iniciada correctamente',
+          chooseModal: false
         });
+        navigate('/alumno/profile');
+      }
+    } catch (err) {
+      if (err.response && err.response.status === 422) {
+        const apiErrors = err.response;
+
+        if (apiErrors.data.errors) {
+          setErrors({
+            email: apiErrors.errors.email?.[0],
+            password: apiErrors.errors.password?.[0]
+          });
+        } else if (apiErrors.data.messageEmail) {
+          setErrors({
+            email: [apiErrors.data.messageEmail]
+          });
+        } else {
+          setErrors({
+            password: [apiErrors.data.messagePassword]
+          });
+        }
       }
       openModal({
-        description: 'Se produjo un error en al iniciar sesión',
+        description: 'Se produjo un error al iniciar sesión',
         chooseModal: false
       });
     }
@@ -72,8 +79,8 @@ const Login = () => {
   return (
     <>
       {isLoading && <Spinner />}
-      <Modal />
       <Aside page={'home'} />
+      {modalState.isOpen && modalState.chooseModal === false ? <Modal /> : null}
       <main>
         <section className={styles.container}>
           <div className={styles.subContainer}>
@@ -91,6 +98,7 @@ const Login = () => {
                 input={'input'}
                 refrerence={passwordRef}
                 error={errors.password}
+                inputType={'password'}
               />
               <Link to="/recoverPassword" className={styles.password}>
                 <p>Olvidaste tu contraseña?</p>

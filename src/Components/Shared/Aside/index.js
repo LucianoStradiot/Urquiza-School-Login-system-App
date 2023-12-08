@@ -2,29 +2,53 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import styles from './aside.module.css';
 import { useStateContext } from '../../Contexts';
+import axiosClient from '../Axios';
+import { useModalContext } from '../../Contexts';
+import Modal from '../Modal';
 
 const Aside = ({ page }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const [activeButton, setActiveButton] = useState('');
   const [isOpen, setIsOpen] = useState(false);
-  const { token } = useStateContext();
+  const { token, setUser, setTokenAndRole } = useStateContext();
+  const { openModal } = useModalContext();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
-  const onLogout = () => {
-    navigate('/');
+  const onLogout = (e) => {
+    e.preventDefault();
+
+    openModal({
+      title: 'Cerrar Sesión',
+      description: '¿Está seguro que desea cerrar sesión?',
+      confirmBtn: 'Sí',
+      denyBtn: 'No',
+      chooseModal: true,
+      onClick: async () => {
+        try {
+          await axiosClient.post('/logout');
+          setUser({});
+          setTokenAndRole(null, null);
+          navigate('/');
+        } catch (error) {
+          console.error('Logout failed:', error);
+        }
+      }
+    });
   };
+
   useEffect(() => {
     const currentPath = location.pathname === '/' ? 'home' : location.pathname.substring(1);
     setActiveButton(currentPath);
-  }, []);
+  }, [location]);
 
   return page === 'home' ? (
     sessionStorage.getItem('role') === 'DS' && token ? (
       <>
+        <Modal />
         <aside className={`${styles.aside} ${styles.asideDs}`}>
           <div className={styles.asideSubContainer}>
             <img
@@ -52,8 +76,8 @@ const Aside = ({ page }) => {
                 </li>
                 <li>
                   <Link
-                    to="/"
-                    className={`${activeButton === 'home' ? styles.activeBtn : styles.btn}`}
+                    to="/alumno"
+                    className={`${activeButton === 'alumno' ? styles.activeBtn : styles.btn}`}
                   >
                     Home
                   </Link>
@@ -99,6 +123,7 @@ const Aside = ({ page }) => {
       </>
     ) : sessionStorage.getItem('role') === 'AF' && token ? (
       <>
+        <Modal />
         <aside className={`${styles.aside} ${styles.asideAf}`}>
           <div className={styles.asideSubContainer}>
             <img
@@ -126,8 +151,8 @@ const Aside = ({ page }) => {
                 </li>
                 <li>
                   <Link
-                    to="/"
-                    className={`${activeButton === 'home' ? styles.activeBtn : styles.btn}`}
+                    to="/alumno"
+                    className={`${activeButton === 'alumno' ? styles.activeBtn : styles.btn}`}
                   >
                     Home
                   </Link>
@@ -173,6 +198,7 @@ const Aside = ({ page }) => {
       </>
     ) : sessionStorage.getItem('role') === 'ITI' && token ? (
       <>
+        <Modal />
         <aside className={`${styles.aside} ${styles.asideIti}`}>
           <div className={styles.asideSubContainer}>
             <img
@@ -200,8 +226,8 @@ const Aside = ({ page }) => {
                 </li>
                 <li>
                   <Link
-                    to="/"
-                    className={`${activeButton === 'home' ? styles.activeBtn : styles.btn}`}
+                    to="/alumno"
+                    className={`${activeButton === 'alumno' ? styles.activeBtn : styles.btn}`}
                   >
                     Home
                   </Link>
@@ -272,6 +298,7 @@ const Aside = ({ page }) => {
             </div>
             {sessionStorage.getItem('role') === 'SA' && token ? (
               <>
+                <Modal />
                 <nav
                   className={`${
                     isOpen ? `${styles.activeMenu} ${styles.activeMenuSAHome}` : styles.menu
@@ -304,9 +331,9 @@ const Aside = ({ page }) => {
                     </li>
                     <li>
                       <Link
-                        to="/carreras"
+                        to="/super-admin/carreras"
                         className={`${
-                          activeButton === 'carreras'
+                          activeButton === 'super-admin/carreras'
                             ? styles.activeBtn
                             : `${styles.btn} ${styles.btnLanding}`
                         }`}
@@ -316,9 +343,9 @@ const Aside = ({ page }) => {
                     </li>
                     <li>
                       <Link
-                        to="/inscripciones"
+                        to="/super-admin/inscripciones"
                         className={`${
-                          activeButton === 'inscripciones'
+                          activeButton === 'super-admin/inscripciones'
                             ? styles.activeBtn
                             : `${styles.btn} ${styles.btnLanding}`
                         }`}
@@ -405,6 +432,7 @@ const Aside = ({ page }) => {
     )
   ) : page === 'super-admin' && token ? (
     <>
+      <Modal />
       <aside className={styles.aside}>
         <div className={styles.asideSubContainer}>
           <img

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+/* import React, { useRef, useState } from 'react';
 import styles from './signUpSuperAdmin.module.css';
 import { useNavigate } from 'react-router-dom';
 import axios from '../../../../Components/Shared/Axios';
@@ -12,13 +12,13 @@ import { useStateContext, useModalContext } from '../../../../Components/Context
 const SignUp = () => {
   const { openModal } = useModalContext();
   const [isLoading, setIsLoading] = useState(false);
+  const { setSuperAdmin, saveTokenAndRole } = useStateContext();
   const navigate = useNavigate();
 
   const emailRef = useRef();
   const passwordRef = useRef();
   const careerRef = useRef();
 
-  const { setSuperAdmin, setTokenAndRole } = useStateContext();
   const [errors, setErrors] = useState({
     email: null,
     password: null,
@@ -37,12 +37,12 @@ const SignUp = () => {
     try {
       const { data } = await axios.post('/signup/super-admin', payload);
       setSuperAdmin(data.superAdmin);
-      setTokenAndRole(data.token, data.superAdmin.career);
+      saveTokenAndRole(data.token, data.superAdmin.career);
       openModal({
         description: 'Super Admin registrado correctamente',
         chooseModal: false
       });
-      navigate('/super-admin/administracion');
+      navigate('/');
     } catch (err) {
       console.log(err.response);
       if (err.response && err.response.status === 422) {
@@ -109,3 +109,4 @@ const SignUp = () => {
 };
 
 export default SignUp;
+ */
