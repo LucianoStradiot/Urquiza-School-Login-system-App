@@ -1,15 +1,34 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Aside from '../../../Components/Shared/Aside';
 import styles from './superAdmin.module.css';
 import Modal from '../../../Components/Shared/Modal';
 import { BiCheck, BiX } from 'react-icons/bi';
 import { useModalContext } from '../../../Components/Contexts';
+import axiosClient from '../../../Components/Shared/Axios';
+import Spinner from '../../../Components/Shared/Spinner';
 
 const SuperAdmin = () => {
   const { modalState, closeModal } = useModalContext();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const getStudents = async () => {
+    setIsLoading(true);
+    try {
+      const { data } = await axiosClient.get('/super-admin');
+      console.log(data);
+    } catch (err) {
+      throw new Error();
+    }
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    getStudents();
+  }, []);
 
   return (
     <>
+      {isLoading && <Spinner />}
       <Aside page={'super-admin'} />
       {modalState.isOpen && (
         <Modal description={modalState.description} isOpen={modalState.isOpen} close={closeModal} />

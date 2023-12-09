@@ -54,8 +54,8 @@ const Login = () => {
 
         if (apiErrors.data.errors) {
           setErrors({
-            email: apiErrors.errors.email?.[0],
-            password: apiErrors.errors.password?.[0]
+            email: apiErrors.data.errors.email?.[0],
+            password: apiErrors.data.errors.password?.[0]
           });
         } else if (apiErrors.data.messageEmail) {
           setErrors({
