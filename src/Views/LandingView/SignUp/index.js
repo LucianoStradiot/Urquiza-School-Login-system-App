@@ -18,9 +18,11 @@ const SignUp = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
   const careerRef = useRef();
+  const dniRef = useRef();
 
   const [errors, setErrors] = useState({
     name: null,
+    dni: null,
     email: null,
     password: null,
     career: null
@@ -30,6 +32,7 @@ const SignUp = () => {
     e.preventDefault();
     const payload = {
       name: nameRef.current.value,
+      dni: dniRef.current.value,
       email: emailRef.current.value,
       password: passwordRef.current.value,
       career: careerRef.current.value
@@ -50,6 +53,7 @@ const SignUp = () => {
 
         setErrors({
           name: apiErrors.name?.[0] || null,
+          dni: apiErrors.dni?.[0] || null,
           email: apiErrors.email?.[0] || null,
           password: apiErrors.password?.[0] || null,
           career:
@@ -79,6 +83,13 @@ const SignUp = () => {
                 labelName={'Nombre'}
                 placeholderText={'Escribe tu nombre'}
                 error={errors.name}
+              />
+              <TextInput
+                input={'input'}
+                refrerence={dniRef}
+                labelName={'DNI'}
+                placeholderText={'Escribe tu DNI'}
+                error={errors.dni}
               />
               <TextInput
                 input={'input'}
