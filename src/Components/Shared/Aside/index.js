@@ -38,8 +38,8 @@ const Aside = ({ page }) => {
     openModal({
       title: 'Cerrar Sesión',
       description: '¿Está seguro que desea cerrar sesión?',
-      confirmBtn: 'Sí',
-      denyBtn: 'No',
+      confirmBtn: 'Aceptar',
+      denyBtn: 'Cancelar',
       chooseModal: true,
       onClick: clickLogout
     });
