@@ -10,6 +10,7 @@ import Spinner from '../../../Components/Shared/Spinner';
 const SuperAdmin = () => {
   const { openModal, modalState, closeModal } = useModalContext();
   const [isLoading, setIsLoading] = useState(false);
+  const [scrollBar, setScrollBar] = useState(false);
   const [students, setStudents] = useState([]);
 
   const getStudents = async () => {
@@ -18,17 +19,15 @@ const SuperAdmin = () => {
       const { data } = await axiosClient.get('/super-admin/administration');
       setStudents(data.data);
     } catch (err) {
-      throw new Error();
+      console.error('Error en la solicitud:', err);
     }
     setIsLoading(false);
   };
 
   const onDelete = async (s) => {
-    console.log('Student object:', s);
     const clickDelete = async () => {
       setIsLoading(true);
       try {
-        console.log('Deleting student with ID:', s.id);
         await axiosClient.delete(`/super-admin/administration/${s.id}`);
         getStudents();
         openModal({
@@ -55,6 +54,7 @@ const SuperAdmin = () => {
 
   useEffect(() => {
     getStudents();
+    setScrollBar(true);
   }, []);
 
   return (
@@ -75,7 +75,13 @@ const SuperAdmin = () => {
                 <th className={styles.thTable}>Email</th>
                 <th className={styles.thTable}>Carrera</th>
                 <th className={styles.thTable}>Fecha de creación</th>
-                <th className={`${styles.thTable} ${styles.headers} ${styles.borderRight}`}></th>
+                <th
+                  className={
+                    !scrollBar
+                      ? `${styles.thTable} ${styles.headers} ${styles.borderRight}`
+                      : `${styles.thTable} ${styles.headers} `
+                  }
+                ></th>
               </tr>
             </thead>
             <tbody className={styles.tbody}>
@@ -85,7 +91,15 @@ const SuperAdmin = () => {
                   <td className={styles.thTable}>{s.name}</td>
                   <td className={styles.thTable}>{s.dni}</td>
                   <td className={styles.thTable}>{s.email}</td>
-                  <td className={styles.thTable}>{s.career}</td>
+                  <td className={styles.thTable}>
+                    {s.career === 'AF'
+                      ? 'Analista Funcional'
+                      : s.career === 'DS'
+                      ? 'Desarrollo de Software'
+                      : s.career === 'ITI'
+                      ? 'Tecnologías de la Información'
+                      : null}
+                  </td>
                   <td className={styles.thTable}>{s.created_at}</td>
                   <td className={styles.thTable}>
                     <BiCheck className={styles.check} />
