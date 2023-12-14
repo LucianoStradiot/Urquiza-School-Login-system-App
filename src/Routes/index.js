@@ -28,10 +28,6 @@ const router = createBrowserRouter([
         path: '/signup',
         element: <SignUp />
       },
-      /* {
-        path: '/signup/super-admin',
-        element: <SignUpSuperAdmin />
-      }, */
       {
         path: '/login',
         element: <Login />

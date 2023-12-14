@@ -19,7 +19,6 @@ const SignUp = () => {
   const passwordRef = useRef();
   const careerRef = useRef();
   const dniRef = useRef();
-
   const [errors, setErrors] = useState({
     name: null,
     dni: null,
