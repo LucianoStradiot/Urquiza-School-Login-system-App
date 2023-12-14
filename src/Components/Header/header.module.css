@@ -10,7 +10,7 @@
   width: 100%;
   min-height: 100vh;
   background-image: linear-gradient(rgba(255, 255, 255, 0.357), rgba(255, 255, 255, 0.397)),
-    url('../../../public/assets/wallpaper.png');
+    url('../../../public/assets/images/wallpaper.png');
   background-position: center;
   background-size: cover;
   z-index: -1;

@@ -17,7 +17,7 @@ const Home = () => {
           <div className={styles.title}>Bienvenidos</div>
           <div className={styles.subContainer}>
             <img
-              src={`${process.env.PUBLIC_URL}/assets/urquizaSchool.jpg`}
+              src={`${process.env.PUBLIC_URL}/assets/images/urquizaSchool.jpg`}
               alt="urquiza-school"
               className={styles.img}
             />
