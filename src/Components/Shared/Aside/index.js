@@ -58,7 +58,7 @@ const Aside = ({ page }) => {
         <Modal />
         <aside className={`${styles.aside} ${styles.asideDs}`}>
           <div className={styles.asideSubContainer}>
-            <img src="/assets/images/logoDs.png" alt="logo-DS" className={styles.logo} />
+            <img src="/assets/images/logoDS.png" alt="logo-DS" className={styles.logo} />
             <div className={styles.title}>Escuela Superior de Comercio N°49</div>
             <div className={styles.menuButton} onClick={toggleMenu}>
               <div className={`${isOpen ? styles.x1 : styles.bar}`}></div>
@@ -130,7 +130,7 @@ const Aside = ({ page }) => {
         <Modal />
         <aside className={`${styles.aside} ${styles.asideAf}`}>
           <div className={styles.asideSubContainer}>
-            <img src="/assets/images/logoAf.png" alt="logo-AF" className={styles.logo} />
+            <img src="/assets/images/logoAF.png" alt="logo-AF" className={styles.logo} />
             <div className={styles.title}>Escuela Superior de Comercio N°49</div>
             <div className={styles.menuButton} onClick={toggleMenu}>
               <div className={`${isOpen ? styles.x1 : styles.bar}`}></div>
@@ -202,7 +202,7 @@ const Aside = ({ page }) => {
         <Modal />
         <aside className={`${styles.aside} ${styles.asideIti}`}>
           <div className={styles.asideSubContainer}>
-            <img src="/assets/images/logoIti.png" alt="logo-ITI" className={styles.logo} />
+            <img src="/assets/images/logoITI.png" alt="logo-ITI" className={styles.logo} />
             <div className={styles.title}>Escuela Superior de Comercio N°49</div>
             <div className={styles.menuButton} onClick={toggleMenu}>
               <div className={`${isOpen ? styles.x1 : styles.bar}`}></div>
