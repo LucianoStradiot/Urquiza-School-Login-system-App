@@ -13,7 +13,7 @@ import LandingView from '../Views/LandingView';
 import AlumnoView from '../Views/AlumnoView';
 import SuperAdminView from '../Views/SuperAdminView';
 import SignUp from '../Views/LandingView/SignUp';
-/* import SignUpSuperAdmin from '../Views/LandingView/SignUp/SignUpSuperAdmin'; */
+import RecoverPassword from '../Views/LandingView/Login/RecoverPassword';
 
 const router = createBrowserRouter([
   {
@@ -31,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: '/login',
         element: <Login />
+      },
+      {
+        path: '/recover-password',
+        element: <RecoverPassword />
       },
       {
         path: '/carreras',
