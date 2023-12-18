@@ -376,7 +376,7 @@ const Aside = ({ page }) => {
                       <Link
                         to="/login"
                         className={`${
-                          activeButton === 'login'
+                          activeButton === 'login' || activeButton === 'recover-password'
                             ? styles.activeBtn
                             : `${styles.btn} ${styles.btnLanding}`
                         }`}

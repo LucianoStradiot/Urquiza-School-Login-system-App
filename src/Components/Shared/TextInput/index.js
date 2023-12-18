@@ -7,6 +7,8 @@ const TextInput = ({
   children,
   nameSelect,
   inputType,
+  password,
+  description,
   refrerence,
   placeholderText,
   error
@@ -14,7 +16,17 @@ const TextInput = ({
   return (
     <div>
       <label className={styles.label}>{labelName}</label>
-      {input ? (
+      {password ? (
+        <>
+          <p>{description}</p>
+          <input
+            className={`${error ? `${styles.input} ${styles.errorBorder}` : styles.input}`}
+            ref={refrerence}
+            placeholder={placeholderText}
+            type={inputType}
+          />
+        </>
+      ) : input ? (
         <input
           className={`${error ? `${styles.input} ${styles.errorBorder}` : styles.input}`}
           ref={refrerence}

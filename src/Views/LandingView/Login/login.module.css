@@ -39,6 +39,10 @@
   text-decoration: none;
 }
 
+.password:hover {
+  text-shadow: 2px 4px 5px #000;
+  transition: text-shadow 0.1s ease-in-out;
+}
 @media only screen and (min-width: 1024px) {
   .container {
     top: 150px;
