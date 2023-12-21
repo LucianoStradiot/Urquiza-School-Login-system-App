@@ -8,7 +8,7 @@ import axiosClient from '../../../Components/Shared/Axios';
 import Spinner from '../../../Components/Shared/Spinner';
 
 const SuperAdmin = () => {
-  const { openModal, modalState, closeModal } = useModalContext();
+  const { openModal, modalState } = useModalContext();
   const [isLoading, setIsLoading] = useState(false);
   const [scrollBar, setScrollBar] = useState(false);
   const [students, setStudents] = useState([]);
@@ -25,50 +25,53 @@ const SuperAdmin = () => {
   };
 
   const onUpdateApprovalStatus = async (id, approved) => {
-    setIsLoading(true);
     try {
-      await axiosClient.patch(`/students/${id}`, { approved });
-      getStudents();
-      const approvalStatus = approved ? 'aprobado' : 'rechazado';
-      openModal({
-        description: `Estudiante ${approvalStatus} con éxito`
-      });
+      if (approved) {
+        openModal({
+          title: 'Aceptar',
+          description: '¿Está seguro que desea aceptar al usuario?',
+          confirmBtn: 'Aceptar',
+          denyBtn: 'Cancelar',
+          chooseModal: true,
+          onClick: async () => {
+            setIsLoading(true);
+            await axiosClient.patch(`/students/${id}`, { approved });
+            setStudents(students.filter((student) => student.id !== id));
+
+            setIsLoading(false);
+            openModal({
+              description: `Estudiante aceptado con éxito`
+            });
+          }
+        });
+      } else {
+        openModal({
+          title: 'Eliminación',
+          description: '¿Está seguro que desea eliminar al usuario?',
+          confirmBtn: 'Aceptar',
+          denyBtn: 'Cancelar',
+          chooseModal: true,
+          onClick: async () => {
+            setIsLoading(true);
+            await axiosClient.delete(`/students/delete/${id}`);
+            setStudents(students.filter((student) => student.id !== id));
+
+            setIsLoading(false);
+            openModal({
+              description: `Estudiante rechazado con éxito`
+            });
+          }
+        });
+      }
     } catch (err) {
-      if (err.response.status === 500) {
+      if (err.response && err.response.status === 500) {
         openModal({
           description: 'Ocurrió un error. Por favor, inténtelo de nuevo'
         });
       }
-    }
-    setIsLoading(false);
-  };
-
-  const onDelete = async (s) => {
-    const clickDelete = async () => {
-      setIsLoading(true);
-      try {
-        await axiosClient.delete(`/super-admin/administration/${s.id}`);
-        getStudents();
-        openModal({
-          description: 'Estudiante rechazado con éxito'
-        });
-      } catch (err) {
-        if (err.response === 500)
-          openModal({
-            description: 'Ocurrió un error. Por favor inténtelo de nuevo'
-          });
-      }
+    } finally {
       setIsLoading(false);
-    };
-
-    openModal({
-      title: 'Eliminación',
-      description: '¿Está seguro que desea eliminar al usuario?',
-      confirmBtn: 'Aceptar',
-      denyBtn: 'Cancelar',
-      chooseModal: true,
-      onClick: clickDelete
-    });
+    }
   };
 
   useEffect(() => {
@@ -80,9 +83,7 @@ const SuperAdmin = () => {
     <>
       {isLoading && <Spinner />}
       <Aside page={'super-admin'} />
-      {modalState.isOpen && (
-        <Modal description={modalState.description} isOpen={modalState.isOpen} close={closeModal} />
-      )}
+      {modalState.isOpen && <Modal />}
       <section className={styles.container}>
         <div className={styles.tableContainer}>
           <table className={styles.contTable}>
@@ -127,7 +128,6 @@ const SuperAdmin = () => {
                     />
                     <BiX
                       onClick={() => {
-                        onDelete(s);
                         onUpdateApprovalStatus(s.id, false);
                       }}
                       className={styles.delete}
@@ -144,9 +144,7 @@ const SuperAdmin = () => {
     <>
       <Aside page={'super-admin'} />
       {isLoading && <Spinner />}
-      {modalState.isOpen && (
-        <Modal description={modalState.description} isOpen={modalState.isOpen} close={closeModal} />
-      )}
+      {modalState.isOpen && <Modal />}
       <section className={styles.container}>
         <div className={styles.tableContainer}>
           <table className={styles.contTable}>

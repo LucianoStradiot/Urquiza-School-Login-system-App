@@ -38,7 +38,7 @@ const Login = () => {
           description: 'Sesión iniciada correctamente',
           chooseModal: false
         });
-        navigate('/super-admin/administracion');
+        navigate('/super-admin');
       } else {
         setUser(data.user);
         setTokenAndRole(data.token, data.user.career);
