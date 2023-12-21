@@ -6,12 +6,13 @@ import { useModalContext } from '../../Contexts';
 
 const Modal = () => {
   const { modalState, closeModal } = useModalContext();
-  const { isOpen, description, title, confirmBtn, denyBtn, chooseModal, onClick } = modalState;
+  const { isOpen, description, title, confirmBtn, denyBtn, chooseModal, confirmModal, onClick } =
+    modalState;
   const [isFadingOut, setIsFadingOut] = useState(false);
 
   useEffect(() => {
     let timer;
-    if (!chooseModal && isOpen) {
+    if (!chooseModal && !confirmModal && isOpen) {
       timer = setTimeout(() => {
         setIsFadingOut(false);
         setTimeout(() => {
@@ -24,7 +25,7 @@ const Modal = () => {
     return () => {
       clearTimeout(timer);
     };
-  }, [isOpen, chooseModal, closeModal]);
+  }, [isOpen, chooseModal, confirmModal, closeModal]);
 
   return isOpen ? (
     chooseModal ? (
@@ -37,6 +38,19 @@ const Modal = () => {
           <div className={styles.subTitle}>{description}</div>
           <div className={styles.btnsContainer}>
             <Button type="cancel" text={denyBtn} onClick={closeModal} />
+            <Button type="submit" text={confirmBtn} onClick={onClick} />
+          </div>
+        </div>
+      </div>
+    ) : confirmModal ? (
+      <div className={styles.container}>
+        <div className={styles.subContainer}>
+          <div className={styles.logoContainer}>
+            <BiErrorAlt className={styles.icon} />
+          </div>
+          <div className={styles.title}>{title.toUpperCase()}</div>
+          <div className={styles.subTitle}>{description}</div>
+          <div className={styles.btnsContainerConfirm}>
             <Button type="submit" text={confirmBtn} onClick={onClick} />
           </div>
         </div>

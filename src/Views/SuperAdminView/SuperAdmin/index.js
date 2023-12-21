@@ -24,6 +24,25 @@ const SuperAdmin = () => {
     setIsLoading(false);
   };
 
+  const onUpdateApprovalStatus = async (id, approved) => {
+    setIsLoading(true);
+    try {
+      await axiosClient.patch(`/students/${id}`, { approved });
+      getStudents();
+      const approvalStatus = approved ? 'aprobado' : 'rechazado';
+      openModal({
+        description: `Estudiante ${approvalStatus} con éxito`
+      });
+    } catch (err) {
+      if (err.response.status === 500) {
+        openModal({
+          description: 'Ocurrió un error. Por favor, inténtelo de nuevo'
+        });
+      }
+    }
+    setIsLoading(false);
+  };
+
   const onDelete = async (s) => {
     const clickDelete = async () => {
       setIsLoading(true);
@@ -57,7 +76,7 @@ const SuperAdmin = () => {
     setScrollBar(true);
   }, []);
 
-  return (
+  return students.length > 0 ? (
     <>
       {isLoading && <Spinner />}
       <Aside page={'super-admin'} />
@@ -102,13 +121,56 @@ const SuperAdmin = () => {
                   </td>
                   <td className={styles.thTable}>{s.created_at}</td>
                   <td className={styles.thTable}>
-                    <BiCheck className={styles.check} />
-                    <BiX onClick={() => onDelete(s)} className={styles.delete} />
+                    <BiCheck
+                      className={styles.check}
+                      onClick={() => onUpdateApprovalStatus(s.id, true)}
+                    />
+                    <BiX
+                      onClick={() => {
+                        onDelete(s);
+                        onUpdateApprovalStatus(s.id, false);
+                      }}
+                      className={styles.delete}
+                    />
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
+        </div>
+      </section>
+    </>
+  ) : (
+    <>
+      <Aside page={'super-admin'} />
+      {isLoading && <Spinner />}
+      {modalState.isOpen && (
+        <Modal description={modalState.description} isOpen={modalState.isOpen} close={closeModal} />
+      )}
+      <section className={styles.container}>
+        <div className={styles.tableContainer}>
+          <table className={styles.contTable}>
+            <thead className={styles.theadTable}>
+              <tr>
+                <th className={styles.thTable}>id</th>
+                <th className={styles.thTable}>Nombre</th>
+                <th className={styles.thTable}>DNI</th>
+                <th className={styles.thTable}>Email</th>
+                <th className={styles.thTable}>Carrera</th>
+                <th className={styles.thTable}>Fecha de creación</th>
+                <th
+                  className={
+                    !scrollBar
+                      ? `${styles.thTable} ${styles.headers} ${styles.borderRight}`
+                      : `${styles.thTable} ${styles.headers} `
+                  }
+                ></th>
+              </tr>
+            </thead>
+          </table>
+          <div className={styles.info}>
+            <p>No hay solicitudes entrantes.</p>
+          </div>
         </div>
       </section>
     </>

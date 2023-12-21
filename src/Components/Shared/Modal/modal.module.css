@@ -137,6 +137,11 @@
   margin-top: 30px;
 }
 
+.btnsContainerConfirm {
+  margin-top: 30px;
+  text-align: center;
+}
+
 @keyframes fadeInSelfClose {
   0% {
     opacity: 0;
