@@ -10,7 +10,7 @@ import axiosClient from '../../../Components/Shared/Axios';
 import { useStateContext, useModalContext } from '../../../Components/Contexts';
 
 const Login = () => {
-  const { openModal, modalState } = useModalContext();
+  const { openModal, modalState, closeModal } = useModalContext();
   const { setUser, setTokenAndRole } = useStateContext();
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
@@ -38,7 +38,7 @@ const Login = () => {
           description: 'Sesión iniciada correctamente',
           chooseModal: false
         });
-        navigate('/super-admin/administracion');
+        navigate('/super-admin');
       } else {
         setUser(data.user);
         setTokenAndRole(data.token, data.user.career);
@@ -66,11 +66,16 @@ const Login = () => {
             password: [apiErrors.data.messagePassword]
           });
         }
+        if (apiErrors.data.messageVerification) {
+          openModal({
+            title: 'Advertencia',
+            description: [apiErrors.data.messageVerification],
+            confirmBtn: 'Aceptar',
+            onClick: closeModal,
+            confirmModal: true
+          });
+        }
       }
-      openModal({
-        description: 'Se produjo un error al iniciar sesión',
-        chooseModal: false
-      });
     }
     setIsLoading(false);
   };
@@ -79,7 +84,11 @@ const Login = () => {
     <>
       {isLoading && <Spinner />}
       <Aside page={'home'} />
-      {modalState.isOpen && modalState.chooseModal === false ? <Modal /> : null}
+      {modalState.isOpen && modalState.chooseModal === false ? (
+        <Modal />
+      ) : modalState.isOpen && modalState.confirmModal === true ? (
+        <Modal />
+      ) : null}
       <main>
         <section className={styles.container}>
           <div className={styles.subContainer}>

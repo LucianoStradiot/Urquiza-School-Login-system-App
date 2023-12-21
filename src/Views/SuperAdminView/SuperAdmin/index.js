@@ -8,7 +8,7 @@ import axiosClient from '../../../Components/Shared/Axios';
 import Spinner from '../../../Components/Shared/Spinner';
 
 const SuperAdmin = () => {
-  const { openModal, modalState, closeModal } = useModalContext();
+  const { openModal, modalState } = useModalContext();
   const [isLoading, setIsLoading] = useState(false);
   const [scrollBar, setScrollBar] = useState(false);
   const [students, setStudents] = useState([]);
@@ -24,32 +24,54 @@ const SuperAdmin = () => {
     setIsLoading(false);
   };
 
-  const onDelete = async (s) => {
-    const clickDelete = async () => {
-      setIsLoading(true);
-      try {
-        await axiosClient.delete(`/super-admin/administration/${s.id}`);
-        getStudents();
+  const onUpdateApprovalStatus = async (id, approved) => {
+    try {
+      if (approved) {
         openModal({
-          description: 'Estudiante rechazado con éxito'
-        });
-      } catch (err) {
-        if (err.response === 500)
-          openModal({
-            description: 'Ocurrió un error. Por favor inténtelo de nuevo'
-          });
-      }
-      setIsLoading(false);
-    };
+          title: 'Aceptar',
+          description: '¿Está seguro que desea aceptar al usuario?',
+          confirmBtn: 'Aceptar',
+          denyBtn: 'Cancelar',
+          chooseModal: true,
+          onClick: async () => {
+            setIsLoading(true);
+            await axiosClient.patch(`/students/${id}`, { approved });
+            setStudents(students.filter((student) => student.id !== id));
 
-    openModal({
-      title: 'Eliminación',
-      description: '¿Está seguro que desea eliminar al usuario?',
-      confirmBtn: 'Aceptar',
-      denyBtn: 'Cancelar',
-      chooseModal: true,
-      onClick: clickDelete
-    });
+            setIsLoading(false);
+            openModal({
+              description: `Estudiante aceptado con éxito`
+            });
+          }
+        });
+      } else {
+        openModal({
+          title: 'Eliminación',
+          description: '¿Está seguro que desea eliminar al usuario?',
+          confirmBtn: 'Aceptar',
+          denyBtn: 'Cancelar',
+          chooseModal: true,
+          onClick: async () => {
+            setIsLoading(true);
+            await axiosClient.delete(`/students/delete/${id}`);
+            setStudents(students.filter((student) => student.id !== id));
+
+            setIsLoading(false);
+            openModal({
+              description: `Estudiante rechazado con éxito`
+            });
+          }
+        });
+      }
+    } catch (err) {
+      if (err.response && err.response.status === 500) {
+        openModal({
+          description: 'Ocurrió un error. Por favor, inténtelo de nuevo'
+        });
+      }
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -57,13 +79,11 @@ const SuperAdmin = () => {
     setScrollBar(true);
   }, []);
 
-  return (
+  return students.length > 0 ? (
     <>
       {isLoading && <Spinner />}
       <Aside page={'super-admin'} />
-      {modalState.isOpen && (
-        <Modal description={modalState.description} isOpen={modalState.isOpen} close={closeModal} />
-      )}
+      {modalState.isOpen && <Modal />}
       <section className={styles.container}>
         <div className={styles.tableContainer}>
           <table className={styles.contTable}>
@@ -102,13 +122,53 @@ const SuperAdmin = () => {
                   </td>
                   <td className={styles.thTable}>{s.created_at}</td>
                   <td className={styles.thTable}>
-                    <BiCheck className={styles.check} />
-                    <BiX onClick={() => onDelete(s)} className={styles.delete} />
+                    <BiCheck
+                      className={styles.check}
+                      onClick={() => onUpdateApprovalStatus(s.id, true)}
+                    />
+                    <BiX
+                      onClick={() => {
+                        onUpdateApprovalStatus(s.id, false);
+                      }}
+                      className={styles.delete}
+                    />
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
+        </div>
+      </section>
+    </>
+  ) : (
+    <>
+      <Aside page={'super-admin'} />
+      {isLoading && <Spinner />}
+      {modalState.isOpen && <Modal />}
+      <section className={styles.container}>
+        <div className={styles.tableContainer}>
+          <table className={styles.contTable}>
+            <thead className={styles.theadTable}>
+              <tr>
+                <th className={styles.thTable}>id</th>
+                <th className={styles.thTable}>Nombre</th>
+                <th className={styles.thTable}>DNI</th>
+                <th className={styles.thTable}>Email</th>
+                <th className={styles.thTable}>Carrera</th>
+                <th className={styles.thTable}>Fecha de creación</th>
+                <th
+                  className={
+                    !scrollBar
+                      ? `${styles.thTable} ${styles.headers} ${styles.borderRight}`
+                      : `${styles.thTable} ${styles.headers} `
+                  }
+                ></th>
+              </tr>
+            </thead>
+          </table>
+          <div className={styles.info}>
+            <p>No hay solicitudes entrantes.</p>
+          </div>
         </div>
       </section>
     </>
