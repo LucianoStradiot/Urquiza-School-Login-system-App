@@ -89,7 +89,6 @@ const SuperAdmin = () => {
           <table className={styles.contTable}>
             <thead className={styles.theadTable}>
               <tr>
-                <th className={styles.thTable}>id</th>
                 <th className={styles.thTable}>Nombre</th>
                 <th className={styles.thTable}>DNI</th>
                 <th className={styles.thTable}>Email</th>
@@ -107,7 +106,6 @@ const SuperAdmin = () => {
             <tbody className={styles.tbody}>
               {students.map((s, index) => (
                 <tr key={index} className={styles.rows}>
-                  <td className={styles.thTable}>{s.id}</td>
                   <td className={styles.thTable}>{s.name}</td>
                   <td className={styles.thTable}>{s.dni}</td>
                   <td className={styles.thTable}>{s.email}</td>
@@ -150,7 +148,6 @@ const SuperAdmin = () => {
           <table className={styles.contTable}>
             <thead className={styles.theadTable}>
               <tr>
-                <th className={styles.thTable}>id</th>
                 <th className={styles.thTable}>Nombre</th>
                 <th className={styles.thTable}>DNI</th>
                 <th className={styles.thTable}>Email</th>
