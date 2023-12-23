@@ -1,6 +1,6 @@
 # Urquiza´s school Sign-up/Login System
 
-This application is designed for Urquiza´s N°49 school of Rosario, Santa Fé, Argentina; and aims to organize and manage the different users (Professors and students) and a Super-admin that manage and give their role according to the respectives position in the school.
+This application is designed for Urquiza´s N°49 school of Rosario, Santa Fé, Argentina; and aims to organize and manage the different users (students) and a Super-admin that manage and give their role according to the respectives position in the school. The plan with this app is to add implementations as they are required by the client.
 
 ### Install dependencies
 
@@ -10,7 +10,7 @@ This application is designed for Urquiza´s N°49 school of Rosario, Santa Fé, 
 
 create a file at root called `.env` and add this:
 
-    REACT_APP_API=<server url>
+    REACT_APP_API_URL=<server url>
 
 ### Run App
 
