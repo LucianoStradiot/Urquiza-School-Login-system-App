@@ -115,7 +115,7 @@ const SignUp = () => {
                 </option>
                 <option value={'AF'}>Analista Funcional</option>
                 <option value={'DS'}>Desarrollo de Software</option>
-                <option value={'ITI'}>Infraestructura de la Tecnología</option>
+                <option value={'ITI'}>Tecnologías de la Información</option>
               </TextInput>
               <Link to="/recoverPassword" className={styles.password}>
                 <p>Olvidaste tu contraseña?</p>

@@ -71,7 +71,7 @@
   padding: 10px 15px;
   margin: 0 20px;
   box-shadow: 3px 3px 10px;
-  border-radius: 10px;
+  border-radius: 5px;
   background-color: #757474;
   animation: fadeInSelfClose 0.5s ease-in forwards;
 }
@@ -82,7 +82,7 @@
   padding: 10px 15px;
   margin: 0 20px;
   box-shadow: 3px 3px 10px;
-  border-radius: 10px;
+  border-radius: 5px;
   background-color: #757474;
   animation: fadeOutSelfClose 0.5s ease-in forwards;
 }

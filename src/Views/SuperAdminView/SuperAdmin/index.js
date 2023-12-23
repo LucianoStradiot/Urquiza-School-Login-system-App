@@ -12,6 +12,8 @@ const SuperAdmin = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [scrollBar, setScrollBar] = useState(false);
   const [students, setStudents] = useState([]);
+  const [filterQuery, setFilterQuery] = useState('');
+  const [filteredStudents, setFilteredStudents] = useState([]);
 
   const getStudents = async () => {
     setIsLoading(true);
@@ -24,12 +26,31 @@ const SuperAdmin = () => {
     setIsLoading(false);
   };
 
-  const onUpdateApprovalStatus = async (id, approved) => {
+  const applyFilter = (studentsToFilter) => {
+    const careerMapping = {
+      AF: 'Analista Funcional',
+      DS: 'Desarrollo de Software',
+      ITI: 'Tecnologias de la Información'
+    };
+
+    const filtered = studentsToFilter.filter((student) => {
+      const normalizedCareer = student.career.toUpperCase();
+      return (
+        student.dni.includes(filterQuery) ||
+        normalizedCareer.includes(filterQuery.toUpperCase()) ||
+        (careerMapping[normalizedCareer] &&
+          careerMapping[normalizedCareer].toLowerCase().includes(filterQuery.toLowerCase()))
+      );
+    });
+    setFilteredStudents(filtered);
+  };
+
+  const onUpdateApprovalStatus = async (id, name, approved) => {
     try {
       if (approved) {
         openModal({
           title: 'Aceptar',
-          description: '¿Está seguro que desea aceptar al usuario?',
+          description: `¿Está seguro que desea aceptar a ${name}?`,
           confirmBtn: 'Aceptar',
           denyBtn: 'Cancelar',
           chooseModal: true,
@@ -37,7 +58,6 @@ const SuperAdmin = () => {
             setIsLoading(true);
             await axiosClient.patch(`/students/${id}`, { approved });
             setStudents(students.filter((student) => student.id !== id));
-
             setIsLoading(false);
             openModal({
               description: `Estudiante aceptado con éxito`
@@ -47,7 +67,7 @@ const SuperAdmin = () => {
       } else {
         openModal({
           title: 'Eliminación',
-          description: '¿Está seguro que desea eliminar al usuario?',
+          description: `¿Está seguro que desea rechazar a ${name}?`,
           confirmBtn: 'Aceptar',
           denyBtn: 'Cancelar',
           chooseModal: true,
@@ -55,7 +75,6 @@ const SuperAdmin = () => {
             setIsLoading(true);
             await axiosClient.delete(`/students/delete/${id}`);
             setStudents(students.filter((student) => student.id !== id));
-
             setIsLoading(false);
             openModal({
               description: `Estudiante rechazado con éxito`
@@ -79,6 +98,10 @@ const SuperAdmin = () => {
     setScrollBar(true);
   }, []);
 
+  useEffect(() => {
+    applyFilter(students);
+  }, [filterQuery, students]);
+
   return students.length > 0 ? (
     <>
       {isLoading && <Spinner />}
@@ -100,39 +123,56 @@ const SuperAdmin = () => {
                       ? `${styles.thTable} ${styles.headers} ${styles.borderRight}`
                       : `${styles.thTable} ${styles.headers} `
                   }
-                ></th>
+                >
+                  <input
+                    className={styles.filter}
+                    placeholder="Ingrese DNI o Carrera"
+                    value={filterQuery}
+                    onChange={(e) => setFilterQuery(e.target.value)}
+                  />
+                </th>
               </tr>
             </thead>
             <tbody className={styles.tbody}>
-              {students.map((s, index) => (
-                <tr key={index} className={styles.rows}>
-                  <td className={styles.thTable}>{s.name}</td>
-                  <td className={styles.thTable}>{s.dni}</td>
-                  <td className={styles.thTable}>{s.email}</td>
-                  <td className={styles.thTable}>
-                    {s.career === 'AF'
-                      ? 'Analista Funcional'
-                      : s.career === 'DS'
-                      ? 'Desarrollo de Software'
-                      : s.career === 'ITI'
-                      ? 'Tecnologías de la Información'
-                      : null}
-                  </td>
-                  <td className={styles.thTable}>{s.created_at}</td>
-                  <td className={styles.thTable}>
-                    <BiCheck
-                      className={styles.check}
-                      onClick={() => onUpdateApprovalStatus(s.id, true)}
-                    />
-                    <BiX
-                      onClick={() => {
-                        onUpdateApprovalStatus(s.id, false);
-                      }}
-                      className={styles.delete}
-                    />
+              {filteredStudents.length > 0 ? (
+                filteredStudents.map((s, index) => (
+                  <tr key={index} className={styles.rows}>
+                    <td className={styles.thTable}>{s.name}</td>
+                    <td className={styles.thTable}>{s.dni}</td>
+                    <td className={styles.thTable}>{s.email}</td>
+                    <td className={styles.thTable}>
+                      {s.career === 'AF'
+                        ? 'Analista Funcional'
+                        : s.career === 'DS'
+                        ? 'Desarrollo de Software'
+                        : s.career === 'ITI'
+                        ? 'Tecnologías de la Información'
+                        : null}
+                    </td>
+                    <td className={styles.thTable}>{s.created_at}</td>
+                    <td className={styles.thTable}>
+                      <BiCheck
+                        className={styles.check}
+                        onClick={() => onUpdateApprovalStatus(s.id, s.name, true)}
+                      />
+                      <BiX
+                        onClick={() => {
+                          onUpdateApprovalStatus(s.id, s.name, false);
+                        }}
+                        className={styles.delete}
+                      />
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="6">
+                    <div className={styles.info}>
+                      <p>No se encontraron resultados.</p>
+                    </div>
                   </td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
         </div>
@@ -159,7 +199,14 @@ const SuperAdmin = () => {
                       ? `${styles.thTable} ${styles.headers} ${styles.borderRight}`
                       : `${styles.thTable} ${styles.headers} `
                   }
-                ></th>
+                >
+                  <input
+                    className={styles.filter}
+                    placeholder="Ingrese DNI o Carrera"
+                    value={filterQuery}
+                    onChange={(e) => setFilterQuery(e.target.value)}
+                  />
+                </th>
               </tr>
             </thead>
           </table>
