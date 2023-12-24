@@ -65,7 +65,11 @@ const Aside = ({ page }) => {
               <div className={`${isOpen ? styles.x2 : styles.bar} `}></div>
               <div className={`${isOpen ? '' : styles.bar} `}></div>
             </div>
-            <nav className={`${isOpen ? styles.activeMenu : styles.menu}`}>
+            <nav
+              className={`${
+                isOpen ? `${styles.activeMenu} ${styles.activeMenuStudents}` : styles.menu
+              }`}
+            >
               <ul className={styles.rutes}>
                 <li>
                   <Link
@@ -106,7 +110,7 @@ const Aside = ({ page }) => {
                   </Link>
                 </li>
               </ul>
-              <div>
+              <div className={styles.logout}>
                 <li>
                   <a
                     className={`${
@@ -137,7 +141,11 @@ const Aside = ({ page }) => {
               <div className={`${isOpen ? styles.x2 : styles.bar} `}></div>
               <div className={`${isOpen ? '' : styles.bar} `}></div>
             </div>
-            <nav className={`${isOpen ? styles.activeMenu : styles.menu}`}>
+            <nav
+              className={`${
+                isOpen ? `${styles.activeMenu} ${styles.activeMenuStudents}` : styles.menu
+              }`}
+            >
               <ul className={styles.rutes}>
                 <li>
                   <Link
@@ -178,7 +186,7 @@ const Aside = ({ page }) => {
                   </Link>
                 </li>
               </ul>
-              <div>
+              <div className={styles.logout}>
                 <li>
                   <a
                     className={`${
@@ -209,7 +217,11 @@ const Aside = ({ page }) => {
               <div className={`${isOpen ? styles.x2 : styles.bar} `}></div>
               <div className={`${isOpen ? '' : styles.bar} `}></div>
             </div>
-            <nav className={`${isOpen ? styles.activeMenu : styles.menu}`}>
+            <nav
+              className={`${
+                isOpen ? `${styles.activeMenu} ${styles.activeMenuStudents}` : styles.menu
+              }`}
+            >
               <ul className={styles.rutes}>
                 <li>
                   <Link

@@ -2,6 +2,28 @@
   display: none;
 }
 
+.container2 {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-left: 5px;
+  position: fixed;
+  top: 140px;
+  padding: 5px 20px;
+  border-radius: 5px;
+  box-sizing: border-box;
+  background-color: aliceblue;
+  box-shadow: 3px 5px 6px #000000b8;
+  z-index: 1;
+}
+
+.namesTitle {
+  width: 100%;
+  font-size: 20px;
+  font-weight: 500;
+  font-style: italic;
+}
+
 .wallpaper {
   display: flex;
   flex-direction: column;

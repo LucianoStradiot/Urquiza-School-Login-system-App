@@ -1,6 +1,6 @@
 .container {
   position: relative;
-  top: 170px;
+  top: 190px;
 }
 
 .subContainer {
@@ -31,7 +31,7 @@
 
 @media only screen and (min-width: 1024px) {
   .container {
-    top: 150px;
+    top: 170px;
   }
   .subContainer {
     align-items: center;

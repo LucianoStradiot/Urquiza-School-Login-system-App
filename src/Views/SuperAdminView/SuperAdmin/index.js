@@ -11,6 +11,7 @@ const SuperAdmin = () => {
   const { openModal, modalState } = useModalContext();
   const [isLoading, setIsLoading] = useState(false);
   const [scrollBar, setScrollBar] = useState(false);
+  const [redimension, setRedimension] = useState(false);
   const [students, setStudents] = useState([]);
   const [filterQuery, setFilterQuery] = useState('');
   const [filteredStudents, setFilteredStudents] = useState([]);
@@ -96,6 +97,14 @@ const SuperAdmin = () => {
   useEffect(() => {
     getStudents();
     setScrollBar(true);
+    setRedimension(window.innerWidth < 1024);
+    const handleResize = () => {
+      setRedimension(window.innerWidth < 1024);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   useEffect(() => {
@@ -112,11 +121,21 @@ const SuperAdmin = () => {
           <table className={styles.contTable}>
             <thead className={styles.theadTable}>
               <tr>
-                <th className={styles.thTable}>Nombre</th>
-                <th className={styles.thTable}>DNI</th>
-                <th className={styles.thTable}>Email</th>
-                <th className={styles.thTable}>Carrera</th>
-                <th className={styles.thTable}>Fecha de creación</th>
+                {redimension ? (
+                  <>
+                    <th className={styles.thTable}>Nombre</th>
+                    <th className={styles.thTable}>DNI</th>
+                    <th className={styles.thTable}>Carrera</th>
+                  </>
+                ) : (
+                  <>
+                    <th className={styles.thTable}>Nombre</th>
+                    <th className={styles.thTable}>DNI</th>
+                    <th className={styles.thTable}>Email</th>
+                    <th className={styles.thTable}>Carrera</th>
+                    <th className={styles.thTable}>Fecha de creación</th>
+                  </>
+                )}
                 <th
                   className={
                     !scrollBar
@@ -137,19 +156,29 @@ const SuperAdmin = () => {
               {filteredStudents.length > 0 ? (
                 filteredStudents.map((s, index) => (
                   <tr key={index} className={styles.rows}>
-                    <td className={styles.thTable}>{s.name}</td>
-                    <td className={styles.thTable}>{s.dni}</td>
-                    <td className={styles.thTable}>{s.email}</td>
-                    <td className={styles.thTable}>
-                      {s.career === 'AF'
-                        ? 'Analista Funcional'
-                        : s.career === 'DS'
-                        ? 'Desarrollo de Software'
-                        : s.career === 'ITI'
-                        ? 'Tecnologías de la Información'
-                        : null}
-                    </td>
-                    <td className={styles.thTable}>{s.created_at}</td>
+                    {redimension ? (
+                      <>
+                        <td className={styles.thTable}>{s.name}</td>
+                        <td className={styles.thTable}>{s.dni}</td>
+                        <td className={styles.thTable}>{s.career}</td>
+                      </>
+                    ) : (
+                      <>
+                        <td className={styles.thTable}>{s.name}</td>
+                        <td className={styles.thTable}>{s.dni}</td>
+                        <td className={styles.thTable}>{s.email}</td>
+                        <td className={styles.thTable}>
+                          {s.career === 'AF'
+                            ? 'Analista Funcional'
+                            : s.career === 'DS'
+                            ? 'Desarrollo de Software'
+                            : s.career === 'ITI'
+                            ? 'Tecnologías de la Información'
+                            : null}
+                        </td>
+                        <td className={styles.thTable}>{s.created_at}</td>
+                      </>
+                    )}
                     <td className={styles.thTable}>
                       <BiCheck
                         className={styles.check}
@@ -188,11 +217,21 @@ const SuperAdmin = () => {
           <table className={styles.contTable}>
             <thead className={styles.theadTable}>
               <tr>
-                <th className={styles.thTable}>Nombre</th>
-                <th className={styles.thTable}>DNI</th>
-                <th className={styles.thTable}>Email</th>
-                <th className={styles.thTable}>Carrera</th>
-                <th className={styles.thTable}>Fecha de creación</th>
+                {redimension ? (
+                  <>
+                    <th className={styles.thTable}>Nombre</th>
+                    <th className={styles.thTable}>DNI</th>
+                    <th className={styles.thTable}>Carrera</th>
+                  </>
+                ) : (
+                  <>
+                    <th className={styles.thTable}>Nombre</th>
+                    <th className={styles.thTable}>DNI</th>
+                    <th className={styles.thTable}>Email</th>
+                    <th className={styles.thTable}>Carrera</th>
+                    <th className={styles.thTable}>Fecha de creación</th>
+                  </>
+                )}
                 <th
                   className={
                     !scrollBar
