@@ -5,6 +5,7 @@ import axiosClient from '../../../Components/Shared/Axios';
 import Aside from '../../../Components/Shared/Aside';
 import TextInput from '../../../Components/Shared/TextInput';
 import Button from '../../../Components/Shared/Button';
+import { FaEyeSlash, FaEye } from 'react-icons/fa';
 import Modal from '../../../Components/Shared/Modal';
 import Spinner from '../../../Components/Shared/Spinner';
 import { useStateContext, useModalContext } from '../../../Components/Contexts';
@@ -13,6 +14,7 @@ const SignUp = () => {
   const { openModal } = useModalContext();
   const { setUser } = useStateContext();
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const nameRef = useRef();
   const emailRef = useRef();
@@ -97,13 +99,27 @@ const SignUp = () => {
                 placeholderText={'Escribe tu dirección de correo electrónico'}
                 error={errors.email}
               />
-              <TextInput
-                input={'input'}
-                refrerence={passwordRef}
-                labelName={'Contraseña'}
-                placeholderText={'Escribe tu contraseña'}
-                error={errors.password}
-              />
+              <div className={styles.passwordContainer}>
+                <TextInput
+                  labelName={'Contraseña'}
+                  placeholderText={'Escribe tu contraseña'}
+                  input={'input'}
+                  refrerence={passwordRef}
+                  error={errors.password}
+                  inputType={showPassword ? 'text' : 'password'}
+                />
+                {showPassword ? (
+                  <FaEye
+                    className={styles.showPasswordIcon}
+                    onClick={() => setShowPassword(!showPassword)}
+                  />
+                ) : (
+                  <FaEyeSlash
+                    className={styles.showPasswordIcon}
+                    onClick={() => setShowPassword(!showPassword)}
+                  />
+                )}
+              </div>
               <TextInput
                 nameSelect={'career'}
                 labelName={'Carreras'}

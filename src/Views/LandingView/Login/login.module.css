@@ -43,6 +43,23 @@
   text-shadow: 2px 4px 5px #000;
   transition: text-shadow 0.1s ease-in-out;
 }
+
+.passwordContainer {
+  position: relative;
+  width: 100%;
+}
+
+.showPasswordIcon {
+  position: absolute;
+  right: 15px;
+  top: 41px;
+  font-size: 20px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 1.5s ease;
+  animation: showPassword 1.5s forwards;
+}
+
 @media only screen and (min-width: 1024px) {
   .container {
     top: 150px;
@@ -79,5 +96,20 @@
     padding: 10px;
     border: 2px solid #7a7a7a;
     border-radius: 5px;
+  }
+
+  .showPasswordIcon {
+    top: 45px;
+    font-size: 24px;
+  }
+}
+
+@keyframes showPassword {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
   }
 }
