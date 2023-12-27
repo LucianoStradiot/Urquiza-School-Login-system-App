@@ -1,6 +1,6 @@
 .container {
   position: relative;
-  top: 170px;
+  top: 130px;
 }
 
 .subContainer {
@@ -47,7 +47,7 @@
 .showPasswordIcon {
   position: absolute;
   right: 15px;
-  top: 41px;
+  top: 38px;
   font-size: 20px;
   cursor: pointer;
   opacity: 0;
@@ -61,19 +61,11 @@
   }
 
   .subContainer {
-    align-items: center;
-    flex-direction: row;
-    justify-content: flex-start;
-    margin: 10vh 48px 0 347px;
-    padding: 4vh;
-    background-image: linear-gradient(
-        to right,
-        rgb(255, 255, 255) 44%,
-        rgba(255, 255, 255, 0.3) 58%
-      ),
-      url('../../../../public/assets/images/urquizaSchool.jpg');
-    background-position: right;
-    background-size: contain;
+    margin: 5vh 48px 0 347px;
+  }
+
+  .loginSubContainer {
+    width: 80%;
   }
 
   .title {
@@ -86,7 +78,8 @@
   }
 
   .loginContainer {
-    width: 40%;
+    display: flex;
+    width: 97%;
     min-width: 200px;
     padding: 10px;
     border: 2px solid #7a7a7a;

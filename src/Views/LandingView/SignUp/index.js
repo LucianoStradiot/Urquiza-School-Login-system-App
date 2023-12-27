@@ -78,66 +78,70 @@ const SignUp = () => {
         <section className={styles.container}>
           <div className={styles.subContainer}>
             <form className={styles.loginContainer} onSubmit={onSubmit}>
-              <TextInput
-                input={'input'}
-                refrerence={nameRef}
-                labelName={'Nombre'}
-                placeholderText={'Escribe tu nombre'}
-                error={errors.name}
-              />
-              <TextInput
-                input={'input'}
-                refrerence={dniRef}
-                labelName={'DNI'}
-                placeholderText={'Escribe tu DNI'}
-                error={errors.dni}
-              />
-              <TextInput
-                input={'input'}
-                labelName={'E-mail'}
-                refrerence={emailRef}
-                placeholderText={'Escribe tu dirección de correo electrónico'}
-                error={errors.email}
-              />
-              <div className={styles.passwordContainer}>
+              <div className={styles.loginSubContainer}>
                 <TextInput
-                  labelName={'Contraseña'}
-                  placeholderText={'Escribe tu contraseña'}
                   input={'input'}
-                  refrerence={passwordRef}
-                  error={errors.password}
-                  inputType={showPassword ? 'text' : 'password'}
+                  refrerence={nameRef}
+                  labelName={'Nombre'}
+                  placeholderText={'Escribe tu nombre'}
+                  error={errors.name}
                 />
-                {showPassword ? (
-                  <FaEye
-                    className={styles.showPasswordIcon}
-                    onClick={() => setShowPassword(!showPassword)}
-                  />
-                ) : (
-                  <FaEyeSlash
-                    className={styles.showPasswordIcon}
-                    onClick={() => setShowPassword(!showPassword)}
-                  />
-                )}
+                <TextInput
+                  input={'input'}
+                  refrerence={dniRef}
+                  labelName={'DNI'}
+                  placeholderText={'Escribe tu DNI'}
+                  error={errors.dni}
+                />
+                <TextInput
+                  nameSelect={'career'}
+                  labelName={'Carreras'}
+                  refrerence={careerRef}
+                  error={errors.career}
+                >
+                  <option hidden value={''}>
+                    Seleccione una carrera
+                  </option>
+                  <option value={'AF'}>Analista Funcional</option>
+                  <option value={'DS'}>Desarrollo de Software</option>
+                  <option value={'ITI'}>Tecnologías de la Información</option>
+                </TextInput>
               </div>
-              <TextInput
-                nameSelect={'career'}
-                labelName={'Carreras'}
-                refrerence={careerRef}
-                error={errors.career}
-              >
-                <option hidden value={''}>
-                  Seleccione una carrera
-                </option>
-                <option value={'AF'}>Analista Funcional</option>
-                <option value={'DS'}>Desarrollo de Software</option>
-                <option value={'ITI'}>Tecnologías de la Información</option>
-              </TextInput>
-              <Link to="/recoverPassword" className={styles.password}>
-                <p>Olvidaste tu contraseña?</p>
-              </Link>
-              <div className={styles.btnContainer}>
-                <Button type="submit" text="Enviar" />
+              <div className={styles.loginSubContainer}>
+                <TextInput
+                  input={'input'}
+                  labelName={'E-mail'}
+                  refrerence={emailRef}
+                  placeholderText={'Escribe tu dirección de correo electrónico'}
+                  error={errors.email}
+                />
+                <div className={styles.passwordContainer}>
+                  <TextInput
+                    labelName={'Contraseña'}
+                    placeholderText={'Escribe tu contraseña'}
+                    input={'input'}
+                    refrerence={passwordRef}
+                    error={errors.password}
+                    inputType={showPassword ? 'text' : 'password'}
+                  />
+                  {showPassword ? (
+                    <FaEye
+                      className={styles.showPasswordIcon}
+                      onClick={() => setShowPassword(!showPassword)}
+                    />
+                  ) : (
+                    <FaEyeSlash
+                      className={styles.showPasswordIcon}
+                      onClick={() => setShowPassword(!showPassword)}
+                    />
+                  )}
+                </div>
+                <Link to="/recoverPassword" className={styles.password}>
+                  <p>Olvidaste tu contraseña?</p>
+                </Link>
+                <div className={styles.btnContainer}>
+                  <Button type="submit" text="Enviar" />
+                </div>
               </div>
             </form>
           </div>

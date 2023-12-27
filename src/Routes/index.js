@@ -1,5 +1,5 @@
-import React from 'react';
-import { createBrowserRouter } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import Home from '../Components/Home';
 import Login from '../Views/LandingView/Login';
 import Carreras from '../Views/LandingView/Carreras';
@@ -15,85 +15,41 @@ import SuperAdminView from '../Views/SuperAdminView';
 import SignUp from '../Views/LandingView/SignUp';
 import RecoverPassword from '../Views/LandingView/Login/RecoverPassword';
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <LandingView />,
-    children: [
-      {
-        path: '/',
-        element: <Home />
-      },
-      {
-        path: '/signup',
-        element: <SignUp />
-      },
-      {
-        path: '/login',
-        element: <Login />
-      },
-      {
-        path: '/recover-password',
-        element: <RecoverPassword />
-      },
-      {
-        path: '/carreras',
-        element: <Carreras />
-      },
-      {
-        path: '/inscripciones',
-        element: <Inscripciones />
-      }
-    ]
-  },
-  {
-    path: '/alumno',
-    element: <AlumnoView />,
-    children: [
-      {
-        path: '/alumno',
-        element: <Home />
-      },
-      {
-        path: '/alumno/profile',
-        element: <AlumnoProfile />
-      },
-      {
-        path: '/alumno/materias',
-        element: <Materias />
-      },
-      {
-        path: '/alumno/inscripciones',
-        element: <InscripcionesAlumno />
-      }
-    ]
-  },
-  {
-    path: '/super-admin',
-    element: <SuperAdminView />,
-    children: [
-      {
-        path: '/super-admin',
-        element: <Home />
-      },
-      {
-        path: '/super-admin/administracion',
-        element: <SuperAdmin />
-      },
-      {
-        path: '/super-admin/carreras',
-        element: <Carreras />
-      },
-      {
-        path: '/super-admin/inscripciones',
-        element: <Inscripciones />
-      }
-    ]
-  },
-  {
-    path: '*',
-    element: <Error404 />
-  }
-]);
+const RoutesLanding = () => {
+  const { pathname } = useLocation();
 
-export default router;
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return (
+    <Routes>
+      <Route path="/" element={<LandingView />}>
+        <Route index element={<Home />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/recover-password" element={<RecoverPassword />} />
+        <Route path="/carreras" element={<Carreras />} />
+        <Route path="/inscripciones" element={<Inscripciones />} />
+      </Route>
+
+      <Route path="/alumno" element={<AlumnoView />}>
+        <Route index element={<Home />} />
+        <Route path="profile" element={<AlumnoProfile />} />
+        <Route path="materias" element={<Materias />} />
+        <Route path="inscripciones" element={<InscripcionesAlumno />} />
+      </Route>
+
+      <Route path="/super-admin" element={<SuperAdminView />}>
+        <Route index element={<Home />} />
+        <Route path="administracion" element={<SuperAdmin />} />
+        <Route path="carreras" element={<Carreras />} />
+        <Route path="inscripciones" element={<Inscripciones />} />
+      </Route>
+
+      <Route path="*" element={<Error404 />} />
+    </Routes>
+  );
+};
+
+export default RoutesLanding;
