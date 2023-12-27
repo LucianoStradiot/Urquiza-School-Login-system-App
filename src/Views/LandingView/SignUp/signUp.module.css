@@ -1,6 +1,9 @@
 .container {
   position: relative;
   top: 130px;
+  overflow: hidden;
+  opacity: 0;
+  animation: slideInFromLeft 1s ease-in-out forwards;
 }
 
 .subContainer {
@@ -99,5 +102,27 @@
 
   100% {
     opacity: 1;
+  }
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromRight {
+  0% {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
   }
 }
