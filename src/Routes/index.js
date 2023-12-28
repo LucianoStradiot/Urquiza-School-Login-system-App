@@ -14,6 +14,7 @@ import AlumnoView from '../Views/AlumnoView';
 import SuperAdminView from '../Views/SuperAdminView';
 import SignUp from '../Views/LandingView/SignUp';
 import RecoverPassword from '../Views/LandingView/Login/RecoverPassword';
+import ResetPassword from '../Views/LandingView/Login/ResetPassword';
 
 const RoutesLanding = () => {
   const { pathname } = useLocation();
@@ -29,6 +30,7 @@ const RoutesLanding = () => {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
         <Route path="/recover-password" element={<RecoverPassword />} />
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
         <Route path="/carreras" element={<Carreras />} />
         <Route path="/inscripciones" element={<Inscripciones />} />
       </Route>

@@ -5,66 +5,55 @@ import TextInput from '../../../../Components/Shared/TextInput';
 import Button from '../../../../Components/Shared/Button';
 import Modal from '../../../../Components/Shared/Modal';
 import Spinner from '../../../../Components/Shared/Spinner';
-/* import axiosClient from '../../../Components/Shared/Axios'; */
-import { /* useStateContext */ useModalContext } from '../../../../Components/Contexts';
+import axiosClient from '../../../../Components/Shared/Axios';
+import { useModalContext, useStateContext } from '../../../../Components/Contexts';
 
 function RecoverPassword() {
-  const { modalState /* openModal */ } = useModalContext();
-  /*  const { setUser } = useStateContext(); */
+  const { modalState, openModal } = useModalContext();
+  const { setUser } = useStateContext();
   const emailRef = useRef();
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState({});
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    /* const payload = {
-      email: emailRef.current.value
-    }; */
     setIsLoading(true);
     setErrors({});
-    /* try {
-      const { data } = await axiosClient.post('/login', payload);
-      if (data.user.career === 'SA') {
-        setUser(data.user);
-        setTokenAndRole(data.token, data.user.career);
-        openModal({
-          description: 'Sesión iniciada correctamente',
-          chooseModal: false
-        });
-        navigate('/super-admin/administracion');
-      } else {
-        setUser(data.user);
-        setTokenAndRole(data.token, data.user.career);
-        openModal({
-          description: 'Sesión iniciada correctamente',
-          chooseModal: false
-        });
-        navigate('/alumno/profile');
-      }
+
+    const payload = {
+      email: emailRef.current.value
+    };
+
+    try {
+      const { data } = await axiosClient.post('/password/forgot', payload);
+
+      setUser(data.user);
+      openModal({
+        description: 'Email enviado correctamente',
+        chooseModal: false
+      });
     } catch (err) {
       if (err.response && err.response.status === 422) {
         const apiErrors = err.response;
 
         if (apiErrors.data.errors) {
           setErrors({
-            email: apiErrors.data.errors.email?.[0],
-            password: apiErrors.data.errors.password?.[0]
-          });
-        } else if (apiErrors.data.messageEmail) {
-          setErrors({
-            email: [apiErrors.data.messageEmail]
-          });
-        } else {
-          setErrors({
-            password: [apiErrors.data.messagePassword]
+            email: apiErrors.data.errors.email?.[0]
           });
         }
       }
+      if (err.response.status === 404) {
+        setErrors({
+          email: [err.response.data.message]
+        });
+      }
+
       openModal({
-        description: 'Se produjo un error al iniciar sesión',
+        description: 'Se produjo un error al enviar el email ',
         chooseModal: false
       });
-    } */
+    }
+
     setIsLoading(false);
   };
 
@@ -72,7 +61,7 @@ function RecoverPassword() {
     <>
       {isLoading && <Spinner />}
       <Aside page={'home'} />
-      {modalState.isOpen && modalState.chooseModal === false ? <Modal /> : null}
+      {modalState.isOpen && modalState.chooseModal === false && <Modal />}
       <main>
         <section className={styles.container}>
           <div className={styles.subContainer}>
@@ -81,7 +70,7 @@ function RecoverPassword() {
                 password={'password'}
                 labelName={'Recupera tu contraseña'}
                 description={
-                  'Por favor, escribe tu correo electronico debajo para que puedas recuperar tu contraseña'
+                  'Por favor, escribe tu correo electrónico debajo para que puedas recuperar tu contraseña'
                 }
                 placeholderText={'Escribe tu dirección de correo electrónico'}
                 refrerence={emailRef}
