@@ -48,7 +48,7 @@ const Login = () => {
           description: 'Sesión iniciada correctamente',
           chooseModal: false
         });
-        navigate('/alumno/profile');
+        navigate(`/alumno/profile/${data.user.id}`);
       }
     } catch (err) {
       if (err.response && err.response.status === 422) {

@@ -13,7 +13,7 @@ const Aside = ({ page }) => {
   const [activeButton, setActiveButton] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const { token, setUser, setTokenAndRole } = useStateContext();
+  const { token, user, setUser, setTokenAndRole } = useStateContext();
   const { openModal } = useModalContext();
 
   const toggleMenu = () => {
@@ -52,7 +52,7 @@ const Aside = ({ page }) => {
   }, [location]);
 
   return page === 'home' ? (
-    sessionStorage.getItem('role') === 'DS' && token ? (
+    sessionStorage.getItem('role') === 'DS' && token && user ? (
       <>
         {isLoading && <Spinner />}
         <Modal />
@@ -73,9 +73,9 @@ const Aside = ({ page }) => {
               <ul className={styles.rutes}>
                 <li>
                   <Link
-                    to="/alumno/profile"
+                    to={`/alumno/profile/${user.id}`}
                     className={`${
-                      activeButton === 'alumno/profile' ? styles.activeBtn : styles.btn
+                      activeButton === `alumno/profile/${user.id}` ? styles.activeBtn : styles.btn
                     }`}
                   >
                     Profile
@@ -149,9 +149,9 @@ const Aside = ({ page }) => {
               <ul className={styles.rutes}>
                 <li>
                   <Link
-                    to="/alumno/profile"
+                    to={`/alumno/profile/${user.id}`}
                     className={`${
-                      activeButton === 'alumno/profile' ? styles.activeBtn : styles.btn
+                      activeButton === `alumno/profile/${user.id}` ? styles.activeBtn : styles.btn
                     }`}
                   >
                     Profile
@@ -225,9 +225,9 @@ const Aside = ({ page }) => {
               <ul className={styles.rutes}>
                 <li>
                   <Link
-                    to="/alumno/profile"
+                    to={`/alumno/profile/${user.id}`}
                     className={`${
-                      activeButton === 'alumno/profile' ? styles.activeBtn : styles.btn
+                      activeButton === `alumno/profile/${user.id}` ? styles.activeBtn : styles.btn
                     }`}
                   >
                     Profile

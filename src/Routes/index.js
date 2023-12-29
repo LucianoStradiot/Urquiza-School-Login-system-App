@@ -37,7 +37,7 @@ const RoutesLanding = () => {
 
       <Route path="/alumno" element={<AlumnoView />}>
         <Route index element={<Home />} />
-        <Route path="profile" element={<AlumnoProfile />} />
+        <Route path="profile/:id" element={<AlumnoProfile />} />
         <Route path="materias" element={<Materias />} />
         <Route path="inscripciones" element={<InscripcionesAlumno />} />
       </Route>
