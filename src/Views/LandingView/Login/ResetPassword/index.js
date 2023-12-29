@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from './resetPassword.module.css';
 import Aside from '../../../../Components/Shared/Aside';
 import TextInput from '../../../../Components/Shared/TextInput';
@@ -20,6 +20,7 @@ function ResetPassword() {
   const passwordRef = useRef();
   const confirmPasswordRef = useRef();
   const [isLoading, setIsLoading] = useState(false);
+  const [isValidToken, setIsValidToken] = useState(false);
   const [errors, setErrors] = useState({});
 
   const onSubmit = async (e) => {
@@ -32,10 +33,8 @@ function ResetPassword() {
       password: passwordRef.current.value,
       confirm_password: confirmPasswordRef.current.value
     };
-
     try {
       const { data } = await axiosClient.post(`/password/reset`, payload);
-
       setUser(data.user);
       openModal({
         description: 'Contraseña restablecida correctamente',
@@ -51,10 +50,29 @@ function ResetPassword() {
             confirm_password: apiErrors.data.errors.confirm_password?.[0]
           });
         }
-      } else if (err.response && err.response.status === 404) {
+      }
+      openModal({
+        description: 'Se produjo un error',
+        chooseModal: false
+      });
+    }
+    setIsLoading(false);
+  };
+
+  const verifyToken = async () => {
+    try {
+      const response = await axiosClient.get(`/verify-token/${token}`);
+      console.log('Response from verifyToken:', response);
+      if (response.status === 200) {
+        setIsValidToken(true);
+      }
+    } catch (err) {
+      setIsValidToken(false);
+      if (err.response.status === 404) {
         openModal({
           title: 'Advertencia',
-          description: [err.response.data.messageReset],
+          description:
+            'Email de restablecimiento ya utilizado. Por favor, vuelva a enviar la solicitud',
           confirmBtn: 'Aceptar',
           onClick: () => {
             closeModal();
@@ -64,16 +82,22 @@ function ResetPassword() {
         });
       } else {
         openModal({
-          description: 'Se produjo un error',
-          chooseModal: false
+          title: 'Error',
+          description: 'Hubo un error al verificar el token.',
+          confirmBtn: 'Aceptar',
+          confirmModal: true
         });
       }
     }
-    setIsLoading(false);
   };
+
+  useEffect(() => {
+    verifyToken();
+  }, [token]);
 
   return (
     <>
+      {isValidToken}
       {isLoading && <Spinner />}
       <Aside page={'home'} />
       {modalState.isOpen && modalState.chooseModal === false ? (
