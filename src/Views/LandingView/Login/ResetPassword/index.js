@@ -68,7 +68,6 @@ function ResetPassword() {
       }
     } catch (err) {
       setIsValidToken(false);
-      console.error('Error in verifyToken:', err);
       if (err.response.status === 404) {
         openModal({
           title: 'Advertencia',
