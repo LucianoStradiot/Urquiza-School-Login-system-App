@@ -6,8 +6,17 @@ import { useModalContext } from '../../Contexts';
 
 const Modal = () => {
   const { modalState, closeModal } = useModalContext();
-  const { isOpen, description, title, confirmBtn, denyBtn, chooseModal, confirmModal, onClick } =
-    modalState;
+  const {
+    isOpen,
+    description,
+    title,
+    confirmBtn,
+    denyBtn,
+    noButton,
+    chooseModal,
+    confirmModal,
+    onClick
+  } = modalState;
   const [isFadingOut, setIsFadingOut] = useState(false);
 
   useEffect(() => {
@@ -51,7 +60,7 @@ const Modal = () => {
           <div className={styles.title}>{title.toUpperCase()}</div>
           <div className={styles.subTitle}>{description}</div>
           <div className={styles.btnsContainerConfirm}>
-            <Button type="submit" text={confirmBtn} onClick={onClick} />
+            {!noButton ? <Button type="submit" text={confirmBtn} onClick={onClick} /> : ''}
           </div>
         </div>
       </div>

@@ -46,6 +46,7 @@ function RecoverPassword() {
             description: [apiErrors.data.messageVerification],
             confirmBtn: 'Aceptar',
             onClick: closeModal,
+            noButton: false,
             confirmModal: true
           });
         }

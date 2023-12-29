@@ -65,6 +65,7 @@ export const ModalProvider = ({ children }) => {
     title: '',
     confirmBtn: '',
     denyBtn: '',
+    noButton: false,
     chooseModal: false,
     onClick: null
   });
@@ -83,6 +84,7 @@ export const ModalProvider = ({ children }) => {
       title: '',
       confirmBtn: '',
       denyBtn: '',
+      noButton: false,
       chooseModal: false,
       onClick: null
     });

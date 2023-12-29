@@ -72,14 +72,14 @@ function ResetPassword() {
         openModal({
           title: 'Advertencia',
           description:
-            'Email de restablecimiento ya utilizado. Por favor, vuelva a enviar la solicitud',
-          confirmBtn: 'Aceptar',
-          onClick: () => {
+            'Email de restablecimiento ya utilizado. Por favor, vuelva a enviar la solicitud. \nRedirigiendo...',
+          confirmModal: true,
+          noButton: true
+        }) ||
+          setTimeout(() => {
             closeModal();
             navigate('/recover-password');
-          },
-          confirmModal: true
-        });
+          }, 7000);
       } else {
         openModal({
           title: 'Error',
