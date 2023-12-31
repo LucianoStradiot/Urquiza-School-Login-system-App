@@ -30,6 +30,7 @@ export const ContextProvider = ({ children }) => {
   };
 
   const setUserHeader = (userData, token) => {
+    console.log(userData);
     setUser(userData);
     if (userData && token) {
       sessionStorage.setItem('user', JSON.stringify(userData));

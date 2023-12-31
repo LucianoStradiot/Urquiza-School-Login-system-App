@@ -6,11 +6,10 @@ import Spinner from '../../../Components/Shared/Spinner';
 import axiosClient from '../../../Components/Shared/Axios';
 import { useParams } from 'react-router';
 import { FiEdit } from 'react-icons/fi';
-import { useModalContext, useStateContext } from '../../../Components/Contexts';
+import { useModalContext } from '../../../Components/Contexts';
 
 const Profile = () => {
   const { openModal, modalState, closeModal } = useModalContext();
-  const { user, setUserHeader } = useStateContext();
   const [isLoading, setIsLoading] = useState(false);
   const [students, setStudents] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
@@ -50,10 +49,6 @@ const Profile = () => {
         openModal({
           description: response.data.success,
           chooseModal: false
-        });
-        setUserHeader({
-          ...user,
-          profile_photo: response.data.profile_photo
         });
         getStudents(id);
       }
@@ -97,12 +92,11 @@ const Profile = () => {
               <input
                 id="fileInput"
                 type="file"
-                className={styles.inputProfile}
                 style={{ display: 'none' }}
                 onChange={handleFileChange}
               />
               <span className={styles.profileHover} onClick={handleUploadButtonClick}>
-                <FiEdit className={styles.editIcon} />
+                <FiEdit />
               </span>
               <img
                 src={
