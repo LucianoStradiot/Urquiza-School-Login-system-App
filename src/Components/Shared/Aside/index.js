@@ -78,7 +78,7 @@ const Aside = ({ page }) => {
                       activeButton === `alumno/profile/${user.id}` ? styles.activeBtn : styles.btn
                     }`}
                   >
-                    Profile
+                    Perfil
                   </Link>
                 </li>
                 <li>
@@ -120,7 +120,7 @@ const Aside = ({ page }) => {
                     }`}
                     onClick={onLogout}
                   >
-                    Logout
+                    Salir
                   </a>
                 </li>
               </div>
@@ -154,7 +154,7 @@ const Aside = ({ page }) => {
                       activeButton === `alumno/profile/${user.id}` ? styles.activeBtn : styles.btn
                     }`}
                   >
-                    Profile
+                    Perfil
                   </Link>
                 </li>
                 <li>
@@ -196,7 +196,7 @@ const Aside = ({ page }) => {
                     }`}
                     onClick={onLogout}
                   >
-                    Logout
+                    Salir
                   </a>
                 </li>
               </div>
@@ -230,7 +230,7 @@ const Aside = ({ page }) => {
                       activeButton === `alumno/profile/${user.id}` ? styles.activeBtn : styles.btn
                     }`}
                   >
-                    Profile
+                    Perfil
                   </Link>
                 </li>
                 <li>
@@ -272,7 +272,7 @@ const Aside = ({ page }) => {
                     }`}
                     onClick={onLogout}
                   >
-                    Logout
+                    Salir
                   </a>
                 </li>
               </div>
@@ -374,7 +374,7 @@ const Aside = ({ page }) => {
                         }`}
                         onClick={onLogout}
                       >
-                        Logout
+                        Salir
                       </a>
                     </li>
                   </div>
@@ -478,7 +478,7 @@ const Aside = ({ page }) => {
               </li>
               <li>
                 <a className={`${styles.btn} ${styles.btnLanding}`} onClick={onLogout}>
-                  Logout
+                  Salir
                 </a>
               </li>
             </ul>

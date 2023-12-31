@@ -16,7 +16,15 @@ const Header = () => {
           <h1 className={styles.title}>Escuela Superior de Comercio N°49</h1>
         </div>
         <div className={`${styles.container2} ${styles.containerDs}`}>
-          <div className={styles.namesTitle}>Bienvenido {user.name}</div>
+          <div className={styles.photoContainer}>
+            <img
+              src={
+                user.profile_photo || `${process.env.PUBLIC_URL}/assets/images/defaultProfile.png`
+              }
+              className={styles.profilePhoto}
+            />
+          </div>
+          <div className={styles.namesTitle}>{user.name}</div>
         </div>
         <div className={styles.wallpaper}></div>
       </header>

@@ -9,10 +9,11 @@ import { FiEdit } from 'react-icons/fi';
 import { useModalContext, useStateContext } from '../../../Components/Contexts';
 
 const Profile = () => {
-  const { modalState, closeModal } = useModalContext();
-  const { user } = useStateContext();
+  const { openModal, modalState, closeModal } = useModalContext();
+  const { user, setUserHeader } = useStateContext();
   const [isLoading, setIsLoading] = useState(false);
   const [students, setStudents] = useState(null);
+  const [selectedFile, setSelectedFile] = useState(null);
   const { id } = useParams();
 
   const getStudents = async (id) => {
@@ -26,6 +27,57 @@ const Profile = () => {
     setIsLoading(false);
   };
 
+  const handleFileChange = (e) => {
+    setSelectedFile(e.target.files[0]);
+  };
+
+  const handleUploadButtonClick = () => {
+    const fileInput = document.getElementById('fileInput');
+    fileInput.click();
+  };
+
+  const handleFileUpload = async () => {
+    try {
+      const formData = new FormData();
+      formData.append('profile_photo', selectedFile);
+      const response = await axiosClient.post(`/students/profile-photo`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+
+      if (response.status === 200) {
+        openModal({
+          description: response.data.success,
+          chooseModal: false
+        });
+        setUserHeader({
+          ...user,
+          profile_photo: response.data.profile_photo
+        });
+        getStudents(id);
+      }
+    } catch (err) {
+      if (err.response && err.response.status === 422) {
+        const apiErrors = err.response;
+        openModal({
+          title: 'Advertencia',
+          description: apiErrors.data.errors.profile_photo,
+          confirmBtn: 'Aceptar',
+          onClick: closeModal,
+          noButton: false,
+          confirmModal: true
+        });
+      }
+    } finally {
+      setSelectedFile(null);
+    }
+  };
+
+  if (selectedFile) {
+    handleFileUpload();
+  }
+
   useEffect(() => {
     setIsLoading(true);
     getStudents(id);
@@ -33,7 +85,7 @@ const Profile = () => {
 
   return (
     <>
-      <Aside page={'home'} user={user} />
+      <Aside page={'home'} />
       {modalState.isOpen && (
         <Modal description={modalState.description} isOpen={modalState.isOpen} close={closeModal} />
       )}
@@ -47,16 +99,23 @@ const Profile = () => {
                 type="file"
                 className={styles.inputProfile}
                 style={{ display: 'none' }}
+                onChange={handleFileChange}
               />
-              <span className={styles.profileHover}>
+              <span className={styles.profileHover} onClick={handleUploadButtonClick}>
                 <FiEdit className={styles.editIcon} />
               </span>
-              <img id="upload" /* src={students.profilePhoto} */ className={styles.profilePhoto} />
+              <img
+                src={
+                  students?.profile_photo ||
+                  `${process.env.PUBLIC_URL}/assets/images/defaultProfile.png`
+                }
+                className={styles.profilePhoto}
+              />
             </div>
           </div>
           <div className={styles.subContainer}>
             <div className={styles.inputContainer}>
-              <label className={styles.label}>Name</label>
+              <label className={styles.label}>Nombre</label>
               <p className={styles.p}>{students?.name}</p>
             </div>
             <div className={styles.inputContainer}>
@@ -68,8 +127,16 @@ const Profile = () => {
               <p className={styles.p}>{students?.email}</p>
             </div>
             <div className={styles.inputContainer}>
-              <label className={styles.label}>Career</label>
-              <p className={styles.p}>{students?.career}</p>
+              <label className={styles.label}>Carrera</label>
+              <p className={styles.p}>
+                {students?.career === 'AF'
+                  ? 'Analista Funcional'
+                  : students?.career === 'DS'
+                  ? 'Desarrollo de Software'
+                  : students?.career === 'ITI'
+                  ? 'Tecnologías de la Información'
+                  : null}
+              </p>
             </div>
           </div>
         </div>
