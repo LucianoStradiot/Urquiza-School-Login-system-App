@@ -155,6 +155,7 @@
   list-style: none;
   margin: 0;
   width: 97%;
+  cursor: pointer;
 }
 
 /* This is when the menu folds */

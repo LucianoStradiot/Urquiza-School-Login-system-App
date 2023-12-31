@@ -62,7 +62,6 @@ function ResetPassword() {
   const verifyToken = async () => {
     try {
       const response = await axiosClient.get(`/verify-token/${token}`);
-      console.log('Response from verifyToken:', response);
       if (response.status === 200) {
         setIsValidToken(true);
       }
@@ -76,15 +75,22 @@ function ResetPassword() {
           confirmModal: true,
           noButton: true
         }) ||
-          setTimeout(() => {
-            closeModal();
-            navigate('/recover-password');
-          }, 7000);
+          (setTimeout(() => {
+            setIsLoading(true);
+          }, 3500) &&
+            setTimeout(() => {
+              closeModal();
+              navigate('/recover-password');
+            }, 7000));
       } else {
         openModal({
           title: 'Error',
           description: 'Hubo un error al verificar el token.',
           confirmBtn: 'Aceptar',
+          onClick: () => {
+            closeModal();
+            navigate('/recover-password');
+          },
           confirmModal: true
         });
       }

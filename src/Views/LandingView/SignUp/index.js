@@ -8,6 +8,7 @@ import Button from '../../../Components/Shared/Button';
 import { FaEyeSlash, FaEye } from 'react-icons/fa';
 import Modal from '../../../Components/Shared/Modal';
 import Spinner from '../../../Components/Shared/Spinner';
+import { FiEdit } from 'react-icons/fi';
 import { useStateContext, useModalContext } from '../../../Components/Contexts';
 
 const SignUp = () => {
@@ -21,6 +22,7 @@ const SignUp = () => {
   const passwordRef = useRef();
   const careerRef = useRef();
   const dniRef = useRef();
+  const photoRef = useRef();
   const [errors, setErrors] = useState({
     name: null,
     dni: null,
@@ -31,42 +33,100 @@ const SignUp = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const payload = {
-      name: nameRef.current.value,
-      dni: dniRef.current.value,
-      email: emailRef.current.value,
-      password: passwordRef.current.value,
-      career: careerRef.current.value
-    };
-    setIsLoading(true);
-    setErrors({});
-    try {
-      const { data } = await axiosClient.post('/signup', payload);
-      setUser(data.user);
-      openModal({
-        description: 'Usuario registrado correctamente',
-        chooseModal: false
-      });
-      navigate('/');
-    } catch (err) {
-      if (err.response && err.response.status === 422) {
-        const { errors: apiErrors } = err.response.data;
 
-        setErrors({
-          name: apiErrors.name?.[0] || null,
-          dni: apiErrors.dni?.[0] || null,
-          email: apiErrors.email?.[0] || null,
-          password: apiErrors.password?.[0] || null,
-          career:
-            payload.career === '' ? 'Seleccione una carrera válida' : apiErrors.career?.[0] || null
+    const fileInput = document.getElementById('fileInput');
+    const file = fileInput.files[0];
+
+    const payload = new FormData();
+    payload.append('name', nameRef.current.value);
+    payload.append('dni', dniRef.current.value);
+    payload.append('email', emailRef.current.value);
+    payload.append('password', passwordRef.current.value);
+    payload.append('career', careerRef.current.value);
+    payload.append('profile_photo', file);
+
+    const handleRegistration = async () => {
+      setIsLoading(true);
+      setErrors({});
+      try {
+        const { data } = await axiosClient.post('/signup', payload, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        });
+        setUser(data.user);
+        openModal({
+          description: 'Usuario registrado correctamente',
+          chooseModal: false
+        });
+        navigate('/');
+      } catch (err) {
+        if (err.response && err.response.status === 422) {
+          const { errors: apiErrors } = err.response.data;
+
+          setErrors({
+            name: apiErrors.name?.[0] || null,
+            dni: apiErrors.dni?.[0] || null,
+            email: apiErrors.email?.[0] || null,
+            password: apiErrors.password?.[0] || null,
+            career:
+              payload.career === ''
+                ? 'Seleccione una carrera válida'
+                : apiErrors.career?.[0] || null
+          });
+        }
+        openModal({
+          description: 'Se produjo un error en el registro',
+          chooseModal: false
         });
       }
+      setIsLoading(false);
+    };
+
+    if (!file) {
       openModal({
-        description: 'Se produjo un error en el registro',
-        chooseModal: false
+        title: 'Advertencia',
+        description: '¿Está seguro que no quiere agregar una foto de perfil?',
+        confirmBtn: 'Aceptar',
+        denyBtn: 'Cancelar',
+        chooseModal: true,
+        onClick: handleRegistration
       });
+    } else {
+      handleRegistration();
     }
-    setIsLoading(false);
+  };
+
+  const handleUploadButtonClick = () => {
+    const fileInput = document.getElementById('fileInput');
+    fileInput.click();
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    const imgElement = document.getElementById('profilePhoto');
+
+    if (file && imgElement) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        imgElement.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    } else {
+      openModal({
+        title: 'advertencia',
+        description: '¿Está seguro que No quiero agregar una foto de perfil?',
+        confirmBtn: 'Aceptar',
+        denyBtn: 'Cancelar',
+        chooseModal: true,
+        onClick: () => {
+          onSubmit(e);
+        }
+      });
+      if (imgElement) {
+        imgElement.src = `${process.env.PUBLIC_URL}/assets/images/defaultProfile.png`;
+      }
+    }
   };
 
   return (
@@ -79,6 +139,28 @@ const SignUp = () => {
           <div className={styles.subContainer}>
             <form className={styles.loginContainer} onSubmit={onSubmit}>
               <div className={styles.loginSubContainer}>
+                <div className={styles.photoContainer}>
+                  <div className={styles.photoContainer}>
+                    <input
+                      id="fileInput"
+                      type="file"
+                      style={{ display: 'none' }}
+                      onChange={handleFileChange}
+                      ref={photoRef}
+                    />
+                    <span className={styles.profileHover} onClick={handleUploadButtonClick}>
+                      <FiEdit />
+                    </span>
+                    <img
+                      id="profilePhoto"
+                      src={
+                        photoRef?.profile_photo ||
+                        `${process.env.PUBLIC_URL}/assets/images/defaultProfile.png`
+                      }
+                      className={styles.profilePhoto}
+                    />
+                  </div>
+                </div>
                 <TextInput
                   input={'input'}
                   refrerence={nameRef}
@@ -93,6 +175,8 @@ const SignUp = () => {
                   placeholderText={'Escribe tu DNI'}
                   error={errors.dni}
                 />
+              </div>
+              <div className={styles.loginSubContainer}>
                 <TextInput
                   nameSelect={'career'}
                   labelName={'Carreras'}
@@ -106,8 +190,6 @@ const SignUp = () => {
                   <option value={'DS'}>Desarrollo de Software</option>
                   <option value={'ITI'}>Tecnologías de la Información</option>
                 </TextInput>
-              </div>
-              <div className={styles.loginSubContainer}>
                 <TextInput
                   input={'input'}
                   labelName={'E-mail'}
