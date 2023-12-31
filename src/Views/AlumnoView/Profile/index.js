@@ -6,10 +6,11 @@ import Spinner from '../../../Components/Shared/Spinner';
 import axiosClient from '../../../Components/Shared/Axios';
 import { useParams } from 'react-router';
 import { FiEdit } from 'react-icons/fi';
-import { useModalContext } from '../../../Components/Contexts';
+import { useModalContext, useStateContext } from '../../../Components/Contexts';
 
 const Profile = () => {
   const { openModal, modalState, closeModal } = useModalContext();
+  const { setUserHeader, token } = useStateContext();
   const [isLoading, setIsLoading] = useState(false);
   const [students, setStudents] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
@@ -50,6 +51,10 @@ const Profile = () => {
           description: response.data.success,
           chooseModal: false
         });
+        const newProfilePhoto = response.data.user.profile_photo;
+        if (newProfilePhoto) {
+          setUserHeader({ ...students, profile_photo: newProfilePhoto }, token);
+        }
         getStudents(id);
       }
     } catch (err) {
@@ -59,7 +64,10 @@ const Profile = () => {
           title: 'Advertencia',
           description: apiErrors.data.errors.profile_photo,
           confirmBtn: 'Aceptar',
-          onClick: closeModal,
+          onClick: () => {
+            closeModal;
+            window.location.reload();
+          },
           noButton: false,
           confirmModal: true
         });

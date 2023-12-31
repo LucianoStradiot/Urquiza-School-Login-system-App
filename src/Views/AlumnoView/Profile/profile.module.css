@@ -4,15 +4,15 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  margin: 15vh 23%;
-  width: 60%;
+  margin: 15vh 15%;
+  width: 70%;
   top: 100px;
 }
 
 .subContainer {
   display: grid;
   gap: 10px 20px;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(1, 1fr);
 }
 
 .profilePhoto {
@@ -57,7 +57,8 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 500px;
+  width: 100%;
+  max-width: 500px;
   background-color: #ffffffec;
   padding: 25px;
   border-radius: 8px;
@@ -90,4 +91,12 @@
 }
 
 @media screen and (min-width: 1024px) {
+  .container {
+    margin: 15vh 23%;
+    width: 60%;
+  }
+
+  .subContainer {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
