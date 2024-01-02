@@ -82,7 +82,6 @@ const Profile = () => {
   }
 
   useEffect(() => {
-    setIsLoading(true);
     getStudents(id);
   }, [id]);
 

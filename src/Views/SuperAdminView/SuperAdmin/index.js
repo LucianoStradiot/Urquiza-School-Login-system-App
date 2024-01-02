@@ -129,6 +129,7 @@ const SuperAdmin = () => {
                   </>
                 ) : (
                   <>
+                    <th className={styles.thTable}></th>
                     <th className={styles.thTable}>Nombre</th>
                     <th className={styles.thTable}>DNI</th>
                     <th className={styles.thTable}>Email</th>
@@ -164,6 +165,19 @@ const SuperAdmin = () => {
                       </>
                     ) : (
                       <>
+                        <td className={styles.thTable}>
+                          <div className={styles.photoContainer}>
+                            <div className={styles.photoContainer}>
+                              <img
+                                src={
+                                  s?.profile_photo ||
+                                  `${process.env.PUBLIC_URL}/assets/images/defaultProfile.png`
+                                }
+                                className={styles.profilePhoto}
+                              />
+                            </div>
+                          </div>
+                        </td>
                         <td className={styles.thTable}>{s.name}</td>
                         <td className={styles.thTable}>{s.dni}</td>
                         <td className={styles.thTable}>{s.email}</td>
