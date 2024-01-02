@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import styles from './signUp.module.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axiosClient from '../../../Components/Shared/Axios';
 import Aside from '../../../Components/Shared/Aside';
 import TextInput from '../../../Components/Shared/TextInput';
@@ -164,8 +164,8 @@ const SignUp = () => {
                 <TextInput
                   input={'input'}
                   refrerence={nameRef}
-                  labelName={'Nombre'}
-                  placeholderText={'Escribe tu nombre'}
+                  labelName={'Nombre/Apellido'}
+                  placeholderText={'Escribe tu nombre y apellido'}
                   error={errors.name}
                 />
                 <TextInput
@@ -176,7 +176,7 @@ const SignUp = () => {
                   error={errors.dni}
                 />
               </div>
-              <div className={styles.loginSubContainer}>
+              <div className={styles.loginSubContainer2}>
                 <TextInput
                   nameSelect={'career'}
                   labelName={'Carreras'}
@@ -218,9 +218,6 @@ const SignUp = () => {
                     />
                   )}
                 </div>
-                <Link to="/recoverPassword" className={styles.password}>
-                  <p>Olvidaste tu contraseña?</p>
-                </Link>
                 <div className={styles.btnContainer}>
                   <Button type="submit" text="Enviar" />
                 </div>
