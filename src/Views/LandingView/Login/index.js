@@ -124,6 +124,9 @@ const Login = () => {
                   />
                 )}
               </div>
+              <Link to="/signup" className={styles.password}>
+                <p>No tenés una cuenta? Registrate</p>
+              </Link>
               <Link to="/recover-password" className={styles.password}>
                 <p>Olvidaste tu contraseña?</p>
               </Link>
