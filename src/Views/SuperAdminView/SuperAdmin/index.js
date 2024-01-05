@@ -3,12 +3,13 @@ import Aside from '../../../Components/Shared/Aside';
 import styles from './superAdmin.module.css';
 import Modal from '../../../Components/Shared/Modal';
 import { BiCheck, BiX } from 'react-icons/bi';
-import { useModalContext } from '../../../Components/Contexts';
+import { useModalContext, useStateContext } from '../../../Components/Contexts';
 import axiosClient from '../../../Components/Shared/Axios';
 import Spinner from '../../../Components/Shared/Spinner';
 
 const SuperAdmin = () => {
   const { openModal, modalState } = useModalContext();
+  const { notification, updateNotification } = useStateContext();
   const [isLoading, setIsLoading] = useState(false);
   const [scrollBar, setScrollBar] = useState(false);
   const [redimension, setRedimension] = useState(false);
@@ -58,6 +59,10 @@ const SuperAdmin = () => {
           onClick: async () => {
             setIsLoading(true);
             await axiosClient.patch(`/students/${id}`, { approved });
+            const newNotifications = notification
+              ? notification.filter((notification) => notification.id !== id)
+              : [];
+            updateNotification(newNotifications);
             setStudents(students.filter((student) => student.id !== id));
             setIsLoading(false);
             openModal({
@@ -75,6 +80,10 @@ const SuperAdmin = () => {
           onClick: async () => {
             setIsLoading(true);
             await axiosClient.delete(`/students/delete/${id}`);
+            const newNotifications = notification
+              ? notification.filter((notification) => notification.id !== id)
+              : [];
+            updateNotification(newNotifications);
             setStudents(students.filter((student) => student.id !== id));
             setIsLoading(false);
             openModal({

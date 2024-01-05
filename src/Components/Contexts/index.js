@@ -6,7 +6,8 @@ const StateContext = createContext({
   role: null,
   setUser: () => {},
   setTokenAndRole: () => {},
-  setUserHeader: () => {}
+  setUserHeader: () => {},
+  updateNotification: () => {}
 });
 
 export const ContextProvider = ({ children }) => {
@@ -16,6 +17,7 @@ export const ContextProvider = ({ children }) => {
   });
   const [token, setToken] = useState(sessionStorage.getItem('ACCESS_TOKEN'));
   const [role, setRole] = useState(sessionStorage.getItem('role'));
+  const [notification, setNotification] = useState([]);
 
   const setTokenAndRole = (token, role) => {
     setToken(token);
@@ -38,15 +40,21 @@ export const ContextProvider = ({ children }) => {
     }
   };
 
+  const updateNotification = (newNotifications) => {
+    setNotification(newNotifications);
+  };
+
   return (
     <StateContext.Provider
       value={{
         user,
         token,
         role,
+        notification,
         setUserHeader,
         setUser,
-        setTokenAndRole
+        setTokenAndRole,
+        updateNotification
       }}
     >
       {children}
