@@ -59,6 +59,11 @@
   font-style: italic;
 }
 
+.titleLanding {
+  color: #757474;
+  margin-left: 0;
+}
+
 .wallpaper {
   display: flex;
   flex-direction: column;
@@ -71,6 +76,75 @@
   background-position: center;
   background-size: cover;
   z-index: -1;
+}
+
+.notificationContainer {
+  display: flex;
+  position: relative;
+  align-items: center;
+  margin-left: 8px;
+  height: 50%;
+  cursor: pointer;
+}
+
+.ulNotifications {
+  padding: 0;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 5px;
+  list-style: none;
+  border-collapse: collapse;
+}
+
+.liNotifications {
+  border-bottom: 2px solid #000;
+}
+
+.notificationIcon {
+  font-size: 20px;
+}
+
+.notificationCount {
+  position: relative;
+  top: 0;
+  right: 0;
+  background-color: rgb(219, 0, 0);
+  color: white;
+  border-radius: 30%;
+  padding: 3px;
+  font-size: 15px;
+}
+
+.notificationPopup {
+  position: fixed;
+  top: 50px;
+  left: 0;
+  max-height: 345px;
+  background-color: #cecece;
+  border: 3px solid aliceblue;
+  padding: 8px;
+  border-radius: 8px;
+  overflow-y: auto;
+  z-index: 999;
+}
+
+.notificationPopup::-webkit-scrollbar {
+  width: 10px;
+  background-color: #757474;
+  border-radius: 0 5px 5px 0;
+}
+
+.notificationPopup::-webkit-scrollbar-thumb {
+  background-color: #000;
+  border-radius: 5px;
+}
+
+.notificationPopup::-webkit-scrollbar-thumb:hover {
+  background-color: #282828;
+}
+
+.notificationPopup::-webkit-scrollbar-track {
+  background-color: none;
 }
 
 @media only screen and (min-width: 1024px) {
@@ -127,11 +201,6 @@
 
   .title {
     font-size: 30px;
-  }
-
-  .titleLanding {
-    color: #757474;
-    margin-left: 0;
   }
 
   .namesTitle {
