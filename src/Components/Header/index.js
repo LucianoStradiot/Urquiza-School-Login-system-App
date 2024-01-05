@@ -1,34 +1,63 @@
 import React, { useEffect, useState } from 'react';
 import styles from './header.module.css';
 import { Link } from 'react-router-dom';
-import { useStateContext } from '../Contexts';
+import { useModalContext, useStateContext } from '../Contexts';
 import axiosClient from '../Shared/Axios';
 import { FaBell } from 'react-icons/fa';
 
 const Header = () => {
-  const { user, token, setUserHeader } = useStateContext();
-  const [notifications, setNotifications] = useState([]);
+  const { user, token, setUserHeader, notification, updateNotification } = useStateContext();
+  const { openModal, closeModal } = useModalContext();
   const [hasPendingNotifications, setHasPendingNotifications] = useState(false);
   const [isNotificationOpen, setisNotificationOpen] = useState(false);
-
-  const fetchNotifications = async () => {
-    try {
-      const { data } = await axiosClient.get('/super-admin/administration');
-      setNotifications(data.data);
-      setHasPendingNotifications(data.data.length > 0);
-    } catch (error) {
-      console.error('Error en la obtención de notificaciones:', error.message);
-    }
-  };
+  const [students, setStudents] = useState([]);
 
   const handleNotificationIconClick = () => {
     setisNotificationOpen(!isNotificationOpen);
   };
 
+  const fetchNotifications = async () => {
+    try {
+      const { data } = await axiosClient.get('/super-admin/administration');
+      const newNotifications = data.data;
+
+      setStudents(newNotifications);
+
+      if (newNotifications.length > 0) {
+        const hasShownModalBefore = sessionStorage.getItem('hasShownNotificationModal');
+        if (!hasShownModalBefore) {
+          openModal({
+            title: 'Hola!',
+            description: 'Tenés notificaciones nuevas',
+            confirmBtn: 'Aceptar',
+            confirmModal: true,
+            onClick: () => {
+              closeModal();
+              sessionStorage.setItem('hasShownNotificationModal', 'true');
+            }
+          });
+        }
+      }
+
+      setHasPendingNotifications(newNotifications.length > 0);
+    } catch (error) {
+      console.error('Error en la obtención de notificaciones:', error.message);
+    }
+  };
+
+  const fetchData = async () => {
+    try {
+      const newNotifications = await fetchNotifications();
+      updateNotification(newNotifications);
+      setUserHeader(user, token);
+    } catch (error) {
+      console.error('Error al obtener notificaciones:', error);
+    }
+  };
+
   useEffect(() => {
-    setUserHeader(user, token);
-    fetchNotifications();
-  }, [user, token]);
+    fetchData();
+  }, [user, token, notification]);
 
   return sessionStorage.getItem('role') === 'DS' ? (
     <>
@@ -115,8 +144,8 @@ const Header = () => {
                   <div className={styles.notificationPopup}>
                     <h2>Notificaciones Pendientes</h2>
                     <ul className={styles.ulNotifications}>
-                      {notifications && notifications.length > 0 ? (
-                        notifications.map((notification) => (
+                      {students && students.length > 0 ? (
+                        students.map((notification) => (
                           <Link to="/super-admin/administracion" key={notification.id}>
                             <li className={styles.liNotifications}>
                               <div className={styles.photoContainer}>
@@ -128,7 +157,7 @@ const Header = () => {
                                   className={styles.profilePhoto}
                                 />
                               </div>
-                              {notification.name} - {notification.email}
+                              <div>{notification.name} quiere ingresar al sistema</div>
                             </li>
                           </Link>
                         ))
@@ -138,13 +167,18 @@ const Header = () => {
                     </ul>
                   </div>
                 ) : null}
-                <div className={styles.notificationCount}>{notifications.length}</div>
+                <div className={styles.notificationCount}>{students.length}</div>
               </div>
             ) : (
               <div className={styles.notificationContainer} onClick={handleNotificationIconClick}>
                 <FaBell className={styles.notificationIcon} />
-                {notifications.length > 0 ? (
-                  <div className={styles.notificationCount}>{notifications.length}</div>
+                {isNotificationOpen ? (
+                  <div className={styles.notificationPopup}>
+                    <h2>Notificaciones Pendientes</h2>
+                    <ul className={styles.ulNotifications}>
+                      <li>No hay notificaciones</li>
+                    </ul>
+                  </div>
                 ) : null}
               </div>
             )}

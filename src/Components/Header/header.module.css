@@ -36,6 +36,8 @@
 }
 
 .photoContainer {
+  display: flex;
+  align-self: center;
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -96,8 +98,22 @@
   border-collapse: collapse;
 }
 
+.ulNotifications a {
+  text-decoration: none;
+}
+
 .liNotifications {
-  border-bottom: 2px solid #000;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  text-decoration: none;
+  border-bottom: 2px solid #ddd;
+  color: #000;
+  font-style: italic;
+}
+
+.liNotifications:hover {
+  background-color: aliceblue;
 }
 
 .notificationIcon {
@@ -129,7 +145,7 @@
 }
 
 .notificationPopup::-webkit-scrollbar {
-  width: 10px;
+  width: 7px;
   background-color: #757474;
   border-radius: 0 5px 5px 0;
 }

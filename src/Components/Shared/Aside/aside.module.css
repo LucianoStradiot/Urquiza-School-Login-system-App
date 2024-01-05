@@ -285,14 +285,21 @@
 
   .menu a.btn:hover {
     background-color: #7a7a7a;
-    cursor: pointer;
     color: white;
     transition: background-color 0.3s ease-in-out;
+    cursor: pointer;
   }
 
   .menu a.btnLanding {
     background-color: #cecece;
     color: #000;
+    cursor: pointer;
+  }
+
+  .menu a.btnLanding:hover {
+    background-color: #cecece;
+    color: #000;
+    cursor: pointer;
   }
 
   .menu a.activeBtn {

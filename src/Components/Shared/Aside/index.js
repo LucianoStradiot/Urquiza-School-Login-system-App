@@ -29,6 +29,7 @@ const Aside = ({ page }) => {
         await axiosClient.post('/logout');
         setUser({});
         setTokenAndRole(null, null);
+        sessionStorage.removeItem('hasShownNotificationModal');
         navigate('/');
       } catch (error) {
         console.error('Logout failed:', error);
