@@ -80,11 +80,28 @@
   z-index: -1;
 }
 
+.notificationContainerPrincipal {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 0 220px;
+  position: fixed;
+  top: 138px;
+  padding: 6px 5px;
+  border-radius: 5px;
+  box-sizing: border-box;
+  background-color: aliceblue;
+  box-shadow: 3px 5px 6px #000000b8;
+  z-index: 1;
+  opacity: 0;
+  animation: slideInFromLeft 1s ease-in-out forwards;
+}
+
 .notificationContainer {
   display: flex;
   position: relative;
   align-items: center;
-  margin-left: 8px;
   height: 50%;
   cursor: pointer;
 }
@@ -127,14 +144,15 @@
   background-color: rgb(219, 0, 0);
   color: white;
   border-radius: 30%;
-  padding: 3px;
+  padding: 0 3px;
   font-size: 15px;
 }
 
 .notificationPopup {
   position: fixed;
+  width: 220px;
   top: 50px;
-  left: 0;
+  right: 0;
   max-height: 345px;
   background-color: #cecece;
   border: 3px solid aliceblue;
@@ -209,6 +227,32 @@
   .containerIti {
     background-color: #c97878;
     color: #fff;
+  }
+
+  .notificationContainerPrincipal {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin: -25px 547px;
+    position: fixed;
+    top: 140px;
+    padding: 6px 5px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: aliceblue;
+    box-shadow: 3px 5px 6px #000000b8;
+    z-index: 1;
+    opacity: 0;
+    animation: slideInFromLeft 1s ease-in-out forwards;
+  }
+
+  .notificationPopup {
+    left: 0;
+  }
+
+  .notificationIcon {
+    font-size: 24px;
   }
 
   .wallpaper {

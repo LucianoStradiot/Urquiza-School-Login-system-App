@@ -4,16 +4,22 @@ import { Link } from 'react-router-dom';
 import { useModalContext, useStateContext } from '../Contexts';
 import axiosClient from '../Shared/Axios';
 import { FaBell } from 'react-icons/fa';
+import { BiBell } from 'react-icons/bi';
 
 const Header = () => {
   const { user, token, setUserHeader, notification, updateNotification } = useStateContext();
   const { openModal, closeModal } = useModalContext();
   const [hasPendingNotifications, setHasPendingNotifications] = useState(false);
   const [isNotificationOpen, setisNotificationOpen] = useState(false);
+  const [useNotification, setUseNotification] = useState(false);
   const [students, setStudents] = useState([]);
 
   const handleNotificationIconClick = () => {
     setisNotificationOpen(!isNotificationOpen);
+    if (isNotificationOpen) {
+      setUseNotification(false);
+    }
+    setUseNotification(true);
   };
 
   const fetchNotifications = async () => {
@@ -41,7 +47,7 @@ const Header = () => {
 
       setHasPendingNotifications(newNotifications.length > 0);
     } catch (error) {
-      console.error('Error en la obtención de notificaciones:', error.message);
+      console.error('error');
     }
   };
 
@@ -51,7 +57,7 @@ const Header = () => {
       updateNotification(newNotifications);
       setUserHeader(user, token);
     } catch (error) {
-      console.error('Error al obtener notificaciones:', error);
+      throw new Error();
     }
   };
 
@@ -131,58 +137,66 @@ const Header = () => {
           <div className={`${styles.namesTitle} ${styles.titleLanding}`}>
             Bienvenido Super Admin
           </div>
-          <div>
-            {hasPendingNotifications ? (
-              <div
-                className={`${styles.notificationContainer} ${
-                  isNotificationOpen ? styles.scrollableNotifications : ''
-                }`}
-                onClick={handleNotificationIconClick}
-              >
+        </div>
+        <div
+          className={styles.notificationContainerPrincipal}
+          onClick={handleNotificationIconClick}
+        >
+          {hasPendingNotifications ? (
+            <div
+              className={`${styles.notificationContainer} ${
+                isNotificationOpen ? styles.scrollableNotifications : ''
+              }`}
+            >
+              {isNotificationOpen ? (
+                <BiBell className={styles.notificationIcon} />
+              ) : (
                 <FaBell className={styles.notificationIcon} />
-                {isNotificationOpen ? (
+              )}
+              {isNotificationOpen ? (
+                <>
                   <div className={styles.notificationPopup}>
                     <h2>Notificaciones Pendientes</h2>
                     <ul className={styles.ulNotifications}>
-                      {students && students.length > 0 ? (
-                        students.map((notification) => (
-                          <Link to="/super-admin/administracion" key={notification.id}>
-                            <li className={styles.liNotifications}>
-                              <div className={styles.photoContainer}>
-                                <img
-                                  src={
-                                    notification.profile_photo ||
-                                    `${process.env.PUBLIC_URL}/assets/images/defaultProfile.png`
-                                  }
-                                  className={styles.profilePhoto}
-                                />
-                              </div>
-                              <div>{notification.name} quiere ingresar al sistema</div>
-                            </li>
-                          </Link>
-                        ))
-                      ) : (
-                        <li>No hay notificaciones</li>
-                      )}
+                      {students && students.length > 0
+                        ? students.map((notification) => (
+                            <Link to="/super-admin/administracion" key={notification.id}>
+                              <li className={styles.liNotifications}>
+                                <div className={styles.photoContainer}>
+                                  <img
+                                    src={
+                                      notification.profile_photo ||
+                                      `${process.env.PUBLIC_URL}/assets/images/defaultProfile.png`
+                                    }
+                                    className={styles.profilePhoto}
+                                    alt="Profile"
+                                  />
+                                </div>
+                                <div>{notification.name} quiere ingresar al sistema.</div>
+                              </li>
+                            </Link>
+                          ))
+                        : null}
                     </ul>
                   </div>
-                ) : null}
+                </>
+              ) : !useNotification ? (
                 <div className={styles.notificationCount}>{students.length}</div>
-              </div>
-            ) : (
-              <div className={styles.notificationContainer} onClick={handleNotificationIconClick}>
-                <FaBell className={styles.notificationIcon} />
-                {isNotificationOpen ? (
-                  <div className={styles.notificationPopup}>
-                    <h2>Notificaciones Pendientes</h2>
-                    <ul className={styles.ulNotifications}>
-                      <li>No hay notificaciones</li>
-                    </ul>
-                  </div>
-                ) : null}
-              </div>
-            )}
-          </div>
+              ) : null}
+            </div>
+          ) : (
+            <div className={styles.notificationContainer} onClick={handleNotificationIconClick}>
+              <FaBell className={styles.notificationIcon} />
+              {isNotificationOpen ? (
+                <div className={styles.notificationPopup}>
+                  <h2>Notificaciones Pendientes</h2>
+                  <ul className={styles.ulNotifications}>
+                    <li>No hay notificaciones.</li>
+                  </ul>
+                </div>
+              ) : null}
+            </div>
+          )}
         </div>
         <div className={styles.wallpaper}></div>
       </header>
