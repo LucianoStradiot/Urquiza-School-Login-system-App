@@ -62,7 +62,9 @@ const Header = () => {
   };
 
   useEffect(() => {
-    fetchData();
+    if (sessionStorage.getItem('role') === 'SA') {
+      fetchData();
+    }
   }, [user, token, notification]);
 
   return sessionStorage.getItem('role') === 'DS' ? (
