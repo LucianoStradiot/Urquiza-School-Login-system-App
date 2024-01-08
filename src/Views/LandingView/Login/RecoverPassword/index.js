@@ -7,10 +7,12 @@ import Modal from '../../../../Components/Shared/Modal';
 import Spinner from '../../../../Components/Shared/Spinner';
 import axiosClient from '../../../../Components/Shared/Axios';
 import { useModalContext, useStateContext } from '../../../../Components/Contexts';
+import { useNavigate } from 'react-router';
 
 function RecoverPassword() {
   const { modalState, openModal, closeModal } = useModalContext();
   const { setUser } = useStateContext();
+  const navigate = useNavigate();
   const emailRef = useRef();
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState({});
@@ -32,6 +34,7 @@ function RecoverPassword() {
         description: 'Email enviado correctamente',
         chooseModal: false
       });
+      navigate('/');
     } catch (err) {
       if (err.response && err.response.status === 422) {
         const apiErrors = err.response;
